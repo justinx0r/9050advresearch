@@ -1,7 +1,7 @@
 library(tidyverse)
 #import data set
 library(readxl)
-Project2_JW <- read_excel("Library/CloudStorage/Box-Box/2024 - Fall/9050 - Research Methods/Projects/Project 2/Project2_JW.xlsx")
+Project2_JW <- read_excel("/Users/justinwilliams/Code/9050advresearch/Project 2/Project2_JW.xlsx")
 View(Project2_JW)
 
 ## 1. Report the descriptive statistics along with the frequency distribution and provide a detailed interpretation of how you would characterize the salary variable.

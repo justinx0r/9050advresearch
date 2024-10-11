@@ -1,0 +1,41 @@
+---
+title: "Project 2"
+author: "Justin Williams"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(readxl)
+library(dplyr)
+
+#data import
+Project2_JW <- read_excel("Project2_JW.xlsx")
+
+#descriptive statistics for salar
+summary(Project2_JW$Salary)
+mean(Project2_JW$Salary)
+median(Project2_JW$Salary)
+mode <- function(x) {
+  ux <- unique(x)
+  ux[which.max(tabulate(match(x, ux)))]
+}
+mode(Project2_JW$Salary)
+
+#frequency distribution for salary
+
+salary_table <- table(Project2_JW$Salary)
+print(salary_table)
+barplot(salary_table, main="Salary Distribution", xlab="Salary", ylab="Frequency", col="blue")
+
+#z-scores for salary
+zscore_table <- table(Project2_JW$SalaryZscore)
+print(zscore_table)
+barplot(zscore_table, main="Salary Z-Score Distribution", xlab="Z-Score", ylab="Frequency", col="green")
+
+#comparison of salary and salary z-scores
+plot(Project2_JW$Salary, type="o", col="red", main="Salary vs. Salary Z-Scores", xlab="Index", ylab="Value")
+lines(Project2_JW$SalaryZscore, type="o", col="blue")
+legend("topright", legend=c("Salary", "Salary Z-Score"), col=c("red", "blue"), lty=1)
