@@ -21,19 +21,26 @@ Project2_JW <- read_excel("/Users/justinwilliams/Code/9050advresearch/Project 2/
 if (interactive()) {
   View(Project2_JW)
 }
+```
 
 ## 1. Report the descriptive statistics along with the frequency distribution and provide a detailed interpretation of how you would characterize the salary variable.
 #summary statistics
+```{r]
 summary(Project2_JW$Salary)
+```
 
+```{r]
 #mean
 mean_salary <- mean(Project2_JW$Salary)
 mean_salary
+```
 
+```{r]
 #median
 median_salary <- median(Project2_JW$Salary)
 median_salary
 
+```{r]
 #mode
 mode_salary <- function(x) {
   ux <- unique(x)
@@ -41,18 +48,24 @@ mode_salary <- function(x) {
 }
 mode_salary_value <- mode_salary(Project2_JW$Salary)
 mode_salary_value
+```
 
+```{r]
 #frequency table
 salary_table <- table(Project2_JW$Salary)
 print(salary_table)
 barplot(salary_table, main="Salary Distribution", xlab="Salary", ylab="Frequency", col="blue")
+```
 
+```{r]
 # Interpretation
 cat("The mean salary is", mean_salary, "\n")
 cat("The median salary is", median_salary, "\n")
 cat("The mode salary is", mode_salary_value, "\n")
 cat("The frequency distribution of salaries is shown in the bar plot above.\n")
+```
 
+```{r]
 # Detailed Interpretation
 cat("The salary variable shows the following characteristics:\n")
 cat("1. The mean salary is", mean_salary, "which indicates the average salary of the employees.\n")
