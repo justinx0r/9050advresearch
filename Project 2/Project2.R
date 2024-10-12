@@ -55,11 +55,11 @@ Project2_JW <- Project2_JW %>% mutate(SalaryZscore = (Salary - mean(Salary)) / s
 
 # Find the employee with the largest z-score
 max_z_score <- max(Project2_JW$SalaryZscore, na.rm = TRUE)
-max_z_score_employee <- Project2_JW %>% filter(SalaryZscore == max_z_score) %>% select(ID, Name, SalaryZscore)
+max_z_score_employee <- Project2_JW %>% filter(SalaryZscore == max_z_score) %>% select(EmpID, SalaryZscore)
 
 # Find the employee with the smallest z-score
 min_z_score <- min(Project2_JW$SalaryZscore, na.rm = TRUE)
-min_z_score_employee <- Project2_JW %>% filter(SalaryZscore == min_z_score) %>% select(ID, Name, SalaryZscore)
+min_z_score_employee <- Project2_JW %>% filter(SalaryZscore == min_z_score) %>% select(EmpID, SalaryZscore)
 
 # Print results
 cat("Employee with the largest z-score on Salary:\n")
