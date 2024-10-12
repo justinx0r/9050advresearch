@@ -1,0 +1,131 @@
+---
+title: "Project 3"
+author: "Justin Williams"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+---
+title: "Project 3"
+author: "Justin Williams"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+Data, packages, etc.
+
+```{r}
+library(tidyverse)
+library(dplyr)
+```
+
+```{r}
+#define the scores as a vector
+scores <- c(0, 1, 2, 3, 4, 5, 6, 7, 8, 9)
+
+#dataframe
+scores_df <- data.frame(Scores = scores)
+print(scores_df)
+```
+
+# 1. Produce a frequency distribution. Describe the shape.
+```{r}
+freq_dist <- table(scores_df$Scores)
+print(freq_dist)
+```
+
+## Barplot
+```{r}
+barplot(freq_dist, main="Frequency Distribution of Scores", xlab="Scores", ylab="Frequency", col="purple")
+```
+
+## Shape description
+The shape of the distribution is uniform because each score from 0 to 9 only appears once.
+
+# Identify all possible samples of size 2 that could be selected WITH REPLACEMENT.
+```{r}
+#generate all possible samples of size 2 with replacement
+samples <- expand.grid(scores, scores)
+```
+
+## Possible samples
+```{r}
+#print samples
+print(samples)
+```
+
+# Enter the list of the means of the samples you identified for the previous question into a new R data frame. Create a frequency distribution. Describe the shape of this distribution
+## Means of the Samples Dataframe
+```{r}
+sample_means <- rowMeans(samples)
+```
+
+```{r}
+## Sample Dataframe
+sample_means_df <- data.frame(SampleMeans = sample_means)
+```
+
+## Frequency Distribution
+```{r}
+freq_dist_means <- table(sample_means_df$SampleMeans)
+print(freq_dist_means)
+```
+## Barplot
+```{r}
+barplot(freq_dist_means, main="Frequency Distribution of Sample Means", xlab="Sample Means", ylab="Frequency", col="orange")
+```
+
+## Shape description
+### The shape of the distribution of sample means is normal, unimodal, and leptokurtic.
+
+# 4. Calculate the mean and standard deviation of the sample means. Compare these values to the population mean and standard deviation.
+
+## Population Scores
+```{r}
+population_scores <- c(0, 1, 2, 3, 4, 5, 6, 7, 8, 9)
+```
+
+## Population Mean and Standard Deviation
+```{r}
+population_mean <- mean(population_scores)
+population_sd <- sd(population_scores)
+cat("Population Mean:", population_mean, "\n")
+cat("Population Standard Deviation:", population_sd, "\n")
+```
+
+## Sample Distribution Mean and Standard Deviation
+```{r}
+sampling_mean <- mean(sample_means_df$SampleMeans)
+sampling_sd <- sd(sample_means_df$SampleMeans)
+cat("Sampling Distribution Mean:", sampling_mean, "\n")
+cat("Sampling Distribution Standard Deviation:", sampling_sd, "\n")
+```
+
+## Explanation of Results
+The mean of the sample means from all possible samples of size 2 should closely match the population mean due to the Central Limit Theorem which states that the mean of the sampling distribution will approach a normal distribution. The standard deviation of these sample means, also called the standard error, is smaller than the population standard deviation. It's calculated by dividing the population standard deviation by the square root of the sample size. This indicates that while the sample mean is close to the population mean, there's less variability among sample means than in the population itself.
+
+# 5. If we randomly selected a sample, what is the probability of getting a mean within 2 points of the population value?
+
+## Probability of Sample Mean within 2 Points of Population Mean
+```{r}
+# population scores
+population_scores <- c(0, 1, 2, 3, 4, 5, 6, 7, 8, 9)
+
+#population mean and standard deviation
+population_mean <- mean(population_scores)
+population_sd <- sd(population_scores)
+
+#sample size
+sample_size <- 2
+
+#standard error
+standard_error <- population_sd / sqrt(sample_size)
+
+#zscores for the sample mean being within 2 points of the population mean
+z_lower <- (population_mean - 2 - population_mean) / standard_error
+z_upper <- (population_mean + 2 - population_mean) / standard_error
+
+#probability for zscores
+probability <- pnorm(z_upper) - pnorm(z_lower)
+cat("Probability of getting a sample mean within 2 points of the population mean:", probability, "\n")
+```
