@@ -1,0 +1,23 @@
+---
+title: "Project 4"
+author: "Justin Williams"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+
+---
+title: "Project 2"
+author: "Justin Williams"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+# 1.Report the full covariance and correlation matrix for the following variables: GenderID, PerfScoreID, Salary, Age, EngagementSurvey, EmpSatisfaction, and Absences.  
+ 
+# 2. Visualize the correlations you have computed. There are a few different ways to do this (including scatterplots, heat maps, etc.). Use the visualization method that you think best conveys the relations. 
+ 
+# 3. Provide a summary of what you see in these results. Explain the nature of the bivariate relations (or lack thereof) in these data. Write this summary like you might see reported in a journal article. 
+ 
+## Create a subset of the data in which you only include employees who are from the Production Department. Also, create a subset of everyone NOT in Production.  
+ 
+# 4. Run correlations separately for each of these two subsamples. Report the results for each and provide an interpretation of what you see as you did in Questions 2 and 3. Are the correlations the same across the subsamples and/or from the entire sample? I’m not asking for a test of statistical significance, but your own interpretation based on the values you compute. 
