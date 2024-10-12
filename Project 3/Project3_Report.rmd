@@ -42,7 +42,7 @@ barplot(freq_dist, main="Frequency Distribution of Scores", xlab="Scores", ylab=
 ## Shape description
 The shape of the distribution is uniform because each score from 0 to 9 only appears once.
 
-# Identify all possible samples of size 2 that could be selected WITH REPLACEMENT.
+# 2. Identify all possible samples of size 2 that could be selected WITH REPLACEMENT.
 ```{r}
 #generate all possible samples of size 2 with replacement
 samples <- expand.grid(scores, scores)
@@ -54,7 +54,7 @@ samples <- expand.grid(scores, scores)
 print(samples)
 ```
 
-# Enter the list of the means of the samples you identified for the previous question into a new R data frame. Create a frequency distribution. Describe the shape of this distribution
+# 3. Enter the list of the means of the samples you identified for the previous question into a new R data frame. Create a frequency distribution. Describe the shape of this distribution
 ## Means of the Samples Dataframe
 ```{r}
 sample_means <- rowMeans(samples)
