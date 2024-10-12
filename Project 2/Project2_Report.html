@@ -357,7 +357,19 @@ display: none;
 </div>
 
 
-
+<div id="report-the-descriptive-statistics-along-with-the-frequency-distribution-and-provide-a-detailed-interpretation-of-how-you-would-characterize-the-salary-variable." class="section level2">
+<h2>1. Report the descriptive statistics along with the frequency
+distribution and provide a detailed interpretation of how you would
+characterize the salary variable.</h2>
+<p>#summary statistics <code>{r] summary(Project2_JW$Salary)</code></p>
+<p><code>{r] #mean mean_salary &lt;- mean(Project2_JW$Salary) mean_salary</code></p>
+<p>```{r] #median median_salary &lt;- median(Project2_JW$Salary)
+median_salary</p>
+<p><code>{r] #mode mode_salary &lt;- function(x) {   ux &lt;- unique(x)   ux[which.max(tabulate(match(x, ux)))] } mode_salary_value &lt;- mode_salary(Project2_JW$Salary) mode_salary_value</code></p>
+<p><code>{r] #frequency table salary_table &lt;- table(Project2_JW$Salary) print(salary_table) barplot(salary_table, main=&quot;Salary Distribution&quot;, xlab=&quot;Salary&quot;, ylab=&quot;Frequency&quot;, col=&quot;blue&quot;)</code></p>
+<p><code>{r] # Interpretation cat(&quot;The mean salary is&quot;, mean_salary, &quot;\n&quot;) cat(&quot;The median salary is&quot;, median_salary, &quot;\n&quot;) cat(&quot;The mode salary is&quot;, mode_salary_value, &quot;\n&quot;) cat(&quot;The frequency distribution of salaries is shown in the bar plot above.\n&quot;)</code></p>
+<p><code>{r] # Detailed Interpretation cat(&quot;The salary variable shows the following characteristics:\n&quot;) cat(&quot;1. The mean salary is&quot;, mean_salary, &quot;which indicates the average salary of the employees.\n&quot;) cat(&quot;2. The median salary is&quot;, median_salary, &quot;which is the middle value when the salaries are sorted in ascending order. This suggests that half of the employees earn less than&quot;, median_salary, &quot;and half earn more.\n&quot;) cat(&quot;3. The mode salary is&quot;, mode_salary_value, &quot;which is the most frequently occurring salary in the dataset.\n&quot;) cat(&quot;4. The frequency distribution bar plot shows the distribution of salaries across different ranges. This helps in visualizing how salaries are spread out among the employees.\n&quot;) cat(&quot;Overall, the salary variable can be characterized by its central tendency measures (mean, median, mode) and its distribution as shown in the frequency table and bar plot.\n&quot;) summary(Project2_JW$Salary)</code></p>
+</div>
 
 
 
