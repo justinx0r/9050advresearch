@@ -11,6 +11,16 @@ author: "Justin Williams"
 date: "`r Sys.Date()`"
 output: html_document
 ---
+Packages, data, etc.
+```{r}
+#import libraries and data
+library(tidyverse)
+library(dplyr)
+library(reshape2)
+library(ggplot2)
+hrdata_df <- read.csv("/Users/justinwilliams/Code/9050advresearch/Project 4/HRData.csv")
+selected_columns <- hrdata_df[, c("GenderID", "PerfScoreID", "Salary", "Age", "EngagementSurvey", "EmpSatisfaction", "Absences")]
+```
 
 # 1.Report the full covariance and correlation matrix for the following variables: GenderID, PerfScoreID, Salary, Age, EngagementSurvey, EmpSatisfaction, and Absences.  
  
