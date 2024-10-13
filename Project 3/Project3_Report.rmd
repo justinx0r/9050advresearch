@@ -76,7 +76,7 @@ barplot(freq_dist_means, main="Frequency Distribution of Sample Means", xlab="Sa
 ```
 
 ## Shape description
-### The shape of the distribution of sample means is normal, unimodal, and leptokurtic.
+The shape of the distribution of sample means is normal, unimodal, and leptokurtic.
 
 # 4. Calculate the mean and standard deviation of the sample means. Compare these values to the population mean and standard deviation.
 
