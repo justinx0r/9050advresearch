@@ -19,13 +19,44 @@ library(dplyr)
 library(reshape2)
 library(ggplot2)
 hrdata_df <- read.csv("/Users/justinwilliams/Code/9050advresearch/Project 4/HRData.csv")
-selected_columns <- hrdata_df[, c("GenderID", "PerfScoreID", "Salary", "Age", "EngagementSurvey", "EmpSatisfaction", "Absences")]
 ```
 
 # 1.Report the full covariance and correlation matrix for the following variables: GenderID, PerfScoreID, Salary, Age, EngagementSurvey, EmpSatisfaction, and Absences.  
- 
+```{r}
+#select the columns
+
+selected_columns <- hrdata_df[, c("GenderID", "PerfScoreID", "Salary", "Age", "EngagementSurvey", "EmpSatisfaction", "Absences")]
+#covariance matrix
+cov_matrix <- cov(selected_columns)
+print("Covariance Matrix:")
+print(cov_matrix)
+
+#correlation matrix
+cor_matrix <- cor(selected_columns)
+print("Correlation Matrix:")
+print(cor_matrix)
+```
+
 # 2. Visualize the correlations you have computed. There are a few different ways to do this (including scatterplots, heat maps, etc.). Use the visualization method that you think best conveys the relations. 
- 
+```{r}
+#converting matrices to long format for ggplot
+cov_melt <- melt(cov_matrix)
+cor_melt <- melt(cor_matrix)
+
+#heatmap for covariance matrix
+ggplot(data = cov_melt, aes(Var1, Var2, fill = value)) +
+    geom_tile() +
+    scale_fill_gradient2(low = "purple", high = "orange", mid = "white", midpoint = 0) +
+    theme_minimal() +
+    labs(title = "Covariance Matrix Heatmap", x = "", y = "")
+
+# heatmap for correlation matrix
+ggplot(data = cor_melt, aes(Var1, Var2, fill = value)) +
+    geom_tile() +
+    scale_fill_gradient2(low = "purple", high = "orange", mid = "white", midpoint = 0) +
+    theme_minimal() +
+    labs(title = "Correlation Matrix Heatmap", x = "", y = "")
+```
 # 3. Provide a summary of what you see in these results. Explain the nature of the bivariate relations (or lack thereof) in these data. Write this summary like you might see reported in a journal article. 
  
 ## Create a subset of the data in which you only include employees who are from the Production Department. Also, create a subset of everyone NOT in Production.  

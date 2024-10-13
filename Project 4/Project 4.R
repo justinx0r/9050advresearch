@@ -11,12 +11,12 @@ hrdata_df <- read.csv("/Users/justinwilliams/Code/9050advresearch/Project 4/HRDa
 selected_columns <- hrdata_df[, c("GenderID", "PerfScoreID", "Salary", "Age", "EngagementSurvey", "EmpSatisfaction", "Absences")]
 
 #covariance matrix
-cov_matrix <- cov(selected_columns, use = "complete.obs")
+cov_matrix <- cov(selected_columns)
 print("Covariance Matrix:")
 print(cov_matrix)
 
 #correlation matrix
-cor_matrix <- cor(selected_columns, use = "complete.obs")
+cor_matrix <- cor(selected_columns)
 print("Correlation Matrix:")
 print(cor_matrix)
 
@@ -38,3 +38,4 @@ ggplot(data = cor_melt, aes(Var1, Var2, fill = value)) +
     scale_fill_gradient2(low = "purple", high = "orange", mid = "white", midpoint = 0) +
     theme_minimal() +
     labs(title = "Correlation Matrix Heatmap", x = "", y = "")
+
