@@ -24,7 +24,6 @@ print(cor_matrix)
 #converting matrices to long format for ggplot
 cov_melt <- melt(cov_matrix)
 cor_melt <- melt(cor_matrix)
-
 #heatmap for covariance matrix
 ggplot(data = cov_melt, aes(Var1, Var2, fill = value)) +
     geom_tile() +
