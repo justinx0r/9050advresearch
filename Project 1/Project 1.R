@@ -19,6 +19,15 @@ print(paste("Median score:", median_score))
 print(paste("Mode score:", mode_score))
 
 ##b. Using the mean as your parameter estimate for your model, calculate the number of errors, the sum of the absolute errors, and the sum of the squared errors.
+errors_mean <- scores - mean_score
+print("Mean:", errors_mean)
+num_errors <- sum(errors_mean != 0)
+print(paste("Number of errors:", num_errors))
+sum_abs_errors_mean <- sum(abs(errors_mean))
+print(paste("Sum of absolute errors:", sum_abs_errors_mean))
+sum_sq_errors_mean <- sum(errors_mean^2)
+print (paste("Sum of the Squared Errors:", sum_sq_errors_mean)
+
 ##c. Now use the median as your parameter estimate and calculate the same three error terms.
 ##d. Use the mode as your parameter estimate and calculate the same three error terms.
 ##e. Look across your answers to (b), (c), and (d) to see for each error term, which estimate gives the lowest error? That is, which of the mean, median, and mode minimizes the sum of squared errors and by how much? Which one minimizes the sum of absolute errors and by how much? And which one minimizes the count of errors and by how much?
