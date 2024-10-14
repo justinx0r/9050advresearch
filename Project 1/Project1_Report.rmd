@@ -6,7 +6,7 @@ output: html_document
 ---
 
 ---
-title: "Project 3"
+title: "Project 1"
 author: "Justin Williams"
 date: "`r Sys.Date()`"
 output: html_document
@@ -25,15 +25,17 @@ scores <- c(12, 16, 18, 14, 13, 15, 12, 13, 11, 17, 10, 13, 14)
 
 # 1. I give a 10-item test of Clemson University trivia to 13 people. Their scores are as follows: 12 16 18 14 13 15 12 13 11 17 10 13 14
 ## a. Calculate the mean, median, and the mode.
-See the attached Excel file titled Project 1_Question.xslx for the data.
 ## b. Using the mean as your parameter estimate for your model, calculate the number of errors, the sum of the absolute errors, and the sum of the squared errors.
-See the attached Excel file titled Project 1_Question.xslx for the data.
 ## c. Now use the median as your parameter estimate and calculate the same three error terms.
-See the attached Excel file titled Project 1_Question.xslx for the data.
 ## d. Use the mode as your parameter estimate and calculate the same three error terms.
-See the attached Excel file titled Project 1_Question.xslx for the data.
+See the attached Excel file titled Project 1_Question.xslx for the questions a, b, c, and d.
+
 ## e. Look across your answers to (b), (c), and (d) to see for each error term, which estimate gives the lowest error? That is, which of the mean, median, and mode minimizes the sum of squared errors and by how much? Which one minimizes the sum of absolute errors and by how much? And which one minimizes the count of errors and by how much?
-See the attached Excel file titled Project 1_Question.xslx for the data.
+
+* The estimate that gives the lowest error is the mean parameter as the sum of squared errors is 64.77 compared to 71 for both the median and mode parameter estimates. 
+* The parameter that minimizes the sum of absolute errors are both the median and mode, which is 23 compared to 23.69 for the mean parameter. 
+* The parameter that minimizes the count of errors are both median and mode at 10.
+
 
 # 2. Use RStudio or Jamovi to obtain the mean and median for the data in the previous question and share a screenshot of the results.
 ```{r}

@@ -11,7 +11,7 @@
 
 <meta name="author" content="Justin Williams" />
 
-<meta name="date" content="2024-10-13" />
+<meta name="date" content="2024-10-14" />
 
 <title>Project 3</title>
 
@@ -352,7 +352,7 @@ display: none;
 
 <h1 class="title toc-ignore">Project 3</h1>
 <h4 class="author">Justin Williams</h4>
-<h4 class="date">2024-10-13</h4>
+<h4 class="date">2024-10-14</h4>
 
 </div>
 
@@ -379,6 +379,33 @@ scores &lt;- c(12, 16, 18, 14, 13, 15, 12, 13, 11, 17, 10, 13, 14)</code></pre>
 Their scores are as follows: 12 16 18 14 13 15 12 13 11 17 10 13 14</h1>
 <div id="a.-calculate-the-mean-median-and-the-mode." class="section level2">
 <h2>a. Calculate the mean, median, and the mode.</h2>
+</div>
+<div id="b.-using-the-mean-as-your-parameter-estimate-for-your-model-calculate-the-number-of-errors-the-sum-of-the-absolute-errors-and-the-sum-of-the-squared-errors." class="section level2">
+<h2>b. Using the mean as your parameter estimate for your model,
+calculate the number of errors, the sum of the absolute errors, and the
+sum of the squared errors.</h2>
+</div>
+<div id="c.-now-use-the-median-as-your-parameter-estimate-and-calculate-the-same-three-error-terms." class="section level2">
+<h2>c. Now use the median as your parameter estimate and calculate the
+same three error terms.</h2>
+</div>
+<div id="d.-use-the-mode-as-your-parameter-estimate-and-calculate-the-same-three-error-terms." class="section level2">
+<h2>d. Use the mode as your parameter estimate and calculate the same
+three error terms.</h2>
+</div>
+<div id="e.-look-across-your-answers-to-b-c-and-d-to-see-for-each-error-term-which-estimate-gives-the-lowest-error-that-is-which-of-the-mean-median-and-mode-minimizes-the-sum-of-squared-errors-and-by-how-much-which-one-minimizes-the-sum-of-absolute-errors-and-by-how-much-and-which-one-minimizes-the-count-of-errors-and-by-how-much" class="section level2">
+<h2>e. Look across your answers to (b), (c), and (d) to see for each
+error term, which estimate gives the lowest error? That is, which of the
+mean, median, and mode minimizes the sum of squared errors and by how
+much? Which one minimizes the sum of absolute errors and by how much?
+And which one minimizes the count of errors and by how much?</h2>
+<p>See the attached Excel file titled Project 1_Question.xslx for the
+questions a, b, c, d, and e.</p>
+</div>
+</div>
+<div id="use-rstudio-or-jamovi-to-obtain-the-mean-and-median-for-the-data-in-the-previous-question-and-share-a-screenshot-of-the-results." class="section level1">
+<h1>2. Use RStudio or Jamovi to obtain the mean and median for the data
+in the previous question and share a screenshot of the results.</h1>
 <pre class="r"><code>mean_score &lt;- mean(scores)
 median_score &lt;- median(scores)
 calculate_mode &lt;- function(x) {
@@ -392,8 +419,7 @@ print(paste(&quot;Mean score:&quot;, mean_score))</code></pre>
 <pre><code>## [1] &quot;Median score: 13&quot;</code></pre>
 <pre class="r"><code>print(paste(&quot;Mode score:&quot;, mode_score))</code></pre>
 <pre><code>## [1] &quot;Mode score: 13&quot;</code></pre>
-</div>
-<div id="b.-using-the-mean-as-your-parameter-estimate-for-your-model-calculate-the-number-of-errors-the-sum-of-the-absolute-errors-and-the-sum-of-the-squared-errors." class="section level2">
+<div id="b.-using-the-mean-as-your-parameter-estimate-for-your-model-calculate-the-number-of-errors-the-sum-of-the-absolute-errors-and-the-sum-of-the-squared-errors.-1" class="section level2">
 <h2>b. Using the mean as your parameter estimate for your model,
 calculate the number of errors, the sum of the absolute errors, and the
 sum of the squared errors.</h2>
@@ -407,15 +433,59 @@ print(paste(&quot;Sum of absolute errors:&quot;, sum_abs_errors_mean))</code></p
 <pre class="r"><code>sum_sq_errors_mean &lt;- sum(errors_mean^2)
 print (paste(&quot;Sum of the Squared Errors:&quot;, sum_sq_errors_mean))</code></pre>
 <pre><code>## [1] &quot;Sum of the Squared Errors: 64.7692307692308&quot;</code></pre>
-<p>##c. Now use the median as your parameter estimate and calculate the
-same three error terms. ##d. Use the mode as your parameter estimate and
-calculate the same three error terms. ##e. Look across your answers to
-(b), (c), and (d) to see for each error term, which estimate gives the
-lowest error? That is, which of the mean, median, and mode minimizes the
-sum of squared errors and by how much? Which one minimizes the sum of
-absolute errors and by how much? And which one minimizes the count of
-errors and by how much?</p>
 </div>
+<div id="c.-now-use-the-median-as-your-parameter-estimate-and-calculate-the-same-three-error-terms.-1" class="section level2">
+<h2>c. Now use the median as your parameter estimate and calculate the
+same three error terms.</h2>
+<pre class="r"><code>errors_median &lt;- scores - median_score
+num_errors &lt;- sum(errors_median != 0)
+print(paste(&quot;Number of errors:&quot;, num_errors))</code></pre>
+<pre><code>## [1] &quot;Number of errors: 10&quot;</code></pre>
+<pre class="r"><code>sum_abs_errors_median &lt;- sum(abs(errors_median))
+print(paste(&quot;Sum of absolute errors:&quot;, sum_abs_errors_median))</code></pre>
+<pre><code>## [1] &quot;Sum of absolute errors: 23&quot;</code></pre>
+<pre class="r"><code>sum_sq_errors_median &lt;- sum(errors_median^2)
+print (paste(&quot;Sum of the Squared Errors:&quot;, sum_sq_errors_median))</code></pre>
+<pre><code>## [1] &quot;Sum of the Squared Errors: 71&quot;</code></pre>
+</div>
+<div id="d.-use-the-mode-as-your-parameter-estimate-and-calculate-the-same-three-error-terms.-1" class="section level2">
+<h2>d. Use the mode as your parameter estimate and calculate the same
+three error terms.</h2>
+<pre class="r"><code>errors_mode &lt;- scores - mode_score
+num_errors &lt;- sum(errors_mode != 0)
+print(paste(&quot;Number of errors:&quot;, num_errors))</code></pre>
+<pre><code>## [1] &quot;Number of errors: 10&quot;</code></pre>
+<pre class="r"><code>sum_abs_errors_mode &lt;- sum(abs(errors_mode))
+print(paste(&quot;Sum of absolute errors:&quot;, sum_abs_errors_mode))</code></pre>
+<pre><code>## [1] &quot;Sum of absolute errors: 23&quot;</code></pre>
+<pre class="r"><code>sum_sq_errors_mode &lt;- sum(errors_mode^2)
+print (paste(&quot;Sum of the Squared Errors:&quot;, sum_sq_errors_mode))</code></pre>
+<pre><code>## [1] &quot;Sum of the Squared Errors: 71&quot;</code></pre>
+</div>
+<div id="e.-look-across-your-answers-to-b-c-and-d-to-see-for-each-error-term-which-estimate-gives-the-lowest-error-that-is-which-of-the-mean-median-and-mode-minimizes-the-sum-of-squared-errors-and-by-how-much-which-one-minimizes-the-sum-of-absolute-errors-and-by-how-much-and-which-one-minimizes-the-count-of-errors-and-by-how-much-1" class="section level2">
+<h2>e. Look across your answers to (b), (c), and (d) to see for each
+error term, which estimate gives the lowest error? That is, which of the
+mean, median, and mode minimizes the sum of squared errors and by how
+much? Which one minimizes the sum of absolute errors and by how much?
+And which one minimizes the count of errors and by how much?</h2>
+<ul>
+<li>The estimate that gives the lowest error is the mean parameter as
+the sum of squared errors is 64.77 compared to 71 for both the median
+and mode parameter estimates.</li>
+<li>The parameter that minimizes the sum of absolute errors are both the
+median and mode, which is 23 compared to 23.69 for the mean
+parameter.</li>
+<li>The parameter that minimizes the count of errors are both median and
+mode at 10.</li>
+</ul>
+</div>
+</div>
+<div id="hr-data.csv-contains-311-rows-and-36-columns.-first-open-this-data-file-in-rstudio-or-jamovi.-next-obtain-estimates-of-the-mean-median-variance-and-standard-deviation-of-two-variables-salary-engagementsurvey.-report-these-along-with-a-one-sentence-interpretation-of-what-the-values-mean-to-you." class="section level1">
+<h1>3. “HR Data.csv” contains 311 rows and 36 columns. First, open this
+data file in RStudio or Jamovi. Next, obtain estimates of the mean,
+median, variance, and standard deviation of two variables (SALARY,
+ENGAGEMENTSURVEY). Report these along with a one sentence interpretation
+of what the values mean to you.</h1>
 </div>
 
 
