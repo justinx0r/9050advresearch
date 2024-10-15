@@ -69,13 +69,28 @@ print(paste("Median salary:", hrdata_sal_median))
 print(paste("Variance of salary:", hrdata_sal_var))
 print(paste("Standard deviation of salary:", hrdata_sal_stddev))
 
-####median statistical analysis
-hrdata_sal_median <- median(hrdata_df$Salary)
-hrdata_sal_median <- median(hrdata_df$Salary)
-hrdata_sal_var <- var(hrdata_df$Salary)
-hrdata_sal_stddev <- sd(hrdata_df$Salary)
-print(paste("median Salary:", hrdata_sal_median))
-print(paste("Median Salary:", hrdata_sal_median))
-print(paste("Variance of Salary:", hrdata_sal_var))
-print(paste("Standard deviation of Salary:", hrdata_sal_stddev))
+####engagement statistical analysis
+hrdata_sal_mean <- mean(hrdata_df$Engagement)
+hrdata_sal_median <- median(hrdata_df$Engagement)
+hrdata_sal_var <- var(hrdata_df$Engagement)
+hrdata_sal_stddev <- sd(hrdata_df$Engagement)
+print(paste("median Engagement:", hrdata_sal_median))
+print(paste("Median Engagement:", hrdata_sal_median))
+print(paste("Variance of Engagement:", hrdata_sal_var))
+print(paste("Standard deviation of Engagement:", hrdata_sal_stddev))
 
+##interpretation
+
+###mean salary interpretation
+#The mean salary shows the average salary of all employees in the data is ~$70,000.
+
+#The variance and standard deviation of the salary data show the spread of the data from the mean salary. The variance of the salary data is ~$1,000,000,000 and the standard deviation is ~$31,000. The standard deviation shows the average distance of each data point from the mean salary. This indicates that the salary data is spread out from the mean salary of ~$70,000.
+
+#The median salary shows the middle salary of all employees in the data is ~$60,000, which is lower than the mean of ~$70,000. This indicates that the salary data is skewed to the right, with more employees earning lower salaries than higher salaries..
+
+#4. Compare the mean SALARY for Men and Women. Briefly describe these results, being sure to indicate whether it APPEARS (we don't know how to do the formal test yet) that it would be useful to make predictions ofb SALARY conditional on employee sex (M or F) 
+
+hrdata_sal_mean_men <- mean(hrdata_df$Salary[hrdata_df$Gender == "M"])
+hrdata_sal_mean_women <- mean(hrdata_df$Salary[hrdata_df$Gender == "F"])
+print(paste("Men's mean salary:", hrdata_sal_mean_men, na.rm = TRUE))
+print(paste("Women's mean salary:", hrdata_sal_mean_women))
