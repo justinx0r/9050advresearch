@@ -6,7 +6,7 @@ library(dplyr)
 scores <- c(12, 16, 18, 14, 13, 15, 12, 13, 11, 17, 10, 13, 14)
 
 #load data
-hrdata_df <- read.csv("/Users/justinwilliams/Code/9050advresearch/Project 1/HRData.csv")
+hrdata_df <- read.csv("/Users/justinwilliams/Code/9050advresearch/Project 1/HRData_New.csv")
 class(hrdata_df)
 
 
@@ -56,24 +56,11 @@ print (paste("Sum of the Squared Errors:", sum_sq_errors_mode))
 ###The parameter that minimizes the count of errors are both median and mode at 10.
 
 #3. “HR Data.csv” contains 311 rows and 36 columns. First, open this data file in RStudio or Jamovi. Next, obtain estimates of the mean, median, variance, and standard deviation of two variables (SALARY, ENGAGEMENTSURVEY). Report these along with a one sentence interpretation of what the values mean to you.
+
 ##salary analysis
 
-#remove non-numeric characters like "$" and "," from the Salary column
-hrdata_df$Salary <- as.numeric(gsub("[^0-9.]", "", hrdata_df$Salary))
-
-#remove non-numeric characters from the EngagementSurvey column
-hrdata_df$EngagementSurvey <- as.numeric(gsub("[^0-9.]", "", hrdata_df$EngagementSurvey))
-
-#impute missing values with the mean
-hrdata_df$Salary[is.na(hrdata_df$Salary)] <- mean(hrdata_df$Salary, na.rm = TRUE)
-hrdata_df$EngagementSurvey[is.na(hrdata_df$EngagementSurvey)] <- mean(hrdata_df$EngagementSurvey, na.rm = TRUE)
-
-#convert to numeric
-hrdata_df$Salary <- as.numeric(as.character(hrdata_df$Salary))
-hrdata_df$EngagementSurvey <- as.numeric(as.character(hrdata_df$EngagementSurvey))
-
-#salary statistical analysis
-hrdata_mean <- mean(hrdata_df$Salary)
+###salary statistical analysis
+hrdata_sal_mean <- mean(hrdata_df$Salary)
 hrdata_sal_median <- median(hrdata_df$Salary)
 hrdata_sal_var <- var(hrdata_df$Salary)
 hrdata_sal_stddev <- sd(hrdata_df$Salary)
@@ -82,4 +69,13 @@ print(paste("Median salary:", hrdata_sal_median))
 print(paste("Variance of salary:", hrdata_sal_var))
 print(paste("Standard deviation of salary:", hrdata_sal_stddev))
 
-#median statistical analysis
+####median statistical analysis
+hrdata_sal_median <- median(hrdata_df$Salary)
+hrdata_sal_median <- median(hrdata_df$Salary)
+hrdata_sal_var <- var(hrdata_df$Salary)
+hrdata_sal_stddev <- sd(hrdata_df$Salary)
+print(paste("median Salary:", hrdata_sal_median))
+print(paste("Median Salary:", hrdata_sal_median))
+print(paste("Variance of Salary:", hrdata_sal_var))
+print(paste("Standard deviation of Salary:", hrdata_sal_stddev))
+
