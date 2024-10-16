@@ -9,7 +9,6 @@ scores <- c(12, 16, 18, 14, 13, 15, 12, 13, 11, 17, 10, 13, 14)
 hrdata_df <- read.csv("/Users/justinwilliams/Code/9050advresearch/Project 1/HRData_New.csv")
 class(hrdata_df)
 
-
 #2. I give a 10-item test of Clemson University trivia to 13 people. Their scores are as follows: 12 16 18 14 13 15 12 13 11 17 10 13 14
 ##a. Calculate the mean, median, and the mode.
 mean_score <- mean(scores)
