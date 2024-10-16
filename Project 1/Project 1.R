@@ -63,7 +63,7 @@ hrdata_sal_mean <- mean(hrdata_df$Salary)
 hrdata_sal_median <- median(hrdata_df$Salary)
 hrdata_sal_var <- var(hrdata_df$Salary)
 hrdata_sal_stddev <- sd(hrdata_df$Salary)
-print(paste("Mean salary:", hrdata_sal_mean)
+print(paste("Mean salary:", hrdata_sal_mean))
 print(paste("Median salary:", hrdata_sal_median))
 print(paste("Variance of salary:", hrdata_sal_var))
 print(paste("Standard deviation of salary:", hrdata_sal_stddev))
@@ -78,6 +78,8 @@ print(paste("Median Engagement:", hrdata_sal_median))
 print(paste("Variance of Engagement:", hrdata_sal_var))
 print(paste("Standard deviation of Engagement:", hrdata_sal_stddev))
 
+#My interpretation of the Salary descriptive statistics and the Engagement Survey descriptive statistics are as follows:the sal
+
 ##interpretation
 
 ###mean salary interpretation
@@ -89,7 +91,10 @@ print(paste("Standard deviation of Engagement:", hrdata_sal_stddev))
 
 #4. Compare the mean SALARY for Men and Women. Briefly describe these results, being sure to indicate whether it APPEARS (we don't know how to do the formal test yet) that it would be useful to make predictions ofb SALARY conditional on employee sex (M or F) 
 
-hrdata_sal_mean_men <- mean(hrdata_df$Salary[hrdata_df$GenderID == "0"])
-hrdata_sal_mean_women <- mean(hrdata_df$Salary[hrdata_df$GenderID == "1"])
-print(paste("Men's mean salary:", hrdata_sal_mean_men))
-print(paste("Women's mean salary:", hrdata_sal_mean_women))
+hrdata_sal_mean_men <- mean(hrdata_df$Salary[hrdata_df$Sex == "M"])
+hrdata_sal_mean_women <- mean(hrdata_df$Salary[hrdata_df$Sex == "F"])
+print(paste("Men's mean salary:", format(round(hrdata_sal_mean_men,2), nsmall = 2)))
+print(paste("Women's mean salary:", format(round(hrdata_sal_mean_women, 2), nsmall = 2)))
+
+## Interpretation
+### The mean salary for men is $70,629.40 and $67,786.72 for women. There is a small difference between the two means, it appears that it could  be useful to make predictions of salary conditional on gender as the difference may be statistically significant.
