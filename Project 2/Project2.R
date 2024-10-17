@@ -34,10 +34,10 @@ ggplot(hrdata_df, aes(x = Salary)) +
   theme_minimal()
 
 # Interpretation
-cat("The mean salary is", mean_salary, "\n")
-cat("The median salary is", median_salary, "\n")
-cat("The mode salary is", mode_salary_value, "\n")
-cat("The frequency distribution of salaries is shown in the bar plot above.\n")
+print(paste("The mean salary is", mean_salary)
+print(paste("The median salary is", median_salary)
+print(paste("The mode salary is", mode_salary_value)
+print(paste("The frequency distribution of salaries is shown in the bar plot above.")
 
 # Detailed Interpretation
 ## The mean salary is $69,020.68, which indicates the average salary of the employees. The range is large as well as a large variation in salaries as the max salary is $250,00, which is a high end outlier. The mean salary is higher than the median salary, neaning that the distribution is right-skewed suggesting that most employees earn less than the mean.
@@ -55,20 +55,25 @@ summary(hrdata_df$Salary)
 
 ## 2. Which employee (ID number) has the largest z-score on Salary and what is the z-score for this person? Which employee (ID number) has the smallest z-score on Salary and what is the z-score for this person?
 # Calculate z-scores for Salary
-hrdata_df <- hrdata_df %>% mutate(SalaryZscore = (Salary - mean(Salary, na.rm = TRUE)) / sd(Salary, na.rm = TRUE))
+salary_zscore <- scale(hrdata_df$Salary, center = TRUE, scale = TRUE)
+print(salary_zscore)
 
-# Find the employee with the largest z-score
-max_z_score <- max(hrdata_df$SalaryZscore, na.rm = TRUE)
-max_z_score_employee <- hrdata_df %>% filter(SalaryZscore == max_z_score) %>% select(EmpID, SalaryZscore)
+# Find the index of the employee with the largest z-score
+max_z_score_index <- which.max(salary_zscore)
 
-# Find the employee with the smallest z-score
-min_z_score <- min(hrdata_df$SalaryZscore, na.rm = TRUE)
-min_z_score_employee <- hrdata_df %>% filter(SalaryZscore == min_z_score) %>% select(EmpID, SalaryZscore)
+# Retrieve the employee's EmpID and the corresponding z-score
+max_z_score_employee <- hrdata_df[max_z_score_index, c("EmpID", "Salary")]
 
-# Print results
-cat("Employee with the largest z-score on Salary:\n")
+# Print the result
 print(max_z_score_employee)
-cat("Employee with the smallest z-score on Salary:\n")
+
+# Find the index of the employee with the smallest z-score
+min_z_score_index <- which.min(salary_zscore)
+
+# Retrieve the employee's EmpID and the corresponding salary for the minimum z-score
+min_z_score_employee <- hrdata_df[min_z_score_index, c("EmpID", "Salary")]
+
+# Print the result
 print(min_z_score_employee)
 
 ## 3. Compute descriptive statistics for the standardized Salary variable. Report your results and produce a frequency distribution for the standardized Salary scores. Compare this distribution to the one you produced in Question 1. Are they the same or different? Explain using both your graphical results and words.

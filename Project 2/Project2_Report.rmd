@@ -91,6 +91,7 @@ Overall, the salary distribution is spread across a wide range of values with th
 ```{r}
 Project2_JW <- Project2_JW %>% mutate(SalaryZscore = (Salary - mean(Salary)) / sd(Salary))
 ```
+
 ## Find the employee with the largest z-score
 ```{r}
 max_z_score <- max(Project2_JW$SalaryZscore, na.rm = TRUE)
