@@ -8,7 +8,10 @@ scores <- c(12, 16, 18, 14, 13, 15, 12, 13, 11, 17, 10, 13, 14)
 #load data
 hrdata_df <- read.csv("/Users/justinwilliams/Code/9050advresearch/Project 1/HRData_New.csv")
 
-#2. I give a 10-item test of Clemson University trivia to 13 people. Their scores are as follows: 12 16 18 14 13 15 12 13 11 17 10 13 14
+#1. I give a 10-item test of Clemson University trivia to 13 people. Their scores are as follows: 12 16 18 14 13 15 12 13 11 17 10 13 14. Calculate the mean, median, and the mode.
+## answers in the excel file 
+
+#2. Using RStudio, complete question 1
 ##a. Calculate the mean, median, and the mode.
 mean_score <- mean(format(round(scores, 2), nsmall = 2))
 median_score <- median(scores)
