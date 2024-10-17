@@ -1,9 +1,8 @@
 library(tidyverse)
 library(dplyr)
 
-# Load the data from the CSV file
+# Load the data from the CSV file into a data frame
 HRData_New <- read_csv("/Users/justinwilliams/Code/9050advresearch/Project 2/HRData_New.csv")
-View(HRData_New)
 
 ## 1. Report the descriptive statistics along with the frequency distribution and provide a detailed interpretation of how you would characterize the salary variable.
 # Summary statistics
