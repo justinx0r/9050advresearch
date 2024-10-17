@@ -18,7 +18,7 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(dplyr)
 library(readxl)
-Project2_JW <- read_excel("/Users/justinwilliams/Code/9050advresearch/Project 2/Project2_JW.xlsx")
+Project2_JW <- read.csv("/Users/justinwilliams/Code/9050advresearch/Project 2/Project2_JW.xlsx")
 if (interactive()) {
   View(Project2_JW)
 }
@@ -31,22 +31,16 @@ if (interactive()) {
 summary(Project2_JW$Salary)
 ```
 
-## Mean
+## Mean, Median, and Mode
 ```{r}
 #mean
 mean_salary <- mean(Project2_JW$Salary)
 mean_salary
-```
 
-## Median
-```{r}
 #median
 median_salary <- median(Project2_JW$Salary)
 median_salary
-```
-
-## Mode 
-```{r}
+ 
 #mode
 mode_salary <- function(x) {
   ux <- unique(x)
