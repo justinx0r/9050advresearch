@@ -21,6 +21,11 @@ library(dplyr)
 
 #load vector
 scores <- c(12, 16, 18, 14, 13, 15, 12, 13, 11, 17, 10, 13, 14)
+
+#load data
+#load dataframe
+#load data
+hrdata_df <- read.csv("/Users/justinwilliams/Code/9050advresearch/Project 1/HRData_New.csv")
 ```
 
 # 1. I give a 10-item test of Clemson University trivia to 13 people. Their scores are as follows: 12 16 18 14 13 15 12 13 11 17 10 13 14
@@ -46,7 +51,9 @@ calculate_mode <- function(x) {
     ux[which.max(tabulate(match(x, ux)))]
 }
 mode_score <- calculate_mode(scores)
-print(paste("Mean score:", mean_score))
+```
+```{r}
+print(paste("Mean score:", format(round(mean_score, 2), nsmall = 2)))
 print(paste("Median score:", median_score))
 print(paste("Mode score:", mode_score))
 ```
@@ -55,10 +62,12 @@ print(paste("Mode score:", mode_score))
 ```{r}
 errors_mean <- scores - mean_score
 num_errors <- sum(errors_mean != 0)
-print(paste("Number of errors:", num_errors))
 sum_abs_errors_mean <- sum(abs(errors_mean))
-print(paste("Sum of absolute errors:", sum_abs_errors_mean))
 sum_sq_errors_mean <- sum(errors_mean^2)
+```
+```{r}
+print(paste("Sum of absolute errors:", sum_abs_errors_mean))
+print(paste("Number of errors:", num_errors))
 print (paste("Sum of the Squared Errors:", sum_sq_errors_mean))
 ```
 
@@ -66,10 +75,12 @@ print (paste("Sum of the Squared Errors:", sum_sq_errors_mean))
 ```{r}
 errors_median <- scores - median_score
 num_errors <- sum(errors_median != 0)
-print(paste("Number of errors:", num_errors))
 sum_abs_errors_median <- sum(abs(errors_median))
-print(paste("Sum of absolute errors:", sum_abs_errors_median))
 sum_sq_errors_median <- sum(errors_median^2)
+```
+```{r}
+print(paste("Number of errors:", num_errors))
+print(paste("Sum of absolute errors:", sum_abs_errors_median))
 print (paste("Sum of the Squared Errors:", sum_sq_errors_median))
 ```
 
@@ -77,10 +88,12 @@ print (paste("Sum of the Squared Errors:", sum_sq_errors_median))
 ```{r}
 errors_mode <- scores - mode_score
 num_errors <- sum(errors_mode != 0)
-print(paste("Number of errors:", num_errors))
 sum_abs_errors_mode <- sum(abs(errors_mode))
-print(paste("Sum of absolute errors:", sum_abs_errors_mode))
 sum_sq_errors_mode <- sum(errors_mode^2)
+```
+```{r}
+print(paste("Number of errors:", num_errors))
+print(paste("Sum of absolute errors:", sum_abs_errors_mode))
 print (paste("Sum of the Squared Errors:", sum_sq_errors_mode))
 ```
 
@@ -90,3 +103,35 @@ print (paste("Sum of the Squared Errors:", sum_sq_errors_mode))
 * The parameter that minimizes the count of errors are both median and mode at 10.
 
 # 3. “HR Data.csv” contains 311 rows and 36 columns. First, open this data file in RStudio or Jamovi. Next, obtain estimates of the mean, median, variance, and standard deviation of two variables (SALARY, ENGAGEMENTSURVEY). Report these along with a one sentence interpretation of what the values mean to you.
+
+## salary analysis
+```{r}
+hrdata_sal_mean <- mean(hrdata_df$Salary)
+hrdata_sal_median <- median(hrdata_df$Salary)
+hrdata_sal_var <- var(hrdata_df$Salary)
+hrdata_sal_stddev <- sd(hrdata_df$Salary)
+```
+```{r}
+print(paste("Mean salary:", format(round(hrdata_sal_mean, 2), nsmall = 2)))
+print(paste("Median salary:", format(round(hrdata_sal_median, 2), nsmall = 2)))
+print(paste("Variance of salary:", hrdata_sal_var))
+print(paste("Standard deviation of salary:", hrdata_sal_stddev))
+```
+
+## engagement statistical analysis
+```{r}
+hrdata_sal_mean <- mean(hrdata_df$Engagement)
+hrdata_sal_median <- median(hrdata_df$Engagement)
+hrdata_sal_var <- var(hrdata_df$Engagement)
+hrdata_sal_stddev <- sd(hrdata_df$Engagement)
+```
+```{r}
+print(paste("median Engagement:", hrdata_sal_median))
+print(paste("Median Engagement:", hrdata_sal_median))
+print(paste("Variance of Engagement:", hrdata_sal_var))
+print(paste("Standard deviation of Engagement:", hrdata_sal_stddev))
+```
+
+## My interpretation of the Salary descriptive statistics and the Engagement Survey descriptive statistic
+* The variance is large which suggests that the data is spread out from the mean salary of ~$69,020.68. The standard deviation of $25,156.64 shows the average distance of each data point from the mean salary, which seems large as well. The median salary of $62,810.00 is lower than the mean salary of $69,020.68, indicating that the salary data is skewed to the right, with more employees earning lower salaries than higher salaries. 
+* The median engagement score of 3.5 is the same as the mean engagement score, indicating that the data is normally distributed.

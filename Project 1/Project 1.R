@@ -7,28 +7,27 @@ scores <- c(12, 16, 18, 14, 13, 15, 12, 13, 11, 17, 10, 13, 14)
 
 #load data
 hrdata_df <- read.csv("/Users/justinwilliams/Code/9050advresearch/Project 1/HRData_New.csv")
-class(hrdata_df)
 
 #2. I give a 10-item test of Clemson University trivia to 13 people. Their scores are as follows: 12 16 18 14 13 15 12 13 11 17 10 13 14
 ##a. Calculate the mean, median, and the mode.
-mean_score <- mean(scores)
+mean_score <- mean(format(round(scores, 2), nsmall = 2))
 median_score <- median(scores)
 calculate_mode <- function(x) {
     ux <- unique(x)
     ux[which.max(tabulate(match(x, ux)))]
 }
 mode_score <- calculate_mode(scores)
-print(paste("Mean score:", mean_score))
+print(paste("Mean score:", format(round(mean_score, 2), nsmall = 2))
 print(paste("Median score:", median_score))
 print(paste("Mode score:", mode_score))
 
 ##b. Using the mean as your parameter estimate for your model, calculate the number of errors, the sum of the absolute errors, and the sum of the squared errors.
 errors_mean <- scores - mean_score
 num_errors <- sum(errors_mean != 0)
-print(paste("Number of errors:", num_errors))
 sum_abs_errors_mean <- sum(abs(errors_mean))
-print(paste("Sum of absolute errors:", sum_abs_errors_mean))
 sum_sq_errors_mean <- sum(errors_mean^2)
+print(paste("Sum of absolute errors:", sum_abs_errors_mean))
+print(paste("Number of errors:", num_errors))
 print (paste("Sum of the Squared Errors:", sum_sq_errors_mean))
 
 ##c. Now use the median as your parameter estimate and calculate the same three error terms.
@@ -63,12 +62,12 @@ hrdata_sal_mean <- mean(hrdata_df$Salary)
 hrdata_sal_median <- median(hrdata_df$Salary)
 hrdata_sal_var <- var(hrdata_df$Salary)
 hrdata_sal_stddev <- sd(hrdata_df$Salary)
-print(paste("Mean salary:", hrdata_sal_mean))
-print(paste("Median salary:", hrdata_sal_median))
+print(paste("Mean salary:", format(round(hrdata_sal_mean, 2), nsmall = 2)))
+print(paste("Median salary:", format(round(hrdata_sal_median, 2), nsmall = 2)))
 print(paste("Variance of salary:", hrdata_sal_var))
 print(paste("Standard deviation of salary:", hrdata_sal_stddev))
 
-####engagement statistical analysis
+###engagement statistical analysis
 hrdata_sal_mean <- mean(hrdata_df$Engagement)
 hrdata_sal_median <- median(hrdata_df$Engagement)
 hrdata_sal_var <- var(hrdata_df$Engagement)
@@ -78,16 +77,9 @@ print(paste("Median Engagement:", hrdata_sal_median))
 print(paste("Variance of Engagement:", hrdata_sal_var))
 print(paste("Standard deviation of Engagement:", hrdata_sal_stddev))
 
-#My interpretation of the Salary descriptive statistics and the Engagement Survey descriptive statistics are as follows:the sal
-
-##interpretation
-
-###mean salary interpretation
-#The mean salary shows the average salary of all employees in the data is ~$70,000.
-
-#The variance and standard deviation of the salary data show the spread of the data from the mean salary. The variance of the salary data is ~$1,000,000,000 and the standard deviation is ~$31,000. The standard deviation shows the average distance of each data point from the mean salary. This indicates that the salary data is spread out from the mean salary of ~$70,000.
-
-#The median salary shows the middle salary of all employees in the data is ~$60,000, which is lower than the mean of ~$70,000. This indicates that the salary data is skewed to the right, with more employees earning lower salaries than higher salaries..
+##My interpretation of the Salary descriptive statistics and the Engagement Survey descriptive statistic
+### *The variance is large which suggests that the data is spread out from the mean salary of ~$69,020.68. The standard deviation of $25,156.64 shows the average distance of each data point from the mean salary, which seems large as well. The median salary of $62,810.00 is lower than the mean salary of $69,020.68, indicating that the salary data is skewed to the right, with more employees earning lower salaries than higher salaries. 
+### *The median engagement score of 3.5 is the same as the mean engagement score, indicating that the data is normally distributed.
 
 #4. Compare the mean SALARY for Men and Women. Briefly describe these results, being sure to indicate whether it APPEARS (we don't know how to do the formal test yet) that it would be useful to make predictions ofb SALARY conditional on employee sex (M or F) 
 

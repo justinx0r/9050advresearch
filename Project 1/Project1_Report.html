@@ -11,7 +11,7 @@
 
 <meta name="author" content="Justin Williams" />
 
-<meta name="date" content="2024-10-14" />
+<meta name="date" content="2024-10-16" />
 
 <title>Project 1</title>
 
@@ -352,7 +352,7 @@ display: none;
 
 <h1 class="title toc-ignore">Project 1</h1>
 <h4 class="author">Justin Williams</h4>
-<h4 class="date">2024-10-14</h4>
+<h4 class="date">2024-10-16</h4>
 
 </div>
 
@@ -373,7 +373,12 @@ library(tidyverse)</code></pre>
 <pre class="r"><code>library(dplyr)
 
 #load vector
-scores &lt;- c(12, 16, 18, 14, 13, 15, 12, 13, 11, 17, 10, 13, 14)</code></pre>
+scores &lt;- c(12, 16, 18, 14, 13, 15, 12, 13, 11, 17, 10, 13, 14)
+
+#load data
+#load dataframe
+#load data
+hrdata_df &lt;- read.csv(&quot;/Users/justinwilliams/Code/9050advresearch/Project 1/HRData_New.csv&quot;)</code></pre>
 <div id="i-give-a-10-item-test-of-clemson-university-trivia-to-13-people.-their-scores-are-as-follows-12-16-18-14-13-15-12-13-11-17-10-13-14" class="section level1">
 <h1>1. I give a 10-item test of Clemson University trivia to 13 people.
 Their scores are as follows: 12 16 18 14 13 15 12 13 11 17 10 13 14</h1>
@@ -422,9 +427,9 @@ calculate_mode &lt;- function(x) {
     ux &lt;- unique(x)
     ux[which.max(tabulate(match(x, ux)))]
 }
-mode_score &lt;- calculate_mode(scores)
-print(paste(&quot;Mean score:&quot;, mean_score))</code></pre>
-<pre><code>## [1] &quot;Mean score: 13.6923076923077&quot;</code></pre>
+mode_score &lt;- calculate_mode(scores)</code></pre>
+<pre class="r"><code>print(paste(&quot;Mean score:&quot;, format(round(mean_score, 2), nsmall = 2)))</code></pre>
+<pre><code>## [1] &quot;Mean score: 13.69&quot;</code></pre>
 <pre class="r"><code>print(paste(&quot;Median score:&quot;, median_score))</code></pre>
 <pre><code>## [1] &quot;Median score: 13&quot;</code></pre>
 <pre class="r"><code>print(paste(&quot;Mode score:&quot;, mode_score))</code></pre>
@@ -435,13 +440,13 @@ calculate the number of errors, the sum of the absolute errors, and the
 sum of the squared errors.</h2>
 <pre class="r"><code>errors_mean &lt;- scores - mean_score
 num_errors &lt;- sum(errors_mean != 0)
-print(paste(&quot;Number of errors:&quot;, num_errors))</code></pre>
-<pre><code>## [1] &quot;Number of errors: 13&quot;</code></pre>
-<pre class="r"><code>sum_abs_errors_mean &lt;- sum(abs(errors_mean))
-print(paste(&quot;Sum of absolute errors:&quot;, sum_abs_errors_mean))</code></pre>
+sum_abs_errors_mean &lt;- sum(abs(errors_mean))
+sum_sq_errors_mean &lt;- sum(errors_mean^2)</code></pre>
+<pre class="r"><code>print(paste(&quot;Sum of absolute errors:&quot;, sum_abs_errors_mean))</code></pre>
 <pre><code>## [1] &quot;Sum of absolute errors: 23.6923076923077&quot;</code></pre>
-<pre class="r"><code>sum_sq_errors_mean &lt;- sum(errors_mean^2)
-print (paste(&quot;Sum of the Squared Errors:&quot;, sum_sq_errors_mean))</code></pre>
+<pre class="r"><code>print(paste(&quot;Number of errors:&quot;, num_errors))</code></pre>
+<pre><code>## [1] &quot;Number of errors: 13&quot;</code></pre>
+<pre class="r"><code>print (paste(&quot;Sum of the Squared Errors:&quot;, sum_sq_errors_mean))</code></pre>
 <pre><code>## [1] &quot;Sum of the Squared Errors: 64.7692307692308&quot;</code></pre>
 </div>
 <div id="c.-now-use-the-median-as-your-parameter-estimate-and-calculate-the-same-three-error-terms.-1" class="section level2">
@@ -449,13 +454,13 @@ print (paste(&quot;Sum of the Squared Errors:&quot;, sum_sq_errors_mean))</code>
 same three error terms.</h2>
 <pre class="r"><code>errors_median &lt;- scores - median_score
 num_errors &lt;- sum(errors_median != 0)
-print(paste(&quot;Number of errors:&quot;, num_errors))</code></pre>
+sum_abs_errors_median &lt;- sum(abs(errors_median))
+sum_sq_errors_median &lt;- sum(errors_median^2)</code></pre>
+<pre class="r"><code>print(paste(&quot;Number of errors:&quot;, num_errors))</code></pre>
 <pre><code>## [1] &quot;Number of errors: 10&quot;</code></pre>
-<pre class="r"><code>sum_abs_errors_median &lt;- sum(abs(errors_median))
-print(paste(&quot;Sum of absolute errors:&quot;, sum_abs_errors_median))</code></pre>
+<pre class="r"><code>print(paste(&quot;Sum of absolute errors:&quot;, sum_abs_errors_median))</code></pre>
 <pre><code>## [1] &quot;Sum of absolute errors: 23&quot;</code></pre>
-<pre class="r"><code>sum_sq_errors_median &lt;- sum(errors_median^2)
-print (paste(&quot;Sum of the Squared Errors:&quot;, sum_sq_errors_median))</code></pre>
+<pre class="r"><code>print (paste(&quot;Sum of the Squared Errors:&quot;, sum_sq_errors_median))</code></pre>
 <pre><code>## [1] &quot;Sum of the Squared Errors: 71&quot;</code></pre>
 </div>
 <div id="d.-use-the-mode-as-your-parameter-estimate-and-calculate-the-same-three-error-terms.-1" class="section level2">
@@ -463,13 +468,13 @@ print (paste(&quot;Sum of the Squared Errors:&quot;, sum_sq_errors_median))</cod
 three error terms.</h2>
 <pre class="r"><code>errors_mode &lt;- scores - mode_score
 num_errors &lt;- sum(errors_mode != 0)
-print(paste(&quot;Number of errors:&quot;, num_errors))</code></pre>
+sum_abs_errors_mode &lt;- sum(abs(errors_mode))
+sum_sq_errors_mode &lt;- sum(errors_mode^2)</code></pre>
+<pre class="r"><code>print(paste(&quot;Number of errors:&quot;, num_errors))</code></pre>
 <pre><code>## [1] &quot;Number of errors: 10&quot;</code></pre>
-<pre class="r"><code>sum_abs_errors_mode &lt;- sum(abs(errors_mode))
-print(paste(&quot;Sum of absolute errors:&quot;, sum_abs_errors_mode))</code></pre>
+<pre class="r"><code>print(paste(&quot;Sum of absolute errors:&quot;, sum_abs_errors_mode))</code></pre>
 <pre><code>## [1] &quot;Sum of absolute errors: 23&quot;</code></pre>
-<pre class="r"><code>sum_sq_errors_mode &lt;- sum(errors_mode^2)
-print (paste(&quot;Sum of the Squared Errors:&quot;, sum_sq_errors_mode))</code></pre>
+<pre class="r"><code>print (paste(&quot;Sum of the Squared Errors:&quot;, sum_sq_errors_mode))</code></pre>
 <pre><code>## [1] &quot;Sum of the Squared Errors: 71&quot;</code></pre>
 </div>
 <div id="e.-look-across-your-answers-to-b-c-and-d-to-see-for-each-error-term-which-estimate-gives-the-lowest-error-that-is-which-of-the-mean-median-and-mode-minimizes-the-sum-of-squared-errors-and-by-how-much-which-one-minimizes-the-sum-of-absolute-errors-and-by-how-much-and-which-one-minimizes-the-count-of-errors-and-by-how-much-1" class="section level2">
@@ -496,6 +501,51 @@ data file in RStudio or Jamovi. Next, obtain estimates of the mean,
 median, variance, and standard deviation of two variables (SALARY,
 ENGAGEMENTSURVEY). Report these along with a one sentence interpretation
 of what the values mean to you.</h1>
+<div id="salary-analysis" class="section level2">
+<h2>salary analysis</h2>
+<pre class="r"><code>hrdata_sal_mean &lt;- mean(hrdata_df$Salary)
+hrdata_sal_median &lt;- median(hrdata_df$Salary)
+hrdata_sal_var &lt;- var(hrdata_df$Salary)
+hrdata_sal_stddev &lt;- sd(hrdata_df$Salary)</code></pre>
+<pre class="r"><code>print(paste(&quot;Mean salary:&quot;, format(round(hrdata_sal_mean, 2), nsmall = 2)))</code></pre>
+<pre><code>## [1] &quot;Mean salary: 69020.68&quot;</code></pre>
+<pre class="r"><code>print(paste(&quot;Median salary:&quot;, format(round(hrdata_sal_median, 2), nsmall = 2)))</code></pre>
+<pre><code>## [1] &quot;Median salary: 62810.00&quot;</code></pre>
+<pre class="r"><code>print(paste(&quot;Variance of salary:&quot;, hrdata_sal_var))</code></pre>
+<pre><code>## [1] &quot;Variance of salary: 632856381.610061&quot;</code></pre>
+<pre class="r"><code>print(paste(&quot;Standard deviation of salary:&quot;, hrdata_sal_stddev))</code></pre>
+<pre><code>## [1] &quot;Standard deviation of salary: 25156.6369296466&quot;</code></pre>
+</div>
+<div id="engagement-statistical-analysis" class="section level2">
+<h2>engagement statistical analysis</h2>
+<pre class="r"><code>hrdata_sal_mean &lt;- mean(hrdata_df$Engagement)
+hrdata_sal_median &lt;- median(hrdata_df$Engagement)
+hrdata_sal_var &lt;- var(hrdata_df$Engagement)
+hrdata_sal_stddev &lt;- sd(hrdata_df$Engagement)</code></pre>
+<pre class="r"><code>print(paste(&quot;median Engagement:&quot;, hrdata_sal_median))</code></pre>
+<pre><code>## [1] &quot;median Engagement: 4.28&quot;</code></pre>
+<pre class="r"><code>print(paste(&quot;Median Engagement:&quot;, hrdata_sal_median))</code></pre>
+<pre><code>## [1] &quot;Median Engagement: 4.28&quot;</code></pre>
+<pre class="r"><code>print(paste(&quot;Variance of Engagement:&quot;, hrdata_sal_var))</code></pre>
+<pre><code>## [1] &quot;Variance of Engagement: 0.624001290322581&quot;</code></pre>
+<pre class="r"><code>print(paste(&quot;Standard deviation of Engagement:&quot;, hrdata_sal_stddev))</code></pre>
+<pre><code>## [1] &quot;Standard deviation of Engagement: 0.789937523050134&quot;</code></pre>
+</div>
+<div id="my-interpretation-of-the-salary-descriptive-statistics-and-the-engagement-survey-descriptive-statistic" class="section level2">
+<h2>My interpretation of the Salary descriptive statistics and the
+Engagement Survey descriptive statistic</h2>
+<ul>
+<li>The variance is large which suggests that the data is spread out
+from the mean salary of ~$69,020.68. The standard deviation of
+$25,156.64 shows the average distance of each data point from the mean
+salary, which seems large as well. The median salary of $62,810.00 is
+lower than the mean salary of $69,020.68, indicating that the salary
+data is skewed to the right, with more employees earning lower salaries
+than higher salaries.</li>
+<li>The median engagement score of 3.5 is the same as the mean
+engagement score, indicating that the data is normally distributed.</li>
+</ul>
+</div>
 </div>
 
 
