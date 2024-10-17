@@ -40,12 +40,17 @@ cat("The mode salary is", mode_salary_value, "\n")
 cat("The frequency distribution of salaries is shown in the bar plot above.\n")
 
 # Detailed Interpretation
+## The mean salary is $69,020.68, which indicates the average salary of the employees. The range is large as well as a large variation in salaries as the max salary is $250,00, which is a high end outlier. The mean salary is higher than the median salary, neaning that the distribution is right-skewed suggesting that most employees earn less than the mean.
+## The median salary is $62,810, which is the middle value when the salaries are sorted in ascending order. The median gives us a more accurate view of what the typical employee is earning, due to the right-skewness of the distribution  which impacts the mean. This could be due to company factors such as the majority of positions in the comapny being more junior.
+## The mode salary is $57,815, which is the most frequently occurring salary in the dataset. The mode being less than both the mean and median again shows the right-skewness of the distribution.
+## The frequency distribution bar plot shows the distribution of salaries across different ranges. This helps in visualizing how salaries are spread out among the employees.\n")
+## Overall, the salary distribution is spread across a wide range of values with the majority of employees falling below the mean. A small number of employees earn significantly higher salaries than the rest, as indicated by the maximum salary of $250,000. The median may be a better measure of central tendency in this case due to the presence of large outliers.
 cat("The salary variable shows the following characteristics:\n")
-cat("1. The mean salary is", mean_salary, "which indicates the average salary of the employees.\n")
-cat("2. The median salary is", median_salary, "which is the middle value when the salaries are sorted in ascending order. This suggests that half of the employees earn less than", median_salary, "and half earn more.\n")
-cat("3. The mode salary is", mode_salary_value, "which is the most frequently occurring salary in the dataset.\n")
+cat("1. The mean salary is", mean_salary, "which indicates the average salary of the employees. The range is large as well as a large variation in salaries. The max salary is $250,00 which is a high end outlier. The mean salary is higher than the median salary, neaning that the distribution is right-skewed suggesting that most employees earn less than the mean.\n")
+cat("2. The median salary is", median_salary, "which is the middle value when the salaries are sorted in ascending order. This suggests that half of the employees earn less than", median_salary, "and half earn more. \n")
+cat("3. The mode salary is", mode_salary_value, "which is the most frequently occurring salary in the dataset. The mode being less than both the mean and median shows the right-skewness of the distribution. \n")
 cat("4. The frequency distribution bar plot shows the distribution of salaries across different ranges. This helps in visualizing how salaries are spread out among the employees.\n")
-cat("Overall, the salary variable can be characterized by its central tendency measures (mean, median, mode) and its distribution as shown in the frequency table and bar plot.\n")
+cat("Overall, the salary variable can be characterized by its central tendency measures (mean, median, mode) and its distribution as shown in the frequency table and bar plot. \n")
 summary(hrdata_df$Salary)
 
 ## 2. Which employee (ID number) has the largest z-score on Salary and what is the z-score for this person? Which employee (ID number) has the smallest z-score on Salary and what is the z-score for this person?
