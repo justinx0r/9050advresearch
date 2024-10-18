@@ -152,7 +152,7 @@ print(paste("The mode monthly salary is:", mode_monthly_salary_value))
 # Interpreation
 ### TO WRITE ###
 
-5. Take the square root of the Salary variable. Compute descriptive statistics for this new variable. Report your results and produce a frequency distribution for the square root scores. Compare this distribution to the ones you produced in Questions 1, 3, & 4. Are they the same or different? Explain using both your graphical results and words.
+# 5. Take the square root of the Salary variable. Compute descriptive statistics for this new variable. Report your results and produce a frequency distribution for the square root scores. Compare this distribution to the ones you produced in Questions 1, 3, & 4. Are they the same or different? Explain using both your graphical results and words.
 
 # Square root of the Salary variable
 sqrt_salary <- sqrt(hrdata_df$Salary)
@@ -289,8 +289,44 @@ hrdata_df %>%
   theme_minimal() +
   scale_fill_manual(values = c("purple", "orange"))
 
-# Intepretation
+# Interpretation
 ### TO WRITE ###
 
+## 9. Square the PerfScoreID variable. Compute descriptive statistics for this new variable. Report your results and produce a frequency distribution for the squared scores. Compare this distribution to the ones you produced in Questions 1 & 3. Are they the same or different? Explain using both your graphical results and words.
+# Square of the PerfScoreID variable
+squared_perfscoreid <- hrdata_df$PerfScoreID^2
 
-# 9. Square the PerfScoreID variable. Compute descriptive statistics for this new variable Report your results and produce a frequency distribution for the 6 & 8. Are they the same or different? Explain using both your graphical results and words.
+# Summary statistics
+summary(squared_perfscoreid)
+
+# Mean
+mean_squared_perfscoreid <- mean(squared_perfscoreid, na.rm = TRUE)
+
+# Median
+median_squared_perfscoreid <- median(squared_perfscoreid, na.rm = TRUE)
+
+# Mode
+mode_squared_perfscoreid <- function(x) {
+  ux <- unique(x)
+  ux[which.max(tabulate(match(x, ux)))]
+}
+mode_squared_perfscoreid_value <- mode_squared_perfscoreid(squared_perfscoreid)
+
+print(paste("Mean squared PerfScoreID:", format(round(mean_squared_perfscoreid, 2), nsmall = 2)))
+print(paste("Median squared PerfScoreID:", median_squared_perfscoreid))
+print(paste("Mode squared PerfScoreID:", mode_squared_perfscoreid_value))
+
+# Frequency table
+squared_perfscoreid_table <- table(squared_perfscoreid)
+print(squared_perfscoreid_table)
+
+# Plot the squared PerfScoreID
+hrdata_df %>%
+  mutate(squared_perfscoreid = PerfScoreID^2) %>%
+  ggplot(aes(x = squared_perfscoreid)) +
+  geom_histogram(fill = "orange", bins = 30) +
+  labs(title = "Squared PerfScoreID Distribution", x = "Squared PerfScoreID", y = "Frequency") +
+  theme_minimal()
+
+# Interpretation
+### TO WRITE ###
