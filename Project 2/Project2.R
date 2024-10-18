@@ -213,16 +213,84 @@ hrdata_df %>%
   labs(title = "PerfScoreID Distribution", x = "PerfScoreID", y = "Frequency") +
   theme_minimal()
 
-
 ### Interpretation
 print(paste("The mean PerfScoreID is", mean_perfscoreid))
 print(paste("The median PerfScoreID is", median_perfscoreid))
 print(paste("The mode PerfScoreID is", mode_perfscoreid_value))
 print(paste("The frequency distribution of salaries is shown in the bar plot above.")
 
+### TO WRITE ###
+
 
 # 7. Which employee (ID number) has the largest z-score on PerfScoreID and what is the z-score for this person? Which employee (ID number) has the smallest z- score on PerfScoreID and what is the z-score for this person?
+# Calculate z-scores for PerfScoreID
+perfscoreid_zscore <- scale(hrdata_df$PerfScoreID, center = TRUE, scale = TRUE)
+print(perfscoreid_zscore)
+
+# Find the index of the employee with the largest z-score
+max_z_score_index <- which.max(perfscoreid_zscore)
+
+# Retrieve the employee's EmpID and the corresponding z-score
+max_z_score_employee <- hrdata_df[max_z_score_index, c("EmpID", "PerfScoreID")]
+
+# Print the result
+print(max_z_score_employee)
+
+# Find the index of the employee with the smallest z-score
+min_z_score_index <- which.min(perfscoreid_zscore)
+
+# Retrieve the employee's EmpID and the corresponding PerfScoreID for the minimum z-score
+min_z_score_employee <- hrdata_df[min_z_score_index, c("EmpID", "PerfScoreID")]
+
+# Print the result
+print(min_z_score_employee)
 
 # 8. Compute descriptive statistics for the standardized PerfScoreID variable. Report your results and produce a frequency distribution for the standardized PerfScoreID scores. Compare this distribution to the one you produced in Question 6. Are they the same or different? Explain using both your graphical results and words.
+# Summary statistics
+summary(perfscoreid_zscore)
+
+# Mean
+mean(perfscoreid_zscore, na.rm = TRUE)
+
+# Median
+median(perfscoreid_zscore, na.rm = TRUE)
+
+# Mode
+mode_perfscoreid_zscore <- function(x) {
+  ux <- unique(x)
+  ux[which.max(tabulate(match(x, ux)))]
+}
+mode_perfscoreid_zscore_value <- mode_perfscoreid_zscore(perfscoreid_zscore)
+mode_perfscoreid_zscore_value
+
+# Frequency table
+perfscoreid_zscore_table <- table(perfscoreid_zscore)
+print(perfscoreid_zscore_table)
+
+# Plot the PerfScoreID zscore 
+hrdata_df %>%
+  mutate(perfscoreid_zscore = scale(PerfScoreID)) %>%
+  ggplot(aes(x = perfscoreid_zscore)) +
+  geom_histogram(fill = "orange", bins = 30) +
+  labs(title = "Standardized PerfScoreID (Z-Score) Distribution", x = "Z-Score", y = "Frequency") +
+  theme_minimal()
+
+# Plot of the PerfScoreID zscore and PerfScoreID
+hrdata_df %>%
+  mutate(perfscoreid_zscore = scale(PerfScoreID)) %>%
+  pivot_longer(cols = c(PerfScoreID, perfscoreid_zscore), 
+               names_to = "Measure", 
+               values_to = "Value") %>%
+  ggplot(aes(x = Value, fill = Measure)) +
+  geom_histogram(bins = 30, alpha = 0.7) +
+  facet_wrap(~ Measure, scales = "free_x") +   # Creates separate plots for PerfScoreID and Z-Score
+  labs(title = "Comparison of PerfScoreID and Standardized PerfScoreID (Z-Score) Distributions",
+       x = "Value", y = "Frequency") +
+  theme_minimal() +
+  scale_fill_manual(values = c("purple", "orange"))
+
+# Intepretation
+### TO WRITE ###
+
 
 # 9. Square the PerfScoreID variable. Compute descriptive statistics for this new variable Report your results and produce a frequency distribution for the 6 & 8. Are they the same or different? Explain using both your graphical results and words.
