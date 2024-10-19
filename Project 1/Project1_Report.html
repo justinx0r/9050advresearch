@@ -550,11 +550,12 @@ engagement score, indicating that the data is normally distributed.</li>
 results, being sure to indicate whether it APPEARS (we don’t know how to
 do the formal test yet) that it would be useful to make predictions ofb
 SALARY conditional on employee sex (M or F)</h1>
-<p>hrdata_sal_mean_men &lt;- mean(hrdata_df<span class="math inline">\(Salary[hrdata_df\)</span>Sex == “M”])
-hrdata_sal_mean_women &lt;- mean(hrdata_df<span class="math inline">\(Salary[hrdata_df\)</span>Sex == “F”])
-print(paste(“Men’s mean salary:”, format(round(hrdata_sal_mean_men,2),
-nsmall = 2))) print(paste(“Women’s mean salary:”,
-format(round(hrdata_sal_mean_women, 2), nsmall = 2)))</p>
+<pre class="r"><code>hrdata_sal_mean_men &lt;- mean(hrdata_df$Salary[hrdata_df$Sex == &quot;M&quot;])
+hrdata_sal_mean_women &lt;- mean(hrdata_df$Salary[hrdata_df$Sex == &quot;F&quot;])
+print(paste(&quot;Men&#39;s mean salary:&quot;, format(round(hrdata_sal_mean_men,2), nsmall = 2)))</code></pre>
+<pre><code>## [1] &quot;Men&#39;s mean salary: 70629.40&quot;</code></pre>
+<pre class="r"><code>print(paste(&quot;Women&#39;s mean salary:&quot;, format(round(hrdata_sal_mean_women, 2), nsmall = 2)))</code></pre>
+<pre><code>## [1] &quot;Women&#39;s mean salary: 67786.73&quot;</code></pre>
 <div id="interpretation" class="section level2">
 <h2>Interpretation</h2>
 <div id="the-mean-salary-for-men-is-70629.40-and-67786.72-for-women.-there-is-a-small-difference-between-the-two-means-it-appears-that-it-could-be-useful-to-make-predictions-of-salary-conditional-on-gender-as-the-difference-may-be-statistically-significant." class="section level3">
