@@ -11,7 +11,7 @@
 
 <meta name="author" content="Justin Williams" />
 
-<meta name="date" content="2024-10-16" />
+<meta name="date" content="2024-10-18" />
 
 <title>Project 1</title>
 
@@ -352,7 +352,7 @@ display: none;
 
 <h1 class="title toc-ignore">Project 1</h1>
 <h4 class="author">Justin Williams</h4>
-<h4 class="date">2024-10-16</h4>
+<h4 class="date">2024-10-18</h4>
 
 </div>
 
@@ -375,8 +375,6 @@ library(tidyverse)</code></pre>
 #load vector
 scores &lt;- c(12, 16, 18, 14, 13, 15, 12, 13, 11, 17, 10, 13, 14)
 
-#load data
-#load dataframe
 #load data
 hrdata_df &lt;- read.csv(&quot;/Users/justinwilliams/Code/9050advresearch/Project 1/HRData_New.csv&quot;)</code></pre>
 <div id="i-give-a-10-item-test-of-clemson-university-trivia-to-13-people.-their-scores-are-as-follows-12-16-18-14-13-15-12-13-11-17-10-13-14" class="section level1">
@@ -502,7 +500,7 @@ median, variance, and standard deviation of two variables (SALARY,
 ENGAGEMENTSURVEY). Report these along with a one sentence interpretation
 of what the values mean to you.</h1>
 <div id="salary-analysis" class="section level2">
-<h2>salary analysis</h2>
+<h2>Salary analysis</h2>
 <pre class="r"><code>hrdata_sal_mean &lt;- mean(hrdata_df$Salary)
 hrdata_sal_median &lt;- median(hrdata_df$Salary)
 hrdata_sal_var &lt;- var(hrdata_df$Salary)
@@ -517,7 +515,7 @@ hrdata_sal_stddev &lt;- sd(hrdata_df$Salary)</code></pre>
 <pre><code>## [1] &quot;Standard deviation of salary: 25156.6369296466&quot;</code></pre>
 </div>
 <div id="engagement-statistical-analysis" class="section level2">
-<h2>engagement statistical analysis</h2>
+<h2>Engagement statistical analysis</h2>
 <pre class="r"><code>hrdata_sal_mean &lt;- mean(hrdata_df$Engagement)
 hrdata_sal_median &lt;- median(hrdata_df$Engagement)
 hrdata_sal_var &lt;- var(hrdata_df$Engagement)
@@ -545,6 +543,26 @@ than higher salaries.</li>
 <li>The median engagement score of 3.5 is the same as the mean
 engagement score, indicating that the data is normally distributed.</li>
 </ul>
+</div>
+</div>
+<div id="compare-the-mean-salary-for-men-and-women.-briefly-describe-these-results-being-sure-to-indicate-whether-it-appears-we-dont-know-how-to-do-the-formal-test-yet-that-it-would-be-useful-to-make-predictions-ofb-salary-conditional-on-employee-sex-m-or-f" class="section level1">
+<h1>4. Compare the mean SALARY for Men and Women. Briefly describe these
+results, being sure to indicate whether it APPEARS (we don’t know how to
+do the formal test yet) that it would be useful to make predictions ofb
+SALARY conditional on employee sex (M or F)</h1>
+<p>hrdata_sal_mean_men &lt;- mean(hrdata_df<span class="math inline">\(Salary[hrdata_df\)</span>Sex == “M”])
+hrdata_sal_mean_women &lt;- mean(hrdata_df<span class="math inline">\(Salary[hrdata_df\)</span>Sex == “F”])
+print(paste(“Men’s mean salary:”, format(round(hrdata_sal_mean_men,2),
+nsmall = 2))) print(paste(“Women’s mean salary:”,
+format(round(hrdata_sal_mean_women, 2), nsmall = 2)))</p>
+<div id="interpretation" class="section level2">
+<h2>Interpretation</h2>
+<div id="the-mean-salary-for-men-is-70629.40-and-67786.72-for-women.-there-is-a-small-difference-between-the-two-means-it-appears-that-it-could-be-useful-to-make-predictions-of-salary-conditional-on-gender-as-the-difference-may-be-statistically-significant." class="section level3">
+<h3>The mean salary for men is $70,629.40 and $67,786.72 for women.
+There is a small difference between the two means, it appears that it
+could be useful to make predictions of salary conditional on gender as
+the difference may be statistically significant.</h3>
+</div>
 </div>
 </div>
 
