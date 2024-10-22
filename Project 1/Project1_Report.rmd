@@ -5,6 +5,13 @@ date: "`r Sys.Date()`"
 output: html_document
 ---
 
+---
+title: "Project 1"
+author: "Justin Williams"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
 Data, packages, etc.
 
 ```{r}
@@ -25,7 +32,7 @@ hrdata_df <- read.csv("/Users/justinwilliams/Code/9050advresearch/Project 1/HRDa
 ## c. Now use the median as your parameter estimate and calculate the same three error terms.
 ## d. Use the mode as your parameter estimate and calculate the same three error terms.
 
-See the attached Excel file titled Project 1_Question.xslx for the questions a, b, c, and d.
+See the attached Excel file titled Project 1_Question1.xslx for the questions a, b, c, and d.
 
 ## e. Look across your answers to (b), (c), and (d) to see for each error term, which estimate gives the lowest error? That is, which of the mean, median, and mode minimizes the sum of squared errors and by how much? Which one minimizes the sum of absolute errors and by how much? And which one minimizes the count of errors and by how much?
 
