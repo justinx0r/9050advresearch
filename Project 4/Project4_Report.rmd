@@ -59,7 +59,7 @@ ggplot(data = cor_melt, aes(Var1, Var2, fill = value)) +
 ```
 
 # 3. Provide a summary of what you see in these results. Explain the nature of the bivariate relations (or lack thereof) in these data. Write this summary like you might see reported in a journal article. 
-* The covariance matrix heatmap shows the degree to which pairs of variables vary together. For example, if Salary and Age have a high positive covariance, it suggests that older employees tend to have higher salaries. Conversely, a negative covariance between Absences and PerfScoreID might indicate that employees with higher performance scores tend to have fewer absences.
+The covariance matrix heatmap shows the degree to which pairs of variables vary together. For example, if Salary and Age have a high positive covariance, it suggests that older employees tend to have higher salaries. Conversely, a negative covariance between Absences and PerfScoreID might indicate that employees with higher performance scores tend to have fewer absences.
 
 The analysis of the covariance and correlation matrices provides valuable insights into the relationships between various employee metrics. The heatmaps generated for these matrices demonstrate a clear and intuitive understanding of these relationships.
 
