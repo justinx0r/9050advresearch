@@ -94,6 +94,4 @@ print(cor_matrix_production)
 print(cor_matrix_non_production)
 ```
 ## Interpretation
-* Based on my interpretaion, higher performance scores are associated with higher salaries and less absences in both subsets. This suggests that employees who perform well tend to earn higher salaries and have fewer absences, regardless of their department.
-* Engagement and job satisfaction are positively correlated in both subsets, indicating that employees who are more engaged tend to be more satisfied with their jobs. 
-* In the non-production subset, there is a stronger negative correlation between age and performance scores compared to the production subset. This suggests that in non-production roles, older employees may have lower performance scores.
+In both subsets, higher performance scores are associated with higher salaries and fewer absences, showing the importance of performance in determining compensation and attendance. Engagement and job satisfaction are closely linked in both subsets, suggesting that efforts to improve employee engagement can have a positive impact on job satisfaction. The stronger correlations observed in the non-production subset for age and salary, as well as for performance and absences, indicate some differences in the dynamics between the two groups.

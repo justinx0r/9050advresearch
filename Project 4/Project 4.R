@@ -57,12 +57,16 @@ non_production_subset <- hrdata_df %>%
 
 
 #Calculate correlation matrices for each subsample
-## Production Department Subset
-cor_matrix_production <- cor(production_subset[, c("PerfScoreID", "Salary", "Age", "EngagementSurvey", "EmpSatisfaction", "Absences")])
 
-##Non-Production Department Subset
-cor_matrix_non_production <- cor(non_production_subset[, c("PerfScoreID", "Salary", "Age", "EngagementSurvey", "EmpSatisfaction", "Absences")])
+#filter data for employees in the Production Department
+production_subset <- hrdata_df %>%
+    filter(grepl("Production", Department))
+print(production_subset)
 
+#fiilter data for employees not in the Production Department
+non_production_subset <- hrdata_df %>%
+    filter(Department != "Production")
+print(non_production_subset)
 
 ##Print the production department correlation matrix
 print("Correlation Matrix for Production:")
@@ -76,21 +80,5 @@ print(cor_matrix_non_production)
 cor_melt_production <- melt(cor_matrix_production)
 cor_melt_non_production <- melt(cor_matrix_non_production)
 
-#Heatmap for production department correlation matrix
-ggplot(data = cor_melt_production, aes(Var1, Var2, fill = value)) +
-    geom_tile() +
-    scale_fill_gradient2(low = "purple", high = "orange", mid = "white", midpoint = 0) +
-    theme_minimal() +
-    labs(title = "Correlation Matrix Heatmap for Production Department", x = "", y = "")
-
-#Heatmap for non-production department correlation matrix
-ggplot(data = cor_melt_non_production, aes(Var1, Var2, fill = value)) +
-    geom_tile() +
-    scale_fill_gradient2(low = "purple", high = "orange", mid = "white", midpoint = 0) +
-    theme_minimal() +
-    labs(title = "Correlation Matrix Heatmap for Non-Production Department", x = "", y = "")
-
 ##Interpretation
-# * Based on my interpretaion, higher performance scores are associated with higher salaries and less absences in both subsets. This suggests that employees who perform well tend to earn higher salaries and have fewer absences, regardless of their department.
-# * Engagement and job satisfaction are positively correlated in both subsets, indicating that employees who are more engaged tend to be more satisfied with their jobs. 
-# * In the non-production subset, there is a stronger negative correlation between age and performance scores compared to the production subset. This suggests that in non-production roles, older employees may have lower performance scores.
+In both subsets, higher performance scores are associated with higher salaries and fewer absences, showing the importance of performance in determining compensation and attendance. Engagement and job satisfaction are closely linked in both subsets, suggesting that efforts to improve employee engagement can have a positive impact on job satisfaction. The stronger correlations observed in the non-production subset for age and salary, as well as for performance and absences, indicate some differences in the dynamics between the two groups.
