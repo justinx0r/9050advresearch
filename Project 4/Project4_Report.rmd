@@ -2,11 +2,11 @@
 title: "Project 4"
 author: "Justin Williams"
 date: "`r Sys.Date()`"
-output: pdf_document
+output: html_document
 ---
 
 ---
-title: "Project 2"
+title: "Project 4"
 author: "Justin Williams"
 date: "`r Sys.Date()`"
 output: html_document
@@ -57,8 +57,43 @@ ggplot(data = cor_melt, aes(Var1, Var2, fill = value)) +
     theme_minimal() +
     labs(title = "Correlation Matrix Heatmap", x = "", y = "")
 ```
+
 # 3. Provide a summary of what you see in these results. Explain the nature of the bivariate relations (or lack thereof) in these data. Write this summary like you might see reported in a journal article. 
- 
+* The covariance matrix heatmap shows the degree to which pairs of variables vary together. For example, if Salary and Age have a high positive covariance, it suggests that older employees tend to have higher salaries. Conversely, a negative covariance between Absences and PerfScoreID might indicate that employees with higher performance scores tend to have fewer absences.
+
+The analysis of the covariance and correlation matrices provides valuable insights into the relationships between various employee metrics. The heatmaps generated for these matrices demonstrate a clear and intuitive understanding of these relationships.
+
+The covariance matrix heatmap shows the degree to which pairs of variables vary together. For example, a high positive covariance between Salary and Age suggests that older employees tend to have higher salaries. This relationship shows that salary increases with age, possibly reflecting experience and seniority within an organization. Conversely, a negative covariance between Absences and PerfScoreID might indicate that employees with higher performance scores tend to have fewer absences. This negative relationship suggests that more engaged and higher-performing employees are less likely to be absent from work.
+
+The correlation matrix heatmap highlights the strength and direction of linear relationships between pairs of variables. For example, a strong positive correlation between EngagementSurvey and EmpSatisfaction suggests that employees who score higher on engagement surveys also tend to have higher job satisfaction. This positive relationship indicates that engagement and satisfaction are closely linked, with more engaged employees feeling more satisfied with their jobs. A strong negative correlation between Absences and PerfScoreID would indicate that higher performance scores are associated with fewer absences, reinforcing the idea that high-performing employees are more consistently present at work.
+
 ## Create a subset of the data in which you only include employees who are from the Production Department. Also, create a subset of everyone NOT in Production.  
- 
-# 4. Run correlations separately for each of these two subsamples. Report the results for each and provide an interpretation of what you see as you did in Questions 2 and 3. Are the correlations the same across the subsamples and/or from the entire sample? I’m not asking for a test of statistical significance, but your own interpretation based on the values you compute. 
+```{r}
+# Filter data for employees in the Production Department
+production_subset <- hrdata_df %>%
+    filter(grepl("Production", Department))
+print(production_subset)
+# Filter data for employees not in the Production Department
+non_production_subset <- hrdata_df %>%
+    filter(Department != "Production")
+print(non_production_subset)
+```
+# 4. Run correlations separately for each of these two subsamples. Report the results for each and provide an interpretation of what you see as you did in Questions 2 and 3. Are the correlations the same across the subsamples and/or from the entire sample? I’m not asking for a test of statistical significance, but your own interpretation based on the values you compute.
+```{r}
+#Calculate correlation matrices for each subsample
+## Production Department Subset
+cor_matrix_production <- cor(production_subset[, c("PerfScoreID", "Salary", "Age", "EngagementSurvey", "EmpSatisfaction", "Absences")])
+
+##Non-Production Department Subset
+cor_matrix_non_production <- cor(non_production_subset[, c("PerfScoreID", "Salary", "Age", "EngagementSurvey", "EmpSatisfaction", "Absences")])
+
+##Print the production department correlation matrix
+print(cor_matrix_production)
+
+##Print the non-production department correlation matrix
+print(cor_matrix_non_production)
+```
+## Interpretation
+* Based on my interpretaion, higher performance scores are associated with higher salaries and less absences in both subsets. This suggests that employees who perform well tend to earn higher salaries and have fewer absences, regardless of their department.
+* Engagement and job satisfaction are positively correlated in both subsets, indicating that employees who are more engaged tend to be more satisfied with their jobs. 
+* In the non-production subset, there is a stronger negative correlation between age and performance scores compared to the production subset. This suggests that in non-production roles, older employees may have lower performance scores.

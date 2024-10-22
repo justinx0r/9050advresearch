@@ -39,48 +39,58 @@ ggplot(data = cor_melt, aes(Var1, Var2, fill = value)) +
     labs(title = "Correlation Matrix Heatmap", x = "", y = "")
 
 # 3. Provide a summary of what you see in these results. Explain the nature of the bivariate relations (or lack thereof) in these data. Write this summary like you  might see reported in a journal article
+##The analysis of the covariance and correlation matrices provides valuable insights into the relationships between various employee metrics. The heatmaps generated for these matrices demonstrate a clear and intuitive understanding of these relationships.
+
+##The covariance matrix heatmap shows the degree to which pairs of variables vary together. For example, a high positive covariance between Salary and Age suggests that older employees tend to have higher salaries. This relationship shows that salary increases with age, possibly reflecting experience and seniority within an organization. Conversely, a negative covariance between Absences and PerfScoreID might indicate that employees with higher performance scores tend to have fewer absences. This negative relationship suggests that more engaged and higher-performing employees are less likely to be absent from work.
+
+##The correlation matrix heatmap highlights the strength and direction of linear relationships between pairs of variables. For example, a strong positive correlation between EngagementSurvey and EmpSatisfaction suggests that employees who score higher on engagement surveys also tend to have higher job satisfaction. This positive relationship indicates that engagement and satisfaction are closely linked, with more engaged employees feeling more satisfied with their jobs. A strong negative correlation between Absences and PerfScoreID would indicate that higher performance scores are associated with fewer absences, reinforcing the idea that high-performing employees are more consistently present at work.
+
+#Create a subset of the data in which you only include employees who are from the Production Department. Also, create a subset of everyone NOT in Production.
+# Filter data for employees in the Production Department
+production_subset <- hrdata_df %>%
+  filter(Department == "Production")
+# Filter data for employees not in the Production Department
+non_production_subset <- hrdata_df %>%
+    filter(Department != "Production")
 
 # 4. Run correlations separately for each of these two subsamples. Report the results for each and provide an interpretation of what you see as you did in Questions 2 and 3. Are the correlations the same across the subsamples and/or from the entire sample? I’m not asking for a test of statistical significance, but your own  interpretation based on the values you compute.
 
-# Select columns
-selected_columns <- hrdata_df %>%
-  select(GenderID, PerfScoreID, Salary, Age, EngagementSurvey, EmpSatisfaction, Absences
 
-# Filter data for male employees - GenderID == 0 for males
+#Calculate correlation matrices for each subsample
+## Production Department Subset
+cor_matrix_production <- cor(production_subset[, c("PerfScoreID", "Salary", "Age", "EngagementSurvey", "EmpSatisfaction", "Absences")])
+
+##Non-Production Department Subset
+cor_matrix_non_production <- cor(non_production_subset[, c("PerfScoreID", "Salary", "Age", "EngagementSurvey", "EmpSatisfaction", "Absences")])
 
 
-# Calculate correlation matrices for each subsample
+##Print the production department correlation matrix
+print("Correlation Matrix for Production:")
+print(cor_matrix_production)
 
+##Print the non-production department correlation matrix
+Print("Correlation Matrix for non-Production:")
+print(cor_matrix_non_production)
 
-# Print correlation matrices
-print("Correlation Matrix for Males:")
-print(cor_matrix_male)
+#Convert correlation matrices to long format for ggplot
+cor_melt_production <- melt(cor_matrix_production)
+cor_melt_non_production <- melt(cor_matrix_non_production)
 
-print("Correlation Matrix for Females:")
-print(cor_matrix_female)
-
-# Convert matrices to long format for ggplot
-cor_melt_male <- melt(cor_matrix_male)
-cor_melt_female <- melt(cor_matrix_female)
-
-# Heatmap for male correlation matrix
-ggplot(data = cor_melt_male, aes(Var1, Var2, fill = value)) +
+#Heatmap for production department correlation matrix
+ggplot(data = cor_melt_production, aes(Var1, Var2, fill = value)) +
     geom_tile() +
     scale_fill_gradient2(low = "purple", high = "orange", mid = "white", midpoint = 0) +
     theme_minimal() +
-    labs(title = "Correlation Matrix Heatmap for Males", x = "", y = "")
+    labs(title = "Correlation Matrix Heatmap for Production Department", x = "", y = "")
 
-# Heatmap for female correlation matrix
-ggplot(data = cor_melt_female, aes(Var1, Var2, fill = value)) +
+#Heatmap for non-production department correlation matrix
+ggplot(data = cor_melt_non_production, aes(Var1, Var2, fill = value)) +
     geom_tile() +
     scale_fill_gradient2(low = "purple", high = "orange", mid = "white", midpoint = 0) +
     theme_minimal() +
-    labs(title = "Correlation Matrix Heatmap for Females", x = "", y = "")
+    labs(title = "Correlation Matrix Heatmap for Non-Production Department", x = "", y = "")
 
-# Interpretation of results ****TO EXPAND ON*****
-# Based on the correlation matrices and heatmaps for both males and females, we can observe the following:
-# The strength and direction of correlations between variables may differ between males and females.
-# For example, the correlation between Salary and Age might be stronger in one gender compared to the other.
-# Similarly, the relationship between EngagementSurvey and EmpSatisfaction could vary across genders.
-# These differences suggest that gender may play a role in how these variables are related to each other.
-# Overall, the correlations in the subsamples provide a more nuanced understanding of the data compared to the entire sample.
+##Interpretation
+# * Based on my interpretaion, higher performance scores are associated with higher salaries and less absences in both subsets. This suggests that employees who perform well tend to earn higher salaries and have fewer absences, regardless of their department.
+# * Engagement and job satisfaction are positively correlated in both subsets, indicating that employees who are more engaged tend to be more satisfied with their jobs. 
+# * In the non-production subset, there is a stronger negative correlation between age and performance scores compared to the production subset. This suggests that in non-production roles, older employees may have lower performance scores.

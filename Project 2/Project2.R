@@ -124,9 +124,19 @@ print(paste("Mean monthly salary:", format(round(mean_monthlysalary, 2), nsmall 
 print(paste("The median monthly salary is:", median_Monthly_Salary))
 print(paste("The mode monthly salary is:", mode_monthly_salary_value))
 
+# Frequency table
+monthly_salary_table <- table(hrdata_df$Monthly_Salary)
+print(monthly_salary_table)
+
+# Plot the monthly salary distribution
+hrdata_df %>%
+  ggplot(aes(x = Monthly_Salary)) +
+  geom_histogram(fill = "orange", bins = 30) +
+  labs(title = "Monthly Salary Distribution", x = "Monthly Salary", y = "Frequency") +
+  theme_minimal()
+
 # Interpreation
-## * The monthly salary distribution retains the same overall shape as the original salary (which was reported annually in Question 1). However, the monthly salary is simply scaled down by a factor of 12, so all statistics (mean, median, quartiles) reflect this transformation.
-## *The median monthly salary of $5,234 is just one-twelfth of the median annual salary of $62,810.
+## *The monthly salary distribution retains the same overall shape as the original salary (which was reported annually in Question 1). However, the monthly salary is simply scaled down by a factor of 12, so all statistics (mean, median, quartiles) reflect this transformation.
 ## *The overall distribution remains positively skewed, as was the case with the original salary distribution in Question 1.
 
 # 5. Take the square root of the Salary variable. Compute descriptive statistics for this new variable. Report your results and produce a frequency distribution for the square root scores. Compare this distribution to the ones you produced in Questions 1, 3, & 4. Are they the same or different? Explain using both your graphical results and words.
@@ -198,7 +208,7 @@ print(paste("The mode PerfScoreID is", mode_perfscoreid_value))
 print(paste("The frequency distribution of salaries is shown in the bar plot above.")
 
 # * The PerfScoreID distribution is strongly right-skewed. Most employees (243 out of 311) received a score of 3, indicating that 3 is the most common (modal) performance score.
-# *The mean is very close to the median (both near 3), further highlighting that the majority of employees are clustered around a performance score of 3.
+# * The mean is very close to the median (both near 3), further highlighting that the majority of employees are clustered around a performance score of 3.
 
 
 # 7. Which employee (ID number) has the largest z-score on PerfScoreID and what is the z-score for this person? Which employee (ID number) has the smallest z- score on PerfScoreID and what is the z-score for this person?
@@ -232,7 +242,7 @@ print(min_z_score_employee)
 
 # Interpretation
 # * The employee with the highest performance score (4) has a z-score of 1.7417, indicating that this employee's score is significantly above the mean (by about 1.74 standard deviations).
-# *The employee with the lowest performance score (1) has a z-score of -3.3684, indicating that their score is far below the mean.
+# * The employee with the lowest performance score (1) has a z-score of -3.3684, indicating that their score is far below the mean.
 
 # 8. Compute descriptive statistics for the standardized PerfScoreID variable. Report your results and produce a frequency distribution for the standardized PerfScoreID scores. Compare this distribution to the one you produced in Question 6. Are they the same or different? Explain using both your graphical results and words.
 # Calculate the z-scores for the PerfScoreID column
