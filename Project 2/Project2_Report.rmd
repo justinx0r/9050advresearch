@@ -129,7 +129,7 @@ print(paste("The median monthly salary is:", median_Monthly_Salary))
 print(paste("The mode monthly salary is:", mode_monthly_salary_value))
 ```
 
-# Interpreation
+# Interpretation
 * The monthly salary distribution retains the same overall shape as the original salary reported in Question 1 (right-skewed) but the scale is adjusted to z-scores.
 * In the original distribution, the mean salary was around $69,020.68 with a standard deviation of $25,156.64. After standardization, the distribution is centered around 0.
 
