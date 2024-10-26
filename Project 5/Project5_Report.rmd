@@ -26,3 +26,32 @@ hrdata_df <- read.csv("/Users/justinwilliams/Code/9050advresearch/Project 5/HRDa
 scatterplot <- plot(hrdata_df$PerfScoreID, hrdata_df$Empsatisfaction, main="Performance Score vs Employee Satisfaction", xlab="Performance Score", ylab="Employee Satisfaction", pch=19)
 print (scatterplot)
 ```
+
+```{r}
+#fit the linear regression model
+model <- lm(EmpSatisfaction ~ PerfScoreID, data = hrdata_df)
+
+#model summary
+model_summary <- summary(model)
+
+#model results data frame
+results_df <- data.frame(
+Variance = model_summary$sigma^2,
+Beta = coef(model_summary)[, "Estimate"],
+Std_Error = coef(model_summary)[, "Std. Error"],
+R = sqrt(model_summary$r.squared),
+R_Squared = model_summary$r.squared,
+P_value = coef(model_summary)[, "Pr(>|t|)"],
+F = model_summary$fstatistic[1],
+Degrees_of_Freedom = model_summary$fstatistic[2],
+Degrees_of_Freedom_Residual = model_summary$fstatistic[3]
+)
+```
+
+```{r}
+print("Results Data Frame:")
+kable(results_df, format = "html") %>%
+    kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive")) %>%
+    row_spec(0, bold = TRUE, color = "white", background = "orange") %>%
+    column_spec(1, bold = TRUE, color = "black")
+```

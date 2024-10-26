@@ -10,6 +10,7 @@ library(tidyverse)
 library(dplyr)
 library(reshape2)
 library(ggplot2)
+library(kableExtra)
 
 #load dataframe
 hrdata_df <- read.csv("/Users/justinwilliams/Code/9050advresearch/Project 5/HRData.csv")
@@ -28,7 +29,7 @@ print(mode_perfscoreid_value)
 sd(hrdata_df$PerfScoreID)
 sd(hrdata_df$EmpSatisfaction)
 
-#mean centering
+#mean centering - needed?
 
 #ggplot scatterplot
 ggplot(hrdata_df, aes(x=PerfScoreID, y=EmpSatisfaction)) + 
@@ -55,7 +56,7 @@ ggplot(hrdata_df, aes(x=PerfScoreID, y=EmpSatisfaction)) +
           plot.title = element_text(size=35))
 
 #fit the linear regression model
-model <- lm(EmpSatisfaction ~ PerfScoreID, data = hrdata_df)
+model <- lm(PerfScoreID ~ EmpSatisfaction, data = hrdata_df)
 
 #model summary
 model_summary <- summary(model)
@@ -68,12 +69,19 @@ Std_Error = coef(model_summary)[, "Std. Error"],
 R = sqrt(model_summary$r.squared),
 R_Squared = model_summary$r.squared,
 P_value = coef(model_summary)[, "Pr(>|t|)"],
-F = model_summary$fstatistic[1]
+F = model_summary$fstatistic[1],
+Degrees_of_Freedom = model_summary$fstatistic[2],
+Degrees_of_Freedom_Residual = model_summary$fstatistic[3]
 )
 
-#print results
-print("Results Data Frame:")
 print(results_df)
+
+#print results in a table
+print("Results Data Frame:")
+kable(results_df, format = "html") %>%
+    kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive")) %>%
+    row_spec(0, bold = TRUE, color = "white", background = "orange") %>%
+    column_spec(1, bold = TRUE, color = "black")
 
 #model fit measures
 #moel comparisons
