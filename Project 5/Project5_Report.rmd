@@ -1,0 +1,28 @@
+---
+title: "Project 5"
+author: "Justin Williams"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+---
+title: "Project 5"
+author: "Justin Williams"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r}
+#import libraries and data
+library(tidyverse)
+library(dplyr)
+library(reshape2)
+library(ggplot2)
+hrdata_df <- read.csv("/Users/justinwilliams/Code/9050advresearch/Project 5/HRData.csv")
+```
+
+# Pre-project Initial Analysis
+```{r}
+scatterplot <- plot(hrdata_df$PerfScoreID, hrdata_df$Empsatisfaction, main="Performance Score vs Employee Satisfaction", xlab="Performance Score", ylab="Employee Satisfaction", pch=19)
+print (scatterplot)
+```
