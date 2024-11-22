@@ -18,40 +18,65 @@ library(tidyverse)
 library(dplyr)
 library(reshape2)
 library(ggplot2)
+library(kableExtra)
 hrdata_df <- read.csv("/Users/justinwilliams/Code/9050advresearch/Project 5/HRData.csv")
 ```
 
-# Pre-project Initial Analysis
+# 1. Run a simple regression analysis in which you predict PerfScoreID from EmpSatisfaction. Provide a summary of this analysis like what you would find in a journal article. Be sure to provide a table of results, a plot of the regression line, AND a written summary of the results in your response.
 ```{r}
-scatterplot <- plot(hrdata_df$PerfScoreID, hrdata_df$Empsatisfaction, main="Performance Score vs Employee Satisfaction", xlab="Performance Score", ylab="Employee Satisfaction", pch=19)
-print (scatterplot)
+# Simple regression analysis
+simple_model <- lm(PerfScoreID ~ EmpSatisfaction, data = hrdata_df)
+
+# Model summary
+simple_model_summary <- summary(simple_model)
 ```
-
 ```{r}
-#fit the linear regression model
-model <- lm(EmpSatisfaction ~ PerfScoreID, data = hrdata_df)
-
-#model summary
-model_summary <- summary(model)
-
-#model results data frame
-results_df <- data.frame(
-Variance = model_summary$sigma^2,
-Beta = coef(model_summary)[, "Estimate"],
-Std_Error = coef(model_summary)[, "Std. Error"],
-R = sqrt(model_summary$r.squared),
-R_Squared = model_summary$r.squared,
-P_value = coef(model_summary)[, "Pr(>|t|)"],
-F = model_summary$fstatistic[1],
-Degrees_of_Freedom = model_summary$fstatistic[2],
-Degrees_of_Freedom_Residual = model_summary$fstatistic[3]
+# Model results data frame
+simple_results_df <- data.frame(
+  Predictor = rownames(coef(simple_model_summary)),
+  Estimate = coef(simple_model_summary)[, "Estimate"],
+  Std_Error = coef(simple_model_summary)[, "Std. Error"],
+  t_value = coef(simple_model_summary)[, "t value"],
+  P_value = coef(simple_model_summary)[, "Pr(>|t|)"]
 )
+
+print(simple_results_df)
+```
+```{r}
+#print results in a table
+print("Simple Regression Results Data Frame:")
+kable(simple_results_df, format = "html") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive")) %>%
+  row_spec(0, bold = TRUE, color = "white", background = "orange") %>%
+  column_spec(1, bold = TRUE, color = "purple")
+```
+```{r}
+# Plot of the regression line
+ggplot(hrdata_df, aes(x = EmpSatisfaction, y = PerfScoreID)) +
+  geom_point() +
+  geom_smooth(method = "lm", col = "blue") +
+  labs(title = "Regression of PerfScoreID on EmpSatisfaction",
+       x = "EmpSatisfaction",
+       y = "PerfScoreID")
 ```
 
-```{r}
-print("Results Data Frame:")
-kable(results_df, format = "html") %>%
-    kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive")) %>%
-    row_spec(0, bold = TRUE, color = "white", background = "orange") %>%
-    column_spec(1, bold = TRUE, color = "black")
-```
+## Summary
+The regression analysis demonstrates that EmpSatisfaction significantly predicts PerfScoreID. The slope shows that for every one-unit increase in EmpSatisfaction, PerfScoreID increases by 0.196. The intercept suggests that when EmpSatisfaction is 0, the predicted PerfScoreID is 2.215. 9.22% of the variability in PerfScoreID is accounted for by EmpSatisfaction.
+
+## a. Is the regression weight statistically significant?
+Yes, p < 0.001.
+
+## b. What is the regression equation?
+PerfScoreID = 2.215 + 0.196 * EmpSatisfaction
+
+## c. Provide an interpretation of the slope in terms of the variables involved.
+For every one-unit increase in EmpSatisfaction, PerfScoreID increases by 0.196.
+
+## d. Interpret the y-intercept.
+When EmpSatisfaction is 0, the predicted PerfScoreID is 2.215.
+
+## e. What is the predicted PerfScoreID for someone with an average level of EmpSatisfaction?
+The predicted PerfScoreID would be calculated as Y = 2.215 + 0.196 * the mean EmpSatisfaction.
+
+## f. What percentage of variance in PerfScoreID is explained by EmpSatisfaction?
+EmpSatisfaction explains 9.22% of the variance in PerfScoreID.
