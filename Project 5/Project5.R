@@ -15,74 +15,51 @@ library(kableExtra)
 #load dataframe
 hrdata_df <- read.csv("/Users/justinwilliams/Code/9050advresearch/Project 5/HRData.csv")
 
-###initial analysis
+# Question 1
+# Simple regression analysis
+simple_model <- lm(PerfScoreID ~ EmpSatisfaction, data = hrdata_df)
 
-#summary statistics
-summary(hrdata_df$PerfScoreID)
-summary(hrdata_df$EmpSatisfaction)
-mode_perfscoreid <- function(x) {
-  ux <- unique(x)
-  ux[which.max(tabulate(match(x, ux)))]
-}
-mode_perfscoreid_value <- mode_perfscoreid(hrdata_df$PerfScoreID)
-print(mode_perfscoreid_value)
-sd(hrdata_df$PerfScoreID)
-sd(hrdata_df$EmpSatisfaction)
+# Model summary
+simple_model_summary <- summary(simple_model)
 
-#mean centering - needed?
-
-#ggplot scatterplot
-ggplot(hrdata_df, aes(x=PerfScoreID, y=EmpSatisfaction)) + 
-    geom_point(color="orange", size=8) + 
-    labs(title="Performance Score vs Employee Satisfaction", x="Performance Score", y="Employee Satisfaction") + 
-    theme(panel.background = element_rect(fill = "white"),
-          axis.title.x = element_text(size=30),
-          axis.title.y = element_text(size=30),
-          axis.text.y = element_text(size=30),
-          axis.text.x = element_text(size=30),
-          plot.title = element_text(size=35))
-
-#adding regression and line
-geom_smooth(method = "lm", se = FALSE, fullrange=FALSE, level=0.95, color="purple")
-ggplot(hrdata_df, aes(x=PerfScoreID, y=EmpSatisfaction)) + 
-    geom_point() + 
-    geom_smooth(method = "lm", se = FALSE, fullrange=FALSE, level=0.95) + 
-    labs(title="Performance Score vs. Employee Satisfaction", x="Performance Score ID", y="Employee Satisfaction") + 
-    theme(panel.background = element_rect(fill = "white"),
-          axis.title.x = element_text(size=30),
-          axis.title.y = element_text(size=30),
-          axis.text.y = element_text(size=30),
-          axis.text.x = element_text(size=30),
-          plot.title = element_text(size=35))
-
-#fit the linear regression model
-model <- lm(PerfScoreID ~ EmpSatisfaction, data = hrdata_df)
-
-#model summary
-model_summary <- summary(model)
-
-#model results data frame
-results_df <- data.frame(
-Variance = model_summary$sigma^2,
-Beta = coef(model_summary)[, "Estimate"],
-Std_Error = coef(model_summary)[, "Std. Error"],
-R = sqrt(model_summary$r.squared),
-R_Squared = model_summary$r.squared,
-P_value = coef(model_summary)[, "Pr(>|t|)"],
-F = model_summary$fstatistic[1],
-Degrees_of_Freedom = model_summary$fstatistic[2],
-Degrees_of_Freedom_Residual = model_summary$fstatistic[3]
+# Model results data frame
+simple_results_df <- data.frame(
+  Predictor = rownames(coef(simple_model_summary)),
+  Estimate = coef(simple_model_summary)[, "Estimate"],
+  Std_Error = coef(simple_model_summary)[, "Std. Error"],
+  t_value = coef(simple_model_summary)[, "t value"],
+  P_value = coef(simple_model_summary)[, "Pr(>|t|)"]
 )
 
-print(results_df)
+print(simple_results_df)
 
 #print results in a table
-print("Results Data Frame:")
-kable(results_df, format = "html") %>%
-    kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive")) %>%
-    row_spec(0, bold = TRUE, color = "white", background = "orange") %>%
-    column_spec(1, bold = TRUE, color = "black")
+print("Simple Regression Results Data Frame:")
+kable(simple_results_df, format = "html") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive")) %>%
+  row_spec(0, bold = TRUE, color = "white", background = "orange") %>%
+  column_spec(1, bold = TRUE, color = "black")
 
-#model fit measures
-#moel comparisons
-#model specific results
+# Plot of the regression line
+ggplot(hrdata_df, aes(x = EmpSatisfaction, y = PerfScoreID)) +
+  geom_point() +
+  geom_smooth(method = "lm", col = "blue") +
+  labs(title = "Regression of PerfScoreID on EmpSatisfaction",
+       x = "EmpSatisfaction",
+       y = "PerfScoreID")
+
+# Summary
+cat("The simple regression analysis was conducted to predict PerfScoreID from EmpSatisfaction. The model summary is as follows:\n")
+cat("The regression equation is: PerfScoreID = ", coef(simple_model_summary)[1, "Estimate"], " + ", coef(simple_model_summary)[2, "Estimate"], "*EmpSatisfaction\n")
+cat("The model explains ", round(simple_model_summary$r.squared * 100, 2), "% of the variance in PerfScoreID.\n")
+cat("Significance of regression weight:\n")
+cat("EmpSatisfaction: Estimate = ", simple_results_df$Estimate[2], ", Std. Error = ", simple_results_df$Std_Error[2], ", t-value = ", simple_results_df$t_value[2], ", p-value = ", simple_results_df$P_value[2], "\n")
+
+# Answering the questions
+cat("\nAnswers to the questions:\n")
+cat("a. Is the regression weight statistically significant? ", ifelse(simple_results_df$P_value[2] < 0.05, "Yes", "No"), "\n")
+cat("b. What is the regression equation? PerfScoreID = ", coef(simple_model_summary)[1, "Estimate"], " + ", coef(simple_model_summary)[2, "Estimate"], "*EmpSatisfaction\n")
+cat("c. Interpretation of the slope: For each one-unit increase in EmpSatisfaction, PerfScoreID is expected to increase by ", coef(simple_model_summary)[2, "Estimate"], " units.\n")
+cat("d. Interpretation of the y-intercept: When EmpSatisfaction is zero, the predicted PerfScoreID is ", coef(simple_model_summary)[1, "Estimate"], ".\n")
+cat("e. Predicted PerfScoreID for someone with an average level of EmpSatisfaction: ", predict(simple_model, newdata = data.frame(EmpSatisfaction = mean(hrdata_df$EmpSatisfaction))), "\n")
+cat("f. Percentage of variance in PerfScoreID explained by EmpSatisfaction: ", round(simple_model_summary$r.squared * 100, 2), "%\n")
