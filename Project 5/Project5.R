@@ -38,7 +38,7 @@ print("Simple Regression Results Data Frame:")
 kable(simple_results_df, format = "html") %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive")) %>%
   row_spec(0, bold = TRUE, color = "white", background = "orange") %>%
-  column_spec(1, bold = TRUE, color = "purple")")
+  column_spec(1, bold = TRUE, color = "purple")
 
 # Plot of the regression line
 ggplot(hrdata_df, aes(x = EmpSatisfaction, y = PerfScoreID)) +
