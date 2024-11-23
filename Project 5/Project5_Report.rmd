@@ -80,3 +80,131 @@ The predicted PerfScoreID would be calculated as Y = 2.215 + 0.196 * the mean Em
 
 ## f. What percentage of variance in PerfScoreID is explained by EmpSatisfaction?
 EmpSatisfaction explains 9.22% of the variance in PerfScoreID.
+
+# 2. Run a simple regression analysis in which you predict Absences from EngagementSurvey. Provide a summary of this analysis like what you would find in a journal article. Be sure to provide a table of results, a plot of the regression line, AND a written summary of the results in your response.
+```{r}
+absences_model <- lm(Absences ~ EngagementSurvey, data = hrdata_df)
+
+# Model summary
+absences_model_summary <- summary(absences_model)
+
+# Model results data frame
+absences_results_df <- data.frame(
+  Predictor = rownames(coef(absences_model_summary)),
+  Estimate = coef(absences_model_summary)[, "Estimate"],
+  Std_Error = coef(absences_model_summary)[, "Std. Error"],
+  t_value = coef(absences_model_summary)[, "t value"],
+  P_value = coef(absences_model_summary)[, "Pr(>|t|)"]
+)
+
+print(absences_results_df)
+
+#print results in a table
+print("Absences Regression Results Data Frame:")
+kable(absences_results_df, format = "html") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive")) %>%
+  row_spec(0, bold = TRUE, color = "white", background = "orange") %>%
+  column_spec(1, bold = TRUE, color = "purple")
+```
+```{r}
+# Plot of the regression line
+ggplot(hrdata_df, aes(x = EngagementSurvey, y = Absences)) +
+  geom_point() +
+  geom_smooth(method = "lm", col = "blue") +
+  labs(title = "Regression of Absences on EngagementSurvey",
+       x = "EngagementSurvey",
+       y = "Absences")
+```
+
+## Summary
+The regression analysis aimed to predict Absences based on EngagementSurvey scores. Results indicated that the regression weight for EngagementSurvey was not statistically significant. This suggests that EngagementSurvey scores do not significantly predict Absences.
+
+The model explained only 0.01% of the variance in Absences (R²=0.0001), indicating that the predictive utility of EngagementSurvey is negligible. The y-intercept represents the predicted Absenceswhen EngagementSurvey is zero, a scenario unlikely in real life.
+
+## a. Is the regression weight statistically significant?
+No, p = 0.878.
+
+## b. What is the regression equation?
+Absences = 10.50502 - 0.06498 * EngagementSurvey
+
+## c. Provide an interpretation of the slope
+For every one-unit increase in EngagementSurvey, the predicted Absences decrease by 0.065 units. This change is not statistically significant.
+
+## d.Interpret the y-intercept
+When EngagementSurvey is zero, the predicted number of Absences is 10.505. This value may not be meaningful if EngagementSurvey cannot logically reach zero.
+
+## e. Predicted Absences for someone with an average EngagementSurvey
+For an average EngagementSurvey score, the predicted number of Absences is 10.237.
+
+## f. Percentage of variance explained by EngagementSurvey
+0.01% of the variance in Absences is explained by EngagementSurvey, showing no meaningful explanatory power.
+
+
+
+# 3. Run a simple regression analysis in which you predict PerfScoreID from Department. Provide a summary of this analysis like what you would find in a journal article. Be sure to provide a table of results, a plot of the regression line, AND a written summary of the results in your response.
+```{r}
+# Simple regression analysis predicting PerfScoreID from Department
+department_model <- lm(PerfScoreID ~ Department, data = hrdata_df)
+
+# Model summary
+department_model_summary <- summary(department_model)
+
+# Model results data frame
+department_results_df <- data.frame(
+  Predictor = rownames(coef(department_model_summary)),
+  Estimate = coef(department_model_summary)[, "Estimate"],
+  Std_Error = coef(department_model_summary)[, "Std. Error"],
+  t_value = coef(department_model_summary)[, "t value"],
+  P_value = coef(department_model_summary)[, "Pr(>|t|)"]
+)
+
+print(department_results_df)
+```
+```{r}
+#print results in a table
+print("Department Regression Results Data Frame:")
+kable(department_results_df, format = "html") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive")) %>%
+  row_spec(0, bold = TRUE, color = "white", background = "orange") %>%
+  column_spec(1, bold = TRUE, color = "purple")
+```
+```{r}
+# Plot of the regression line
+ggplot(hrdata_df, aes(x = Department, y = PerfScoreID)) +
+  geom_point() +
+  geom_smooth(method = "lm", col = "purple") +
+  labs(title = "Regression of PerfScoreID on Department",
+       x = "Department",
+       y = "PerfScoreID")
+```
+
+## Summary
+The plot shows PerfScoreID by Department with a regression line. This shows minimal variation across departments, consistent with the low R² value.
+
+The overall model was not statistically significant as the R² was .0102, explaining only 1.02% of the variance in PerfScoreID. None of the departmental coefficients were statistically significant as their p values were greater than .05.
+
+The regression sum of squares was small compared to the total sum of squares, indicating poor model fit.
+
+The extremely low coefficients and non-significant p-values shows a lack of relationship between predictors and the outcome variable, reinforcing the need for more meaningful predictors to improve R².
+
+## a. Is the regression weight statistically significant?
+The regression weights for all departments were not statistically significant.
+
+## b. What is the regression equation?
+PerfScoreID = 3.00 + (-5.035592e - 16 ⋅ Department)
+
+## c. Provide an interpreatation of the slope in terms of the variables involved.
+For each unit increase in the department coding, PerfScoreID is predicted to change by -5.035592e-16 units. This value indicates no meaningful relationship.
+
+## d. Interpret the y-intercept.
+When department coding is zero, the predicted PerfScoreID is 3.00. This value is not meaningful as department coding cannot be zero.
+
+## e. What is the predicted PerfScoreID for someone from each of the Departments?
+* Executive Office: 3.00
+* IT/IS: 3.06
+* Production: 2.97
+* Sales: 2.84
+* Software Engineering: 3.09
+
+## f. What percentage of variance in PerfScoreID is explained by Department?
+Department explains only 1.02% of the variance in PerfScoreID, showing weak predictive power of department on performance scores.
