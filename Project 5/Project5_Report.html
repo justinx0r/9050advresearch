@@ -609,7 +609,9 @@ library(kableExtra)</code></pre>
 ## The following object is masked from &#39;package:dplyr&#39;:
 ## 
 ##     group_rows</code></pre>
-<pre class="r"><code>hrdata_df &lt;- read.csv(&quot;/Users/justinwilliams/Code/9050advresearch/Project 5/HRData.csv&quot;)</code></pre>
+<pre class="r"><code>library(knitr)
+library(rmarkdown)
+hrdata_df &lt;- read.csv(&quot;/Users/justinwilliams/Code/9050advresearch/Project 5/HRData.csv&quot;)</code></pre>
 <div id="run-a-simple-regression-analysis-in-which-you-predict-perfscoreid-from-empsatisfaction.-provide-a-summary-of-this-analysis-like-what-you-would-find-in-a-journal-article.-be-sure-to-provide-a-table-of-results-a-plot-of-the-regression-line-and-a-written-summary-of-the-results-in-your-response." class="section level1">
 <h1>1. Run a simple regression analysis in which you predict PerfScoreID
 from EmpSatisfaction. Provide a summary of this analysis like what you

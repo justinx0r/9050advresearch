@@ -65,7 +65,7 @@ vif(model)
 
 * The R² = 0.299 and the adjusted R² = 0.2922. This means 29.22% of the variance in PerfScoreID is explained by the predictors.
 
-* The F-statistic = 43.67, p < .001 meaning that the overall model is significant.
+* The F-statistic = 43.67, p < .001 means that the overall model is significant.
 
 * In terms of homoscedasticity, the residuals appear to have constant variance based on residual plots.
 

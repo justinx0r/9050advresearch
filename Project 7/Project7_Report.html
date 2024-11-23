@@ -782,8 +782,8 @@ EngagementSurvey and PerfScoreID differs significantly by Sex.</p></li>
 at p &lt; .001, indicating a positive relationship.</p></li>
 <li><p>The R² = 0.299 and the adjusted R² = 0.2922. This means 29.22% of
 the variance in PerfScoreID is explained by the predictors.</p></li>
-<li><p>The F-statistic = 43.67, p &lt; .001 meaning that the overall
-model is significant.</p></li>
+<li><p>The F-statistic = 43.67, p &lt; .001 means that the overall model
+is significant.</p></li>
 <li><p>In terms of homoscedasticity, the residuals appear to have
 constant variance based on residual plots.</p></li>
 <li><p>In the original model there were multicollinearity issues
@@ -1068,7 +1068,7 @@ ggplot(hrdata_df, aes(x = EngagementSurvey, y = PerfScoreID, color = EmpSatisfac
 1.000. There is no evidence that EngagementSurvey, on its own, predicts
 PerfScoreID. None of the EmployeeSatisfaction levels significantly
 predict PerfScoreID compared to the reference group.</p></li>
-<li><p>The interaction terms (e.g., EmpSatisfaction2 * EngagementSurvey)
+<li><p>The interaction terms (e.g. EmpSatisfaction2 * EngagementSurvey)
 are not statistically significant since p &gt; 0.05. This suggests that
 the relationship between EngagementSurvey and PerfScoreID does not vary
 significantly across levels of EmployeeSatisfaction.</p></li>
@@ -1076,9 +1076,6 @@ significantly across levels of EmployeeSatisfaction.</p></li>
 PerfScoreID as shown by the R² = 0.449. It’s important to note that the
 predictors and their interactions do not individually contribute
 significantly to explaining the variance.</p></li>
-<li><p>The intercept β0 = 1.000 shows the predicted PerfScoreID when
-EngagementSurvey is at its reference level and EmployeeSatisfaction is
-at its baseline category of level 1.</p></li>
 <li><p>In terms of homoscedasticity, the residual plots showed no major
 issues. Prediction errors are consistent across levels of
 EngagementSurvey.</p></li>
@@ -1521,7 +1518,7 @@ ggplot(hrdata_df, aes(x = EngagementSurvey, y = PerfScoreID, color = interaction
 <div id="summary-2" class="section level2">
 <h2>Summary</h2>
 <ul>
-<li><p>The intercept β = 0.673 (p &lt; 0.001) represents the baseline
+<li><p>The intercept β = 1.000, p = 0.673 represents the baseline
 PerfScoreID when Sex = Female, EmployeeSatisfaction = 1, and
 EngagementSurvey = 0. The lack of significance for Sex,
 EngagementSurvey, and EmployeeSatisfaction levels suggests that
@@ -1547,11 +1544,11 @@ EmployeeSatisfaction = 2.</p>
 <ul>
 <li>This is shown in the above plot, where the variability in slopes
 across groups reflects the complexity of the interaction terms. The
-marginally significant three way interaction suggshowsests differences
-in slopes for certain combinations, such as Males with
-EmployeeSatisfaction level 2.</li>
+marginally significant three way interaction shows differences in slopes
+for certain combinations, such as Males with EmployeeSatisfaction level
+2.</li>
 </ul></li>
-<li><p>Homoscedasticity, multiocollinearity, and normality were analyzed
+<li><p>Homoscedasticity, multicollinearity, and normality were analyzed
 ensuring model validity.</p></li>
 </ul>
 <div id="conclusion-2" class="section level3">
@@ -1559,9 +1556,9 @@ ensuring model validity.</p></li>
 <p>There are no significant main effects, meaning that Sex,
 EmployeeSatisfaction, and EngagementSurvey do not individually predict
 PerfScoreID. However, the marginal significance of SexM *
-EmployeeSatisfaction2 and SeM * EmployeeSatisfaction2 * EngagementSurvey
-interactions suggest there may be significant differences for specific
-subgroups.</p>
+EmployeeSatisfaction2 and SexM * EmployeeSatisfaction2 *
+EngagementSurvey interactions suggest there may be significant
+differences for specific subgroups.</p>
 </div>
 </div>
 </div>

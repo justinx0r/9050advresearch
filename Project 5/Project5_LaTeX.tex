@@ -1,0 +1,644 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\documentclass[
+]{article}
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Project 5},
+  pdfauthor={Justin Williams},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Project 5}
+\author{Justin Williams}
+\date{2024-11-22}
+
+\begin{document}
+\maketitle
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#import libraries and data}
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\FunctionTok{library}\NormalTok{(dplyr)}
+\FunctionTok{library}\NormalTok{(reshape2)}
+\FunctionTok{library}\NormalTok{(ggplot2)}
+\FunctionTok{library}\NormalTok{(kableExtra)}
+\NormalTok{hrdata\_df }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\StringTok{"/Users/justinwilliams/Code/9050advresearch/Project 5/HRData.csv"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\section{1. Run a simple regression analysis in which you predict
+PerfScoreID from EmpSatisfaction. Provide a summary of this analysis
+like what you would find in a journal article. Be sure to provide a
+table of results, a plot of the regression line, AND a written summary
+of the results in your
+response.}\label{run-a-simple-regression-analysis-in-which-you-predict-perfscoreid-from-empsatisfaction.-provide-a-summary-of-this-analysis-like-what-you-would-find-in-a-journal-article.-be-sure-to-provide-a-table-of-results-a-plot-of-the-regression-line-and-a-written-summary-of-the-results-in-your-response.}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Simple regression analysis}
+\NormalTok{simple\_model }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(PerfScoreID }\SpecialCharTok{\textasciitilde{}}\NormalTok{ EmpSatisfaction, }\AttributeTok{data =}\NormalTok{ hrdata\_df)}
+
+\CommentTok{\# Model summary}
+\NormalTok{simple\_model\_summary }\OtherTok{\textless{}{-}} \FunctionTok{summary}\NormalTok{(simple\_model)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Model results data frame}
+\NormalTok{simple\_results\_df }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}
+  \AttributeTok{Predictor =} \FunctionTok{rownames}\NormalTok{(}\FunctionTok{coef}\NormalTok{(simple\_model\_summary)),}
+  \AttributeTok{Estimate =} \FunctionTok{coef}\NormalTok{(simple\_model\_summary)[, }\StringTok{"Estimate"}\NormalTok{],}
+  \AttributeTok{Std\_Error =} \FunctionTok{coef}\NormalTok{(simple\_model\_summary)[, }\StringTok{"Std. Error"}\NormalTok{],}
+  \AttributeTok{t\_value =} \FunctionTok{coef}\NormalTok{(simple\_model\_summary)[, }\StringTok{"t value"}\NormalTok{],}
+  \AttributeTok{P\_value =} \FunctionTok{coef}\NormalTok{(simple\_model\_summary)[, }\StringTok{"Pr(\textgreater{}|t|)"}\NormalTok{]}
+\NormalTok{)}
+
+\FunctionTok{print}\NormalTok{(simple\_results\_df)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                       Predictor  Estimate  Std_Error  t_value      P_value
+## (Intercept)         (Intercept) 2.2148700 0.13982121 15.84073 8.735181e-42
+## EmpSatisfaction EmpSatisfaction 0.1960127 0.03499753  5.60076 4.719882e-08
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#print results in a table}
+\FunctionTok{print}\NormalTok{(}\StringTok{"Simple Regression Results Data Frame:"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Simple Regression Results Data Frame:"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{kable}\NormalTok{(simple\_results\_df, }\AttributeTok{format =} \StringTok{"latex"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{kable\_styling}\NormalTok{(}\AttributeTok{latex\_options =} \FunctionTok{c}\NormalTok{(}\StringTok{"striped"}\NormalTok{, }\StringTok{"hold\_position"}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{row\_spec}\NormalTok{(}\DecValTok{0}\NormalTok{, }\AttributeTok{bold =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{color =} \StringTok{"white"}\NormalTok{, }\AttributeTok{background =} \StringTok{"orange"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{column\_spec}\NormalTok{(}\DecValTok{1}\NormalTok{, }\AttributeTok{bold =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{color =} \StringTok{"purple"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}[!h]
+\centering
+\begin{tabular}{>{}l|l|r|r|r|r}
+\hline
+\cellcolor{orange}{\textcolor{white}{\textbf{ }}} & \cellcolor{orange}{\textcolor{white}{\textbf{Predictor}}} & \cellcolor{orange}{\textcolor{white}{\textbf{Estimate}}} & \cellcolor{orange}{\textcolor{white}{\textbf{Std\_Error}}} & \cellcolor{orange}{\textcolor{white}{\textbf{t\_value}}} & \cellcolor{orange}{\textcolor{white}{\textbf{P\_value}}}\\
+\hline
+\textcolor{purple}{\textbf{\cellcolor{gray!10}{(Intercept)}}} & \cellcolor{gray!10}{(Intercept)} & \cellcolor{gray!10}{2.2148700} & \cellcolor{gray!10}{0.1398212} & \cellcolor{gray!10}{15.84073} & \cellcolor{gray!10}{0}\\
+\hline
+\textcolor{purple}{\textbf{EmpSatisfaction}} & EmpSatisfaction & 0.1960127 & 0.0349975 & 5.60076 & 0\\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Plot of the regression line}
+\FunctionTok{ggplot}\NormalTok{(hrdata\_df, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ EmpSatisfaction, }\AttributeTok{y =}\NormalTok{ PerfScoreID)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method =} \StringTok{"lm"}\NormalTok{, }\AttributeTok{col =} \StringTok{"blue"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Regression of PerfScoreID on EmpSatisfaction"}\NormalTok{,}
+       \AttributeTok{x =} \StringTok{"EmpSatisfaction"}\NormalTok{,}
+       \AttributeTok{y =} \StringTok{"PerfScoreID"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `geom_smooth()` using formula = 'y ~ x'
+\end{verbatim}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Project5_LaTeX_files/figure-latex/unnamed-chunk-5-1.pdf}}
+
+\subsection{Summary}\label{summary}
+
+The regression analysis demonstrates that EmpSatisfaction significantly
+predicts PerfScoreID. The slope shows that for every one-unit increase
+in EmpSatisfaction, PerfScoreID increases by 0.196. The intercept
+suggests that when EmpSatisfaction is 0, the predicted PerfScoreID is
+2.215. 9.22\% of the variability in PerfScoreID is accounted for by
+EmpSatisfaction.
+
+\subsection{a. Is the regression weight statistically
+significant?}\label{a.-is-the-regression-weight-statistically-significant}
+
+Yes, p \textless{} 0.001.
+
+\subsection{b. What is the regression
+equation?}\label{b.-what-is-the-regression-equation}
+
+PerfScoreID = 2.215 + 0.196 * EmpSatisfaction
+
+\subsection{c.~Provide an interpretation of the slope in terms of the
+variables
+involved.}\label{c.-provide-an-interpretation-of-the-slope-in-terms-of-the-variables-involved.}
+
+For every one-unit increase in EmpSatisfaction, PerfScoreID increases by
+0.196.
+
+\subsection{d.~Interpret the
+y-intercept.}\label{d.-interpret-the-y-intercept.}
+
+When EmpSatisfaction is 0, the predicted PerfScoreID is 2.215.
+
+\subsection{e. What is the predicted PerfScoreID for someone with an
+average level of
+EmpSatisfaction?}\label{e.-what-is-the-predicted-perfscoreid-for-someone-with-an-average-level-of-empsatisfaction}
+
+The predicted PerfScoreID would be calculated as Y = 2.215 + 0.196 * the
+mean EmpSatisfaction.
+
+\subsection{f.~What percentage of variance in PerfScoreID is explained
+by
+EmpSatisfaction?}\label{f.-what-percentage-of-variance-in-perfscoreid-is-explained-by-empsatisfaction}
+
+EmpSatisfaction explains 9.22\% of the variance in PerfScoreID.
+
+\section{2. Run a simple regression analysis in which you predict
+Absences from EngagementSurvey. Provide a summary of this analysis like
+what you would find in a journal article. Be sure to provide a table of
+results, a plot of the regression line, AND a written summary of the
+results in your
+response.}\label{run-a-simple-regression-analysis-in-which-you-predict-absences-from-engagementsurvey.-provide-a-summary-of-this-analysis-like-what-you-would-find-in-a-journal-article.-be-sure-to-provide-a-table-of-results-a-plot-of-the-regression-line-and-a-written-summary-of-the-results-in-your-response.}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{absences\_model }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(Absences }\SpecialCharTok{\textasciitilde{}}\NormalTok{ EngagementSurvey, }\AttributeTok{data =}\NormalTok{ hrdata\_df)}
+
+\CommentTok{\# Model summary}
+\NormalTok{absences\_model\_summary }\OtherTok{\textless{}{-}} \FunctionTok{summary}\NormalTok{(absences\_model)}
+
+\CommentTok{\# Model results data frame}
+\NormalTok{absences\_results\_df }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}
+  \AttributeTok{Predictor =} \FunctionTok{rownames}\NormalTok{(}\FunctionTok{coef}\NormalTok{(absences\_model\_summary)),}
+  \AttributeTok{Estimate =} \FunctionTok{coef}\NormalTok{(absences\_model\_summary)[, }\StringTok{"Estimate"}\NormalTok{],}
+  \AttributeTok{Std\_Error =} \FunctionTok{coef}\NormalTok{(absences\_model\_summary)[, }\StringTok{"Std. Error"}\NormalTok{],}
+  \AttributeTok{t\_value =} \FunctionTok{coef}\NormalTok{(absences\_model\_summary)[, }\StringTok{"t value"}\NormalTok{],}
+  \AttributeTok{P\_value =} \FunctionTok{coef}\NormalTok{(absences\_model\_summary)[, }\StringTok{"Pr(\textgreater{}|t|)"}\NormalTok{]}
+\NormalTok{)}
+
+\FunctionTok{print}\NormalTok{(absences\_results\_df)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                         Predictor    Estimate Std_Error    t_value      P_value
+## (Intercept)           (Intercept) 10.50501508 1.7638177  5.9558395 7.032763e-09
+## EngagementSurvey EngagementSurvey -0.06498126 0.4214634 -0.1541801 8.775684e-01
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#print results in a table}
+\FunctionTok{print}\NormalTok{(}\StringTok{"Absences Regression Results Data Frame:"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Absences Regression Results Data Frame:"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{kable}\NormalTok{(absences\_results\_df, }\AttributeTok{format =} \StringTok{"html"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{kable\_styling}\NormalTok{(}\AttributeTok{bootstrap\_options =} \FunctionTok{c}\NormalTok{(}\StringTok{"striped"}\NormalTok{, }\StringTok{"hover"}\NormalTok{, }\StringTok{"condensed"}\NormalTok{, }\StringTok{"responsive"}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{row\_spec}\NormalTok{(}\DecValTok{0}\NormalTok{, }\AttributeTok{bold =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{color =} \StringTok{"white"}\NormalTok{, }\AttributeTok{background =} \StringTok{"orange"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{column\_spec}\NormalTok{(}\DecValTok{1}\NormalTok{, }\AttributeTok{bold =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{color =} \StringTok{"purple"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Predictor
+
+Estimate
+
+Std\_Error
+
+t\_value
+
+P\_value
+
+(Intercept)
+
+(Intercept)
+
+10.5050151
+
+1.7638177
+
+5.9558395
+
+0.0000000
+
+EngagementSurvey
+
+EngagementSurvey
+
+-0.0649813
+
+0.4214634
+
+-0.1541801
+
+0.8775684
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Plot of the regression line}
+\FunctionTok{ggplot}\NormalTok{(hrdata\_df, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ EngagementSurvey, }\AttributeTok{y =}\NormalTok{ Absences)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method =} \StringTok{"lm"}\NormalTok{, }\AttributeTok{col =} \StringTok{"blue"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Regression of Absences on EngagementSurvey"}\NormalTok{,}
+       \AttributeTok{x =} \StringTok{"EngagementSurvey"}\NormalTok{,}
+       \AttributeTok{y =} \StringTok{"Absences"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `geom_smooth()` using formula = 'y ~ x'
+\end{verbatim}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Project5_LaTeX_files/figure-latex/unnamed-chunk-7-1.pdf}}
+
+\subsection{Summary}\label{summary-1}
+
+The regression analysis aimed to predict Absences based on
+EngagementSurvey scores. Results indicated that the regression weight
+for EngagementSurvey was not statistically significant. This suggests
+that EngagementSurvey scores do not significantly predict Absences.
+
+The model explained only 0.01\% of the variance in Absences (R²=0.0001),
+indicating that the predictive utility of EngagementSurvey is
+negligible. The y-intercept represents the predicted Absenceswhen
+EngagementSurvey is zero, a scenario unlikely in real life.
+
+\subsection{a. Is the regression weight statistically
+significant?}\label{a.-is-the-regression-weight-statistically-significant-1}
+
+No, p = 0.878.
+
+\subsection{b. What is the regression
+equation?}\label{b.-what-is-the-regression-equation-1}
+
+Absences = 10.50502 - 0.06498 * EngagementSurvey
+
+\subsection{c.~Provide an interpretation of the
+slope}\label{c.-provide-an-interpretation-of-the-slope}
+
+For every one-unit increase in EngagementSurvey, the predicted Absences
+decrease by 0.065 units. This change is not statistically significant.
+
+\subsection{d.Interpret the
+y-intercept}\label{d.interpret-the-y-intercept}
+
+When EngagementSurvey is zero, the predicted number of Absences is
+10.505. This value may not be meaningful if EngagementSurvey cannot
+logically reach zero.
+
+\subsection{e. Predicted Absences for someone with an average
+EngagementSurvey}\label{e.-predicted-absences-for-someone-with-an-average-engagementsurvey}
+
+For an average EngagementSurvey score, the predicted number of Absences
+is 10.237.
+
+\subsection{f.~Percentage of variance explained by
+EngagementSurvey}\label{f.-percentage-of-variance-explained-by-engagementsurvey}
+
+0.01\% of the variance in Absences is explained by EngagementSurvey,
+showing no meaningful explanatory power.
+
+\section{3. Run a simple regression analysis in which you predict
+PerfScoreID from Department. Provide a summary of this analysis like
+what you would find in a journal article. Be sure to provide a table of
+results, a plot of the regression line, AND a written summary of the
+results in your
+response.}\label{run-a-simple-regression-analysis-in-which-you-predict-perfscoreid-from-department.-provide-a-summary-of-this-analysis-like-what-you-would-find-in-a-journal-article.-be-sure-to-provide-a-table-of-results-a-plot-of-the-regression-line-and-a-written-summary-of-the-results-in-your-response.}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Simple regression analysis predicting PerfScoreID from Department}
+\NormalTok{department\_model }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(PerfScoreID }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Department, }\AttributeTok{data =}\NormalTok{ hrdata\_df)}
+
+\CommentTok{\# Model summary}
+\NormalTok{department\_model\_summary }\OtherTok{\textless{}{-}} \FunctionTok{summary}\NormalTok{(department\_model)}
+
+\CommentTok{\# Model results data frame}
+\NormalTok{department\_results\_df }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}
+  \AttributeTok{Predictor =} \FunctionTok{rownames}\NormalTok{(}\FunctionTok{coef}\NormalTok{(department\_model\_summary)),}
+  \AttributeTok{Estimate =} \FunctionTok{coef}\NormalTok{(department\_model\_summary)[, }\StringTok{"Estimate"}\NormalTok{],}
+  \AttributeTok{Std\_Error =} \FunctionTok{coef}\NormalTok{(department\_model\_summary)[, }\StringTok{"Std. Error"}\NormalTok{],}
+  \AttributeTok{t\_value =} \FunctionTok{coef}\NormalTok{(department\_model\_summary)[, }\StringTok{"t value"}\NormalTok{],}
+  \AttributeTok{P\_value =} \FunctionTok{coef}\NormalTok{(department\_model\_summary)[, }\StringTok{"Pr(\textgreater{}|t|)"}\NormalTok{]}
+\NormalTok{)}
+
+\FunctionTok{print}\NormalTok{(department\_results\_df)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                                                     Predictor      Estimate
+## (Intercept)                                       (Intercept)  3.000000e+00
+## DepartmentExecutive Office         DepartmentExecutive Office -5.035592e-16
+## DepartmentIT/IS                               DepartmentIT/IS  6.000000e-02
+## DepartmentProduction              DepartmentProduction        -2.870813e-02
+## DepartmentSales                               DepartmentSales -1.612903e-01
+## DepartmentSoftware Engineering DepartmentSoftware Engineering  9.090909e-02
+##                                Std_Error       t_value      P_value
+## (Intercept)                    0.1962772  1.528451e+01 1.494910e-39
+## DepartmentExecutive Office     0.6206829 -8.112987e-16 1.000000e+00
+## DepartmentIT/IS                0.2132116  2.814106e-01 7.785863e-01
+## DepartmentProduction           0.2004587 -1.432122e-01 8.862172e-01
+## DepartmentSales                0.2229559 -7.234181e-01 4.699775e-01
+## DepartmentSoftware Engineering 0.2646601  3.434938e-01 7.314637e-01
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#print results in a table}
+\FunctionTok{print}\NormalTok{(}\StringTok{"Department Regression Results Data Frame:"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Department Regression Results Data Frame:"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{kable}\NormalTok{(department\_results\_df, }\AttributeTok{format =} \StringTok{"html"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{kable\_styling}\NormalTok{(}\AttributeTok{bootstrap\_options =} \FunctionTok{c}\NormalTok{(}\StringTok{"striped"}\NormalTok{, }\StringTok{"hover"}\NormalTok{, }\StringTok{"condensed"}\NormalTok{, }\StringTok{"responsive"}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{row\_spec}\NormalTok{(}\DecValTok{0}\NormalTok{, }\AttributeTok{bold =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{color =} \StringTok{"white"}\NormalTok{, }\AttributeTok{background =} \StringTok{"orange"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{column\_spec}\NormalTok{(}\DecValTok{1}\NormalTok{, }\AttributeTok{bold =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{color =} \StringTok{"purple"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Predictor
+
+Estimate
+
+Std\_Error
+
+t\_value
+
+P\_value
+
+(Intercept)
+
+(Intercept)
+
+3.0000000
+
+0.1962772
+
+15.2845071
+
+0.0000000
+
+DepartmentExecutive Office
+
+DepartmentExecutive Office
+
+0.0000000
+
+0.6206829
+
+0.0000000
+
+1.0000000
+
+DepartmentIT/IS
+
+DepartmentIT/IS
+
+0.0600000
+
+0.2132116
+
+0.2814106
+
+0.7785863
+
+DepartmentProduction
+
+DepartmentProduction
+
+-0.0287081
+
+0.2004587
+
+-0.1432122
+
+0.8862172
+
+DepartmentSales
+
+DepartmentSales
+
+-0.1612903
+
+0.2229559
+
+-0.7234181
+
+0.4699775
+
+DepartmentSoftware Engineering
+
+DepartmentSoftware Engineering
+
+0.0909091
+
+0.2646601
+
+0.3434938
+
+0.7314637
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Plot of the regression line}
+\FunctionTok{ggplot}\NormalTok{(hrdata\_df, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Department, }\AttributeTok{y =}\NormalTok{ PerfScoreID)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method =} \StringTok{"lm"}\NormalTok{, }\AttributeTok{col =} \StringTok{"purple"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Regression of PerfScoreID on Department"}\NormalTok{,}
+       \AttributeTok{x =} \StringTok{"Department"}\NormalTok{,}
+       \AttributeTok{y =} \StringTok{"PerfScoreID"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `geom_smooth()` using formula = 'y ~ x'
+\end{verbatim}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Project5_LaTeX_files/figure-latex/unnamed-chunk-10-1.pdf}}
+
+\subsection{Summary}\label{summary-2}
+
+The plot shows PerfScoreID by Department with a regression line. This
+shows minimal variation across departments, consistent with the low R²
+value.
+
+The overall model was not statistically significant as the R² was .0102,
+explaining only 1.02\% of the variance in PerfScoreID. None of the
+departmental coefficients were statistically significant as their p
+values were greater than .05.
+
+The regression sum of squares was small compared to the total sum of
+squares, indicating poor model fit.
+
+The extremely low coefficients and non-significant p-values shows a lack
+of relationship between predictors and the outcome variable, reinforcing
+the need for more meaningful predictors to improve R².
+
+\subsection{a. Is the regression weight statistically
+significant?}\label{a.-is-the-regression-weight-statistically-significant-2}
+
+The regression weights for all departments were not statistically
+significant.
+
+\subsection{b. What is the regression
+equation?}\label{b.-what-is-the-regression-equation-2}
+
+PerfScoreID = 3.00 + (-5.035592e - 16 ⋅ Department)
+
+\subsection{c.~Provide an interpreatation of the slope in terms of the
+variables
+involved.}\label{c.-provide-an-interpreatation-of-the-slope-in-terms-of-the-variables-involved.}
+
+For each unit increase in the department coding, PerfScoreID is
+predicted to change by -5.035592e-16 units. This value indicates no
+meaningful relationship.
+
+\subsection{d.~Interpret the
+y-intercept.}\label{d.-interpret-the-y-intercept.-1}
+
+When department coding is zero, the predicted PerfScoreID is 3.00. This
+value is not meaningful as department coding cannot be zero.
+
+\subsection{e. What is the predicted PerfScoreID for someone from each
+of the
+Departments?}\label{e.-what-is-the-predicted-perfscoreid-for-someone-from-each-of-the-departments}
+
+\begin{itemize}
+\tightlist
+\item
+  Executive Office: 3.00
+\item
+  IT/IS: 3.06
+\item
+  Production: 2.97
+\item
+  Sales: 2.84
+\item
+  Software Engineering: 3.09
+\end{itemize}
+
+\subsection{f.~What percentage of variance in PerfScoreID is explained
+by
+Department?}\label{f.-what-percentage-of-variance-in-perfscoreid-is-explained-by-department}
+
+Department explains only 1.02\% of the variance in PerfScoreID, showing
+weak predictive power of department on performance scores.
+
+\end{document}

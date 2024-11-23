@@ -1,0 +1,737 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\documentclass[
+]{article}
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Project 6},
+  pdfauthor={Justin Williams},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Project 6}
+\author{Justin Williams}
+\date{2024-11-22}
+
+\begin{document}
+\maketitle
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Load necessary libraries}
+\FunctionTok{library}\NormalTok{(readr)}
+\FunctionTok{library}\NormalTok{(dplyr)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Attaching package: 'dplyr'
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:stats':
+## 
+##     filter, lag
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Use the filter function from the stats package}
+\CommentTok{\#stats::filter()}
+\CommentTok{\# Use the intersect function from the base package}
+\CommentTok{\#base::intersect()}
+
+\CommentTok{\# Load the data}
+\NormalTok{HRData }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"/Users/justinwilliams/Code/9050advresearch/Project 6/HRData.csv"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Rows: 311 Columns: 40
+\end{verbatim}
+
+\begin{verbatim}
+## -- Column specification --------------------------------------------------------
+## Delimiter: ","
+## chr (20): Employee_Name, Position, State, DOB, Sex, MaritalDesc, CitizenDesc...
+## dbl (20): EmpID, MarriedID, MaritalStatusID, GenderID, EmpStatusID, DeptID, ...
+## 
+## i Use `spec()` to retrieve the full column specification for this data.
+## i Specify the column types or set `show_col_types = FALSE` to quiet this message.
+\end{verbatim}
+
+\section{1. Run a multiple regression analysis in which you predict
+PerfScoreID from EmpSatisfaction, EngagementSurvey, and Tenure. Provide
+a summary of this analysis like what you would find in a journal
+article. Be sure to provide a table of results AND a written summary of
+the results in your
+response.}\label{run-a-multiple-regression-analysis-in-which-you-predict-perfscoreid-from-empsatisfaction-engagementsurvey-and-tenure.-provide-a-summary-of-this-analysis-like-what-you-would-find-in-a-journal-article.-be-sure-to-provide-a-table-of-results-and-a-written-summary-of-the-results-in-your-response.}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Calculate Tenure}
+\NormalTok{HRData }\OtherTok{\textless{}{-}}\NormalTok{ HRData }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{mutate}\NormalTok{(}\AttributeTok{DateofHire =} \FunctionTok{as.Date}\NormalTok{(DateofHire, }\AttributeTok{format =} \StringTok{"\%m/\%d/\%Y"}\NormalTok{),}
+           \AttributeTok{DateofTermination =} \FunctionTok{as.Date}\NormalTok{(DateofTermination, }\AttributeTok{format =} \StringTok{"\%m/\%d/\%Y"}\NormalTok{),}
+           \AttributeTok{CurrentDate =} \FunctionTok{Sys.Date}\NormalTok{(),}
+           \AttributeTok{Tenure =} \FunctionTok{ifelse}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(DateofTermination), }
+                           \FunctionTok{as.numeric}\NormalTok{(}\FunctionTok{difftime}\NormalTok{(CurrentDate, DateofHire, }\AttributeTok{units =} \StringTok{"days"}\NormalTok{)) }\SpecialCharTok{/} \FloatTok{365.25}\NormalTok{,}
+                           \FunctionTok{as.numeric}\NormalTok{(}\FunctionTok{difftime}\NormalTok{(DateofTermination, DateofHire, }\AttributeTok{units =} \StringTok{"days"}\NormalTok{)) }\SpecialCharTok{/} \FloatTok{365.25}\NormalTok{))}
+\CommentTok{\# Fit the multiple regression model}
+\NormalTok{model }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(PerfScoreID }\SpecialCharTok{\textasciitilde{}}\NormalTok{ EmpSatisfaction }\SpecialCharTok{+}\NormalTok{ EngagementSurvey }\SpecialCharTok{+}\NormalTok{ Tenure, }\AttributeTok{data =}\NormalTok{ HRData)}
+
+\CommentTok{\# Summary of the model}
+\FunctionTok{summary}\NormalTok{(model)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = PerfScoreID ~ EmpSatisfaction + EngagementSurvey + 
+##     Tenure, data = HRData)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -2.09618 -0.23836 -0.03649  0.24840  1.15086 
+## 
+## Coefficients:
+##                   Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)      8.463e-01  1.738e-01   4.868 1.81e-06 ***
+## EmpSatisfaction  1.348e-01  3.035e-02   4.442 1.24e-05 ***
+## EngagementSurvey 3.749e-01  3.494e-02  10.730  < 2e-16 ***
+## Tenure           4.908e-05  2.858e-05   1.717   0.0869 .  
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.4773 on 307 degrees of freedom
+## Multiple R-squared:  0.3454, Adjusted R-squared:  0.339 
+## F-statistic: 53.99 on 3 and 307 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# Create a table of results}
+\NormalTok{results }\OtherTok{\textless{}{-}} \FunctionTok{summary}\NormalTok{(model)}\SpecialCharTok{$}\NormalTok{coefficients}
+\NormalTok{results }\OtherTok{\textless{}{-}} \FunctionTok{as.data.frame}\NormalTok{(results)}
+\FunctionTok{colnames}\NormalTok{(results) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"Estimate"}\NormalTok{, }\StringTok{"Std. Error"}\NormalTok{, }\StringTok{"t value"}\NormalTok{, }\StringTok{"Pr(\textgreater{}|t|)"}\NormalTok{)}
+
+\DocumentationTok{\#\# Print the table of results}
+\FunctionTok{print}\NormalTok{(results)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                      Estimate   Std. Error   t value     Pr(>|t|)
+## (Intercept)      8.462855e-01 1.738443e-01  4.868065 1.806107e-06
+## EmpSatisfaction  1.348302e-01 3.035167e-02  4.442268 1.244044e-05
+## EngagementSurvey 3.749061e-01 3.494069e-02 10.729783 5.087448e-23
+## Tenure           4.908324e-05 2.857864e-05  1.717480 8.689996e-02
+\end{verbatim}
+
+\subsection{Summary}\label{summary}
+
+With an R² of 0.3454, the model demonstrates moderate explanatory power,
+suggesting the predictors collectively capture meaningful variance in
+PerfScoreID. EmpSatisfaction and EngagementSurvey are significant
+predictors, showing their importance in performance evaluations.
+
+The non-significance of Tenure highlights the point that not all
+predictors contribute meaningfully to a model, meaning you must engage
+in careful model refinement.
+
+The results show the importance of employee satisfaction and engagement
+in driving performance, offering actionable insights for organizational
+interventions. You must interpret these findings with caution,
+considering potential omitted variables and the unexplained variance.
+
+In summary, this model highlights significant predictors while pointing
+to areas for theoretical and practical improvement.
+
+\subsection{Answers a, b, and c.}\label{answers-a-b-and-c.}
+
+\subsubsection{a. What is the significance of the regression weights for
+each predictor, and are they statistically
+significant?}\label{a.-what-is-the-significance-of-the-regression-weights-for-each-predictor-and-are-they-statistically-significant}
+
+The multiple regression analysis was conducted to predict PerfScoreID
+based on EmpSatisfaction, EngagementSurvey, and Tenure. The model was
+statistically significant, F(3, 307) = 53.99, p \textless{} 0.05,
+explaining 34.54\% of the variance in PerfScoreID (R² = 0.3454). Below
+are the regression weights for each predictor:
+
+EmpSatisfaction * Estimate = 0.13, Std. Error = 0.03, t-value = 4.44, p
+\textless{} 0.001. * EmpSatisfaction is a statistically significant
+predictor of PerfScoreID, indicating that higher satisfaction is
+associated with higher performance scores.
+
+EngagementSurvey * Estimate = 0.37, Std. Error = 0.03, t-value = 10.73,
+p \textless{} 0.001. * EngagementSurvey is also a statistically
+significant predictor, suggesting that better engagement survey scores
+are linked to higher performance scores.
+
+Tenure * Estimate = 0.00, Std. Error = 0.00, t-value = 1.72, p = 0.0869.
+* While Tenure has a small positive relationship with PerfScoreID, it is
+not statistically significant at the level of 0.05.
+
+\subsubsection{a. What is the significance of the regression weights for
+each predictor and are they statistically
+significant?}\label{a.-what-is-the-significance-of-the-regression-weights-for-each-predictor-and-are-they-statistically-significant-1}
+
+The significance of the regression weights for each predictor is as
+follows:
+
+\begin{itemize}
+\tightlist
+\item
+  EmpSatisfaction: Estimate = 0.13, Std. Error = 0.03, t value = 4.44, p
+  \textless{} 0.001. This suggests that higher employee satisfaction is
+  associated with higher performance scores, controlling for other
+  variables.
+\item
+  EngagementSurvey: Estimate = 0.37, Std. Error = 0.03, t value = 10.73,
+  p \textless{} 0.001. This indicates that higher engagement survey
+  scores are strongly associated with higher performance scores.
+\item
+  Tenure: Estimate = 0, Std. Error = 0, t value = 1.72, p = 0.0869.
+  Tenure does not significantly predict performance scores at the
+  conventional significance level.
+\end{itemize}
+
+\subsubsection{b. What is the regression equation for the most efficient
+model?}\label{b.-what-is-the-regression-equation-for-the-most-efficient-model}
+
+The regression equation for the model is:
+
+\begin{itemize}
+\tightlist
+\item
+  PerfScoreID = 0.85 + 0.13 * EmpSatisfaction + 0.37 * EngagementSurvey
+  + 0 * Tenure.
+\end{itemize}
+
+\subsubsection{c.~What percentage of variance in PerfScoreID is
+explained by the
+model?}\label{c.-what-percentage-of-variance-in-perfscoreid-is-explained-by-the-model}
+
+The overall model was statistically significant, F(3, 307) = 53.99, p
+\textless{} 0.05, explaining 34.54\% of the variance in PerfScoreID.
+This indicates that the combination of predictors contributes
+meaningfully to predicting the dependent variable.
+
+\section{2. Repeat the analysis you ran in Question 1 in which you
+predict PerfScoreID from EmpSatisfaction, EngagementSurvey, and Tenure
+but first control for Department. Provide a summary of this analysis
+like what you would find in a journal article. Be sure to provide a
+table of results AND a written summary of the results in your
+response.}\label{repeat-the-analysis-you-ran-in-question-1-in-which-you-predict-perfscoreid-from-empsatisfaction-engagementsurvey-and-tenure-but-first-control-for-department.-provide-a-summary-of-this-analysis-like-what-you-would-find-in-a-journal-article.-be-sure-to-provide-a-table-of-results-and-a-written-summary-of-the-results-in-your-response.}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# Fit the multiple regression model with Department as a covariate}
+\NormalTok{model\_step1 }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(PerfScoreID }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Department, }\AttributeTok{data =}\NormalTok{ HRData)}
+\NormalTok{model\_step2 }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(PerfScoreID }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Department }\SpecialCharTok{+}\NormalTok{ EmpSatisfaction }\SpecialCharTok{+}\NormalTok{ EngagementSurvey }\SpecialCharTok{+}\NormalTok{ Tenure, }\AttributeTok{data =}\NormalTok{ HRData)}
+
+\DocumentationTok{\#\# Summary of the models}
+\NormalTok{summary\_step1 }\OtherTok{\textless{}{-}} \FunctionTok{summary}\NormalTok{(model\_step1)}
+\NormalTok{summary\_step2 }\OtherTok{\textless{}{-}} \FunctionTok{summary}\NormalTok{(model\_step2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# Create tables of results}
+\NormalTok{results\_step1 }\OtherTok{\textless{}{-}} \FunctionTok{as.data.frame}\NormalTok{(summary\_step1}\SpecialCharTok{$}\NormalTok{coefficients)}
+\FunctionTok{colnames}\NormalTok{(results\_step1) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"Estimate"}\NormalTok{, }\StringTok{"Std. Error"}\NormalTok{, }\StringTok{"t value"}\NormalTok{, }\StringTok{"Pr(\textgreater{}|t|)"}\NormalTok{)}
+
+\NormalTok{results\_step2 }\OtherTok{\textless{}{-}} \FunctionTok{as.data.frame}\NormalTok{(summary\_step2}\SpecialCharTok{$}\NormalTok{coefficients)}
+\FunctionTok{colnames}\NormalTok{(results\_step2) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"Estimate"}\NormalTok{, }\StringTok{"Std. Error"}\NormalTok{, }\StringTok{"t value"}\NormalTok{, }\StringTok{"Pr(\textgreater{}|t|)"}\NormalTok{)}
+
+\DocumentationTok{\#\# Print the tables of results}
+\FunctionTok{print}\NormalTok{(results\_step1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                                     Estimate Std. Error       t value
+## (Intercept)                     3.000000e+00  0.1962772  1.528451e+01
+## DepartmentExecutive Office     -5.035592e-16  0.6206829 -8.112987e-16
+## DepartmentIT/IS                 6.000000e-02  0.2132116  2.814106e-01
+## DepartmentProduction           -2.870813e-02  0.2004587 -1.432122e-01
+## DepartmentSales                -1.612903e-01  0.2229559 -7.234181e-01
+## DepartmentSoftware Engineering  9.090909e-02  0.2646601  3.434938e-01
+##                                    Pr(>|t|)
+## (Intercept)                    1.494910e-39
+## DepartmentExecutive Office     1.000000e+00
+## DepartmentIT/IS                7.785863e-01
+## DepartmentProduction           8.862172e-01
+## DepartmentSales                4.699775e-01
+## DepartmentSoftware Engineering 7.314637e-01
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(results\_step2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                                     Estimate   Std. Error     t value
+## (Intercept)                     8.070708e-01 2.385241e-01  3.38360257
+## DepartmentExecutive Office     -1.112967e-01 5.065934e-01 -0.21969627
+## DepartmentIT/IS                 9.312904e-02 1.745347e-01  0.53358450
+## DepartmentProduction            4.654892e-02 1.643086e-01  0.28330171
+## DepartmentSales                -1.667016e-02 1.838105e-01 -0.09069207
+## DepartmentSoftware Engineering  1.574024e-01 2.169516e-01  0.72551829
+## EmpSatisfaction                 1.335070e-01 3.081265e-02  4.33286250
+## EngagementSurvey                3.731895e-01 3.562790e-02 10.47464219
+## Tenure                          5.028933e-05 2.935399e-05  1.71320252
+##                                    Pr(>|t|)
+## (Intercept)                    8.098340e-04
+## DepartmentExecutive Office     8.262561e-01
+## DepartmentIT/IS                5.940215e-01
+## DepartmentProduction           7.771397e-01
+## DepartmentSales                9.277974e-01
+## DepartmentSoftware Engineering 4.686960e-01
+## EmpSatisfaction                2.006305e-05
+## EngagementSurvey               4.181577e-22
+## Tenure                         8.770155e-02
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# Calculate variance explained by Department in Step 1}
+\NormalTok{variance\_explained\_step1 }\OtherTok{\textless{}{-}}\NormalTok{ summary\_step1}\SpecialCharTok{$}\NormalTok{r.squared }\SpecialCharTok{*} \DecValTok{100}
+
+\CommentTok{\# Calculate change in R{-}square from Step 1 to Step 2}
+\NormalTok{change\_in\_r\_squared }\OtherTok{\textless{}{-}}\NormalTok{ summary\_step2}\SpecialCharTok{$}\NormalTok{r.squared }\SpecialCharTok{{-}}\NormalTok{ summary\_step1}\SpecialCharTok{$}\NormalTok{r.squared}
+
+\CommentTok{\# Calculate percentage of variance explained by the full model}
+\NormalTok{variance\_explained\_full\_model }\OtherTok{\textless{}{-}}\NormalTok{ summary\_step2}\SpecialCharTok{$}\NormalTok{r.squared }\SpecialCharTok{*} \DecValTok{100}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Summary}\label{summary-1}
+
+Department alone accounted for only 1.02\% of the variance in
+PerfScoreID, showing it has limited predictive utility when used as a
+standalone covariate.
+
+Adding EmpSatisfaction, EngagementSurvey, and Tenure in Step 2 increased
+the variance explained by 33.89 percentage points, showing the added
+value of these predictors.
+
+The full model explained 34.92\% of the variance in PerfScoreID,
+reflecting its considerably stronger explanatory power compared to Step
+1.
+
+\subsection{Answers a, b, and c.}\label{answers-a-b-and-c.-1}
+
+\subsubsection{a. How much variance did Department explain as a
+covariate in Step 1 of your
+Model?}\label{a.-how-much-variance-did-department-explain-as-a-covariate-in-step-1-of-your-model}
+
+In Step 1, where only Department was included as a predictor, the model
+explained 1.02\% of the variance in PerfScoreID (R² = 0.0102). While the
+model was statistically significant (F(5, 305) = 0.63, p \textless{}
+0.05), the amount of variance explained by Department is minimal,
+showing that Department alone is not a strong predictor of PerfScoreID.
+
+\subsubsection{b. What is the change in R-square when you go from Step 1
+to Step
+2?}\label{b.-what-is-the-change-in-r-square-when-you-go-from-step-1-to-step-2}
+
+In Step 2, additional predictors (EmpSatisfaction, EngagementSurvey, and
+Tenure) were added to the model. This resulted in a large increase in
+explanatory power, with R² increasing from 0.0102 to 0.3492. The change
+in R² was 0.3389, suggesting that the inclusion of these additional
+predictors significantly improved the model's ability to explain
+variance in PerfScoreID.
+
+\subsubsection{c.~What percentage of variance in PerfScoreID is
+explained by the full
+model?}\label{c.-what-percentage-of-variance-in-perfscoreid-is-explained-by-the-full-model}
+
+The Full Model in Step 2 explained 34.92\% of the variance in
+PerfScoreID (R² = 0.3492). This is a large improvement over Step 1,
+demonstrating that adding EmpSatisfaction, EngagementSurvey, and Tenure
+substantially increased the predictive power of the model.
+
+\section{3. Run a multiple regression analysis in which you predict
+Absences from EmpSatisfaction, EngagementSurvey, and Tenure. Provide a
+summary of this analysis like what you would find in a journal article.
+Be sure to provide a table of results AND a written summary of the
+results in your
+response.}\label{run-a-multiple-regression-analysis-in-which-you-predict-absences-from-empsatisfaction-engagementsurvey-and-tenure.-provide-a-summary-of-this-analysis-like-what-you-would-find-in-a-journal-article.-be-sure-to-provide-a-table-of-results-and-a-written-summary-of-the-results-in-your-response.}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Fit the multiple regression model to predict Absences}
+\NormalTok{model\_absences }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(Absences }\SpecialCharTok{\textasciitilde{}}\NormalTok{ EmpSatisfaction }\SpecialCharTok{+}\NormalTok{ EngagementSurvey }\SpecialCharTok{+}\NormalTok{ Tenure, }\AttributeTok{data =}\NormalTok{ HRData)}
+
+\CommentTok{\# Summary of the model}
+\NormalTok{summary\_absences }\OtherTok{\textless{}{-}} \FunctionTok{summary}\NormalTok{(model\_absences)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Create a table of results}
+\NormalTok{results\_absences }\OtherTok{\textless{}{-}} \FunctionTok{as.data.frame}\NormalTok{(summary\_absences}\SpecialCharTok{$}\NormalTok{coefficients)}
+\FunctionTok{colnames}\NormalTok{(results\_absences) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"Estimate"}\NormalTok{, }\StringTok{"Std. Error"}\NormalTok{, }\StringTok{"t value"}\NormalTok{, }\StringTok{"Pr(\textgreater{}|t|)"}\NormalTok{)}
+
+\CommentTok{\# Print the table of results}
+\FunctionTok{print}\NormalTok{(results\_absences)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                       Estimate   Std. Error   t value     Pr(>|t|)
+## (Intercept)       9.7203396201 2.1249537899  4.574377 6.939354e-06
+## EmpSatisfaction   0.5136100198 0.3709979331  1.384401 1.672410e-01
+## EngagementSurvey -0.1627691183 0.4270910525 -0.381111 7.033845e-01
+## Tenure           -0.0006058401 0.0003493257 -1.734313 8.386630e-02
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Calculate percentage of variance explained by the model}
+\NormalTok{variance\_explained\_absences }\OtherTok{\textless{}{-}}\NormalTok{ summary\_absences}\SpecialCharTok{$}\NormalTok{r.squared }\SpecialCharTok{*} \DecValTok{100}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Summary}\label{summary-2}
+
+While it's important to interpret predictor significance and understand
+its contribution to the model, this analysis highlights that predictors
+such as EmpSatisfaction, EngagementSurvey, and Tenure do not
+significantly influence Absences individually, despite the model
+reaching statistical significance overall. This discrepancy underscores
+the importance of distinguishing between overall model significance and
+individual predictor contributions.
+
+The low R² value suggests that much of the variability in Absences
+remains unexplained. Practical significance reminds us that even
+statistically significant models can lack real world utility if their
+explanatory power is minimal.
+
+Alternative predictors or interaction effects might improve the model's
+predictive capability, as the current variables appear unable to
+meaningfully explain variations in Absences.
+
+The findings here can guide future analyses to identify more robust
+predictors of Absences.
+
+\subsection{Answers a, b, and c.}\label{answers-a-b-and-c.-2}
+
+\subsubsection{a. What is the significance of the regression weights for
+each predictor, and are they statistically
+significant?}\label{a.-what-is-the-significance-of-the-regression-weights-for-each-predictor-and-are-they-statistically-significant-2}
+
+The multiple regression model examined EmpSatisfaction,
+EngagementSurvey, and Tenure as predictors of Absences. The significance
+of the regression weights for each predictor is summarized below.
+
+\begin{itemize}
+\tightlist
+\item
+  EmpSatisfaction
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Estimate = 0.51, Std. Error = 0.37, t-value = 1.38, p = 0.1672.
+  \item
+    This suggests a positive relationship between EmpSatisfaction and
+    Absences; however, the p-value indicates that this predictor is not
+    statistically significant.
+  \end{itemize}
+\item
+  EngagementSurvey
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Estimate = -0.16, Std. Error = 0.43, t-value = -0.38, p = 0.7034.
+  \item
+    While the negative estimate suggests a potential inverse
+    relationship between EngagementSurvey and Absences, the high p-value
+    shows that it is not statistically significant.
+  \end{itemize}
+\item
+  Tenure
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Estimate = -0.0006, Std. Error = 0.0003, t-value = -1.73, p =
+    0.0839.
+  \item
+    The small negative coefficient indicates a weak inverse relationship
+    between Tenure and Absences. With a p-value close to 0.05, Tenure
+    approaches but does not meet the threshold for statistical
+    significance.
+  \end{itemize}
+\end{itemize}
+
+None of the predictors in the model were statistically significant at
+the 0.05 level. This suggests that while these variables collectively
+contribute to the model, their individual contributions to predicting
+Absences are limited.
+
+\subsubsection{b. What is the regression equation for the most efficient
+model?}\label{b.-what-is-the-regression-equation-for-the-most-efficient-model-1}
+
+The regression equation for the most efficient model is:
+
+\begin{itemize}
+\tightlist
+\item
+  Absences = 9.72 + 0.51 ⋅ EmpSatisfaction − 0.16 ⋅ EngagementSurvey −
+  0.0006 ⋅ Tenure
+\end{itemize}
+
+This equation shows that Absences is predicted to increase with higher
+EmpSatisfaction and decrease with higher EngagementSurvey and Tenure,
+though these effects are not statistically significant.
+
+\subsubsection{c.~What percentage of variance in Absences is explained
+by the
+model?}\label{c.-what-percentage-of-variance-in-absences-is-explained-by-the-model}
+
+The model explained 1.58\% of the variance in Absences (R² = 0.0158).
+Although the model itself was statistically significant (F(3, 307) =
+1.65, p \textless{} 0.05), the low R² value indicates that the
+predictors only account for a small fraction of the variability in
+Absences.
+
+\section{4. Repeat the analysis you ran in Question 3 in which you
+predict Absences from EmpSatisfaction, EngagementSurvey, and Tenure but
+first control for Sex. Provide a summary of this analysis like what you
+would find in a journal article. Be sure to provide a table of results
+AND a written summary of the results in your
+response.}\label{repeat-the-analysis-you-ran-in-question-3-in-which-you-predict-absences-from-empsatisfaction-engagementsurvey-and-tenure-but-first-control-for-sex.-provide-a-summary-of-this-analysis-like-what-you-would-find-in-a-journal-article.-be-sure-to-provide-a-table-of-results-and-a-written-summary-of-the-results-in-your-response.}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Fit the multiple regression model with Sex as a covariate}
+\NormalTok{model\_step1\_sex }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(Absences }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Sex, }\AttributeTok{data =}\NormalTok{ HRData)}
+\NormalTok{model\_step2\_sex }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(Absences }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Sex }\SpecialCharTok{+}\NormalTok{ EmpSatisfaction }\SpecialCharTok{+}\NormalTok{ EngagementSurvey }\SpecialCharTok{+}\NormalTok{ Tenure, }\AttributeTok{data =}\NormalTok{ HRData)}
+
+\CommentTok{\# Summary of the models}
+\NormalTok{summary\_step1\_sex }\OtherTok{\textless{}{-}} \FunctionTok{summary}\NormalTok{(model\_step1\_sex)}
+\NormalTok{summary\_step2\_sex }\OtherTok{\textless{}{-}} \FunctionTok{summary}\NormalTok{(model\_step2\_sex)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Create tables of results}
+\NormalTok{results\_step1\_sex }\OtherTok{\textless{}{-}} \FunctionTok{as.data.frame}\NormalTok{(summary\_step1\_sex}\SpecialCharTok{$}\NormalTok{coefficients)}
+\FunctionTok{colnames}\NormalTok{(results\_step1\_sex) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"Estimate"}\NormalTok{, }\StringTok{"Std. Error"}\NormalTok{, }\StringTok{"t value"}\NormalTok{, }\StringTok{"Pr(\textgreater{}|t|)"}\NormalTok{)}
+
+\NormalTok{results\_step2\_sex }\OtherTok{\textless{}{-}} \FunctionTok{as.data.frame}\NormalTok{(summary\_step2\_sex}\SpecialCharTok{$}\NormalTok{coefficients)}
+\FunctionTok{colnames}\NormalTok{(results\_step2\_sex) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"Estimate"}\NormalTok{, }\StringTok{"Std. Error"}\NormalTok{, }\StringTok{"t value"}\NormalTok{, }\StringTok{"Pr(\textgreater{}|t|)"}\NormalTok{)}
+
+\CommentTok{\# Print the tables of results}
+\FunctionTok{print}\NormalTok{(results\_step1\_sex)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                Estimate Std. Error    t value     Pr(>|t|)
+## (Intercept) 10.26136364  0.4418647 23.2228661 9.811726e-70
+## SexM        -0.05395623  0.6706603 -0.0804524 9.359295e-01
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(results\_step2\_sex)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                       Estimate   Std. Error      t value     Pr(>|t|)
+## (Intercept)       9.7222014520 2.1637308074  4.493258320 9.957754e-06
+## SexM             -0.0032025272 0.6696150774 -0.004782639 9.961871e-01
+## EmpSatisfaction   0.5135414582 0.3718800420  1.380933097 1.683072e-01
+## EngagementSurvey -0.1628279453 0.4279651238 -0.380470128 7.038604e-01
+## Tenure           -0.0006058126 0.0003499433 -1.731173725 8.442874e-02
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Calculate variance explained by Sex in Step 1}
+\NormalTok{variance\_explained\_step1\_sex }\OtherTok{\textless{}{-}}\NormalTok{ summary\_step1\_sex}\SpecialCharTok{$}\NormalTok{r.squared }\SpecialCharTok{*} \DecValTok{100}
+
+\CommentTok{\# Calculate change in R{-}square from Step 1 to Step 2}
+\NormalTok{change\_in\_r\_squared\_sex }\OtherTok{\textless{}{-}}\NormalTok{ summary\_step2\_sex}\SpecialCharTok{$}\NormalTok{r.squared }\SpecialCharTok{{-}}\NormalTok{ summary\_step1\_sex}\SpecialCharTok{$}\NormalTok{r.squared}
+
+\CommentTok{\# Calculate percentage of variance explained by the full model}
+\NormalTok{variance\_explained\_full\_model\_sex }\OtherTok{\textless{}{-}}\NormalTok{ summary\_step2\_sex}\SpecialCharTok{$}\NormalTok{r.squared }\SpecialCharTok{*} \DecValTok{100}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Summary}\label{summary-3}
+
+Low R-squared values signal limited explanatory power of the predictors.
+The small variance explained in Step 1 (by Sex) and the small increase
+in Step 2 shows the need for more significant predictors.
+
+None of the predictors in the Full Model were statistically significant,
+showing the importance of assessing each predictor's contribution to the
+model. This shows the importance of revisiting variable selection,
+exploring potential interactions, and any omitted predictors.
+
+Although the model was statistically significant overall, its practical
+utility is limited due to the low variance explained as you have to
+distinguish statistical significance from practical significance.
+
+The model's insights can guide further exploration into factors
+influencing Absences. The analysis highlights the need for additional
+predictors or a refined hypotheses to better capture the variability in
+this outcome.
+
+\subsection{Answers a, b, and c.}\label{answers-a-b-and-c.-3}
+
+\subsubsection{a. How much variance did Sex explain as a covariate in
+Step 1 of your
+Model?}\label{a.-how-much-variance-did-sex-explain-as-a-covariate-in-step-1-of-your-model}
+
+In Step 1, Sex was used as a single covariate to predict Absences. The
+model explained only 0.0021\% of the variance in Absences (R² =
+0.000021), which is negligible.
+
+The model's F-statistic was F(1, 309) = 0.00647, p \textgreater{} 0.05,
+showing that Sex alone is not a significant predictor of Absences. While
+including a covariate like Sex can help adjust the model, its
+contribution to explaining variance must be assessed.
+
+\subsubsection{b. What is the change in R-square when you go from Step 1
+to Step
+2?}\label{b.-what-is-the-change-in-r-square-when-you-go-from-step-1-to-step-2-1}
+
+When additional predictors (EmpSatisfaction, EngagementSurvey, and
+Tenure) were added in Step 2, the R-squared increased from 0.000021 in
+Step 1 to 0.0158 in Step 2.
+
+This represents a change in R-squared of 0.0158, or 1.58\% additional
+variance explained by the inclusion of the three predictors. While this
+improvement is modest, it highlights the potential benefit of adding
+multiple predictors, even when individual predictors are not
+statistically significant showing the importance of cumulative effect in
+evaluating model fit enhancements.
+
+\subsubsection{c.~What percentage of variance in Absences is explained
+by the Full
+Model?}\label{c.-what-percentage-of-variance-in-absences-is-explained-by-the-full-model}
+
+The Full Model (Step 2) explained 1.58\% of the variance in Absences (R²
+= 0.0158). Although statistically significant (F(4, 306) = 1.231, p
+\textless{} 0.05), this low R-squared value indicates that most of the
+variability in Absences remains unexplained by the predictors included
+in the model.
+
+\end{document}

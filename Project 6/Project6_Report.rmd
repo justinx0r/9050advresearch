@@ -2,7 +2,9 @@
 title: "Project 6"
 author: "Justin Williams"
 date: "`r Sys.Date()`"
-output: html_document
+output:
+  html_document: default
+  pdf_document: default
 ---
 
 ---
@@ -181,16 +183,16 @@ The findings here can guide future analyses to identify more robust predictors o
 The multiple regression model examined EmpSatisfaction, EngagementSurvey, and Tenure as predictors of Absences. The significance of the regression weights for each predictor is summarized below.
 
 * EmpSatisfaction
-* * Estimate = 0.51, Std. Error = 0.37, t-value = 1.38, p = 0.1672.
-* * This suggests a positive relationship between EmpSatisfaction and Absences; however, the p-value indicates that this predictor is not statistically significant.
+    * Estimate = 0.51, Std. Error = 0.37, t-value = 1.38, p = 0.1672.
+    * This suggests a positive relationship between EmpSatisfaction and Absences; however, the p-value indicates that this predictor is not statistically significant.
 
 * EngagementSurvey
-* * Estimate = -0.16, Std. Error = 0.43, t-value = -0.38, p = 0.7034.
-* * While the negative estimate suggests a potential inverse relationship between EngagementSurvey and Absences, the high p-value shows that it is not statistically significant.
+    * Estimate = -0.16, Std. Error = 0.43, t-value = -0.38, p = 0.7034.
+    * While the negative estimate suggests a potential inverse relationship between EngagementSurvey and Absences, the high p-value shows that it is not statistically significant.
 
 * Tenure
-* * Estimate = -0.0006, Std. Error = 0.0003, t-value = -1.73, p = 0.0839.
-* * The small negative coefficient indicates a weak inverse relationship between Tenure and Absences. With a p-value close to 0.05, Tenure approaches but does not meet the threshold for statistical significance.
+    * Estimate = -0.0006, Std. Error = 0.0003, t-value = -1.73, p = 0.0839.
+    * The small negative coefficient indicates a weak inverse relationship between Tenure and Absences. With a p-value close to 0.05, Tenure approaches but does not meet the threshold for statistical significance.
 
 None of the predictors in the model were statistically significant at the 0.05 level. This suggests that while these variables collectively contribute to the model, their individual contributions to predicting Absences are limited.
 

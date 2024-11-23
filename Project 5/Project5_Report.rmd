@@ -19,6 +19,8 @@ library(dplyr)
 library(reshape2)
 library(ggplot2)
 library(kableExtra)
+library(knitr)
+library(rmarkdown)
 hrdata_df <- read.csv("/Users/justinwilliams/Code/9050advresearch/Project 5/HRData.csv")
 ```
 
