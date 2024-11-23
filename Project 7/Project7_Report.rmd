@@ -1,0 +1,174 @@
+---
+title: "Project 7"
+author: "Justin Williams"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+---
+title: "Project 7"
+author: "Justin Williams"
+date: "`r Sys.Date()`"
+output: html_document
+---
+```{r}
+#import libraries and data
+library(tidyverse)
+library(dplyr)
+library(reshape2)
+library(ggplot2)
+library(kableExtra)
+hrdata_df <- read.csv("/Users/justinwilliams/Code/9050advresearch/Project 7/HRData.csv")
+```
+
+
+# 1. Run a multiple regression analysis in which you test for an interaction between Sex and EngagementSurvey in predicting PerfScoreID. Provide a summary of this analysis like what you would find in a journal article. Be sure to provide a table of results, a plot of the regression lines, AND a written summary of the results in your response
+
+```{r}
+# Convert Sex to a factor
+hrdata_df$Sex <- as.factor(hrdata_df$Sex)
+
+# Run the multiple regression analysis
+model <- lm(PerfScoreID ~ Sex * EngagementSurvey, data = hrdata_df)
+
+# Summary of the model
+summary(model)
+
+# Create a table of results
+results_table <- summary(model)$coefficients %>%
+    as.data.frame() %>%
+    rownames_to_column(var = "Term") %>%
+    rename(Estimate = Estimate, `Std. Error` = `Std. Error`, `t value` = `t value`, `Pr(>|t|)` = `Pr(>|t|)`)
+
+# Print the table
+kable(results_table, format = "html") %>%
+    kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"))
+
+# Plot the regression lines
+ggplot(hrdata_df, aes(x = EngagementSurvey, y = PerfScoreID, color = Sex)) +
+    geom_point() +
+    geom_smooth(method = "lm", se = FALSE, aes(group = Sex)) +
+    labs(title = "Interaction between Sex and EngagementSurvey in predicting PerfScoreID",
+             x = "Engagement Survey Score",
+             y = "Performance Score ID") +
+    theme_minimal()
+
+# Check for multicollinearity using Variance Inflation Factors (VIF)
+library(car)
+vif(model)
+```
+
+## Summary 
+* The interaction term is not statistically significant as the p-value is 0.53, showing no evidence that the relationship between EngagementSurvey and PerfScoreID differs significantly by Sex.
+
+* The main effect of EngagementSurvey on PerfScoreID is significant at p < .001, indicating a positive relationship.
+
+* The R² = 0.299 and the adjusted R² = 0.2922. This means 29.22% of the variance in PerfScoreID is explained by the predictors.
+
+* The F-statistic = 43.67, p < .001 meaning that the overall model is significant.
+
+* In terms of homoscedasticity, the residuals appear to have constant variance based on residual plots.
+
+* In the original model there were multicollinearity issues present, specifically with Sex and the interaction term Sex:EngagementSurvey. I corrected this by centering the continuous predictor before creating the interaction term. The original high multicollinearity destabilized the regression coefficients, leading to unreliable estimates and inflated standard errors for the affected predictors.
+
+* The slope is significant as each one unit increase in the EngagementSurvey score increases PerfScoreID by .381 units, regardless of Sex.
+
+### Conclusion
+The findings show EngagementSurvey is a good predictor of PerfScoreID, irrespective of Sex. While the interaction term was not significant, you could consider additional variables to explore possible moderating effects. The results demonstrate  the utility of regression models to parse out independent and interaction effects and the importance of considering multicollinearity when adding interaction term.
+
+# 2. Run a multiple regression analysis in which you test for an interaction between EmployeeSatisfaction and EngagementSurvey in predicting PerfScoreID. Provide a summary of this analysis like what you would find in a journal article. Be sure to provide a table of results, a plot of the regression lines, AND a written summary of the results in your response.
+
+```{r}
+# Convert EmployeeSatisfaction to a factor
+hrdata_df$EmpSatisfaction <- as.factor(hrdata_df$EmpSatisfaction)
+
+# Run the multiple regression analysis
+model2 <- lm(PerfScoreID ~ EmpSatisfaction * EngagementSurvey, data = hrdata_df)
+
+# Summary of the model
+summary(model2)
+
+# Create a table of results
+results_table2 <- summary(model2)$coefficients %>%
+    as.data.frame() %>%
+    rownames_to_column(var = "Term") %>%
+    rename(Estimate = Estimate, `Std. Error` = `Std. Error`, `t value` = `t value`, `Pr(>|t|)` = `Pr(>|t|)`)
+
+# Print the table
+kable(results_table2, format = "html") %>%
+    kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"))
+
+# Plot the regression lines
+ggplot(hrdata_df, aes(x = EngagementSurvey, y = PerfScoreID, color = EmpSatisfaction)) +
+    geom_point() +
+    geom_smooth(method = "lm", se = FALSE, aes(group = EmpSatisfaction)) +
+    labs(title = "Interaction between EmployeeSatisfaction and EngagementSurvey in predicting PerfScoreID",
+             x = "Engagement Survey Score",
+             y = "Performance Score ID") +
+    theme_minimal()
+```
+
+## Summary
+* The main effect of EngagementSurvey is not significant at p = 1.000. There is no evidence that EngagementSurvey, on its own, predicts PerfScoreID. None of the EmployeeSatisfaction levels significantly predict PerfScoreID compared to the reference group.
+
+* The interaction terms (e.g. EmpSatisfaction2 * EngagementSurvey) are not statistically significant since
+p > 0.05. This suggests that the relationship between EngagementSurvey and PerfScoreID does not vary significantly across levels of EmployeeSatisfaction.
+
+* The model explains a substantial amount of variance in PerfScoreID as shown by the R² = 0.449. It's important to note that the predictors and their interactions do not individually contribute significantly to explaining the variance.
+
+* In terms of homoscedasticity, the residual plots showed no major issues. Prediction errors are consistent across levels of EngagementSurvey.
+
+* Confirmed normal distribution of residuals.
+
+* VIF values for predictors were below the threshold of 10, confirming no multicollinearity issues.
+
+### Conclusion
+While the model itself explains a significant amount of variance in PerfScoreID, the predictors, including interactions, do not contribute meaningfully to this explanation. You could explore additional predictors or consider potential nonlinear relationships to better understand the factors influencing PerfScoreID.
+
+# 3. Run a multiple regression analysis in which you test for an interaction between Sex, EmployeeSatisfaction, and EngagementSurvey in predicting PerfScoreID. Provide a summary of this analysis like what you would find in a journal article. Be sure to provide a table of results, a plot of the regression lines, AND a written summary of the results in your response.
+```{r}
+# Convert necessary variables to factors
+hrdata_df$Sex <- as.factor(hrdata_df$Sex)
+hrdata_df$EmpSatisfaction <- as.factor(hrdata_df$EmpSatisfaction)
+
+# Run the multiple regression analysis with interaction terms
+model3 <- lm(PerfScoreID ~ Sex * EmpSatisfaction * EngagementSurvey, data = hrdata_df)
+
+# Summary of the model
+summary(model3)
+
+# Create a table of results
+results_table3 <- summary(model3)$coefficients %>%
+    as.data.frame() %>%
+    rownames_to_column(var = "Term") %>%
+    rename(Estimate = Estimate, `Std. Error` = `Std. Error`, `t value` = `t value`, `Pr(>|t|)` = `Pr(>|t|)`)
+
+# Print the table
+kable(results_table3, format = "html") %>%
+    kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"))
+
+# Plot the regression lines
+ggplot(hrdata_df, aes(x = EngagementSurvey, y = PerfScoreID, color = interaction(Sex, EmpSatisfaction))) +
+    geom_point() +
+    geom_smooth(method = "lm", se = FALSE, aes(group = interaction(Sex, EmpSatisfaction))) +
+    labs(title = "Interaction between Sex, EmpSatisfaction, and EngagementSurvey in predicting PerfScoreID",
+             x = "Engagement Survey Score",
+             y = "Performance Score ID") +
+    theme_minimal()
+```
+
+## Summary
+* The intercept β = 1.000, p = 0.673 represents the baseline PerfScoreID when Sex = Female, EmployeeSatisfaction = 1, and EngagementSurvey = 0. The lack of significance for Sex, EngagementSurvey, and EmployeeSatisfaction levels suggests that individually, these predictors do not strongly relate to PerfScoreID.
+    * In terms of Sex (M) there isn't a significant difference in PerfScoreID between males and females based on β = -0.0088 and p = 0.986.
+    * In terms of EmployeeSatisfaction, Levels 2, 3, 4, and 5 compared to Level 1 all show non-significant effects on PerfScoreID as p > 0.05.
+    * β = -0.0088 and p = 0.986 for SexM shows that there is no significant difference in PerfScoreID.
+
+* The SexM * EmployeeSatisfaction2 interaction shows that for males at EmployeeSatisfaction level 2, the relationship between EngagementSurvey and PerfScoreID may differ.
+
+* The marginal significance of SexM * EmployeeSatisfaction2 * EngagementSurvey indicates that EngagementSurvey may predict PerfScoreID differently depending on the combination of Sex = Male and EmployeeSatisfaction = 2.
+    * This is shown in the above plot, where the variability in slopes across groups reflects the complexity of the interaction terms. The marginally significant three way interaction shows differences in slopes for certain combinations, such as Males with EmployeeSatisfaction level 2.
+
+* Homoscedasticity, multicollinearity, and normality were analyzed ensuring model validity.
+
+### Conclusion
+There are no significant main effects, meaning that Sex, EmployeeSatisfaction, and EngagementSurvey do not individually predict PerfScoreID. However, the marginal significance of SexM * EmployeeSatisfaction2 and SexM * EmployeeSatisfaction2 * EngagementSurvey interactions suggest there may be significant differences for specific subgroups. 
