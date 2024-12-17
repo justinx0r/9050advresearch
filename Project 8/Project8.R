@@ -10,7 +10,7 @@ library(tidyverse)
 library(car)
 
 # load data
-data <- read.csv("/Users/justinwilliams/Code/9050advresearch/Project 8/hrdata.csv")
+data <- read.csv("/Users/justinwilliams/Code/9050advresearch/Project 5/HRData.csv")
 
 # 1. Run an analysis of variance (ANOVA) in which PerfScoreID is the dependent variable and RaceDesc is the independent variable. Provide a summary of this analysis like what you would find in a journal article. Be sure to provide a table of results AND a written summary of the results in your response
 
