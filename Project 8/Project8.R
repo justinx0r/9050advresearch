@@ -51,6 +51,15 @@ cat("A regression analysis was conducted to examine the effect of race on perfor
 anova_p_value <- anova_table$`Pr(>F)`[1]
 regression_p_value <- summary(regression_result)$coefficients[2, 4]
 
+# Comparison table
+comparison_table <- tibble(
+    Analysis = c("ANOVA", "Regression"),
+    `F-statistic` = c(round(anova_table$`F value`[1], 2), round(summary(regression_result)$fstatistic[1], 2)),
+    `p-value` = c(round(anova_p_value, 3), round(regression_p_value, 3))
+)
+
+print(comparison_table)
+
 cat("Comparison of ANOVA and Regression Results:\n")
 cat("Both ANOVA and regression analyses were conducted to examine the effect of race on performance scores.\n")
 cat("The ANOVA results indicated a significant effect of race on performance scores, with a p-value of ", round(anova_p_value, 3), ".\n")
@@ -113,6 +122,15 @@ cat("A regression analysis was conducted to examine the effect of recruitment so
 # Comparison of ANOVA and regression results for RecruitmentSource
 anova_recruitment_p_value <- anova_recruitment_table$`Pr(>F)`[1]
 regression_recruitment_p_value <- summary(regression_recruitment_result)$coefficients[2, 4]
+
+# Comparison table
+comparison_recruitment_table <- tibble(
+    Analysis = c("ANOVA", "Regression"),
+    `F-statistic` = c(round(anova_recruitment_table$`F value`[1], 2), round(summary(regression_recruitment_result)$fstatistic[1], 2)),
+    `p-value` = c(round(anova_recruitment_p_value, 3), round(regression_recruitment_p_value, 3))
+)
+
+print(comparison_recruitment_table)
 
 cat("Comparison of ANOVA and Regression Results for RecruitmentSource:\n")
 cat("Both ANOVA and regression analyses were conducted to examine the effect of recruitment source on performance scores.\n")

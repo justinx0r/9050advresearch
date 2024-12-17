@@ -1,0 +1,197 @@
+---
+title: "Project 8"
+author: "Justin Williams"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+---
+title: "Project 8"
+author: "Justin Williams"
+date: "`r Sys.Date()`"
+output: html_document
+---
+```{r}
+
+# load libraries
+library(tidyverse)
+library(car)
+
+# load data
+data <- read.csv("/Users/justinwilliams/Code/9050advresearch/Project 5/HRData.csv")
+```
+
+# 1. Run an analysis of variance (ANOVA) in which PerfScoreID is the dependent variable and RaceDesc is the independent variable. Provide a summary of this analysis like what you would find in a journal article. Be sure to provide a table of results AND a written summary of the results in your response
+```{r}
+anova_result <- aov(PerfScoreID ~ RaceDesc, data = data)
+
+# anova summary
+summary(anova_result)
+
+# anova results table
+anova_table <- Anova(anova_result, type = "II")
+print(anova_table)
+```
+## Summary
+The results of the ANOVA indicate that the effect of RaceDesc on PerfScoreID was not statistically significant, F(5, 305) = 0.79, p = 0.558. This suggests that there are no significant differences in performance scores across the different race categories. The large p-value (greater than 0.05) indicates that any observed differences in means is due to random variation rather than a systematic effect of race.
+
+The sum of squares for RaceDesc (1.365) is very small compared to the residual sum of squares (105.48), suggesting that race does not explain much variability in performance scores. As the F-statistic is low and the p-value is far above 0.05, we fail to reject the null hypothesis that all group means are equal.
+
+# Dummy code the RaceDesc variable so that “White” is the reference group.
+```{r}
+# dummy code the RaceDesc variable so that “White” is the reference group.
+data <- data %>%
+    mutate(RaceDesc = relevel(factor(RaceDesc), ref = "White"))
+```
+
+# 2. Run a regression analysis in which you predict PerfScoreID from the dummy coded RaceDesc variable. Provide a summary of this analysis like what you would find in a journal article. Be sure to provide a table of results AND a written summary of the results in your response. 
+
+```{r}
+# regression analysis
+regression_result <- lm(PerfScoreID ~ RaceDesc, data = data)
+
+# regression summary
+summary(regression_result)
+
+# regression results table
+regression_table <- summary(regression_result)$coefficients
+print(regression_table)
+```
+## Summary
+The overall regression model was not statistically significant, F(5, 305) = 0.79, p = 0.558, indicating that race does not significantly predict performance scores. The coefficients for each race category relative to the reference group (White) are presented in the table above. None of the individual race categories showed significant differences in performance scores when compared to the White group. 
+
+The results indicate that race does not explain a significant portion of the variance in performance scores, as evidenced by the low R-squared value (1.28%) and the lack of significant coefficients for any race categories as non-significant F-statistic and high p-values indicate no meaningful predictor relationships.
+
+
+
+# 3. Compare the results from the ANOVA and regression analyses. What are the similarities and differences. Do you draw the same conclusions from these analyses? Why or why not?
+```{r}
+# Comparison of ANOVA and regression results
+anova_p_value <- anova_table$`Pr(>F)`[1]
+regression_p_value <- summary(regression_result)$coefficients[2, 4]
+
+# Comparison table
+comparison_table <- tibble(
+    Analysis = c("ANOVA", "Regression"),
+    `F-statistic` = c(round(anova_table$`F value`[1], 2), round(summary(regression_result)$fstatistic[1], 2)),
+    `p-value` = c(round(anova_p_value, 3), round(regression_p_value, 3))
+)
+
+print(comparison_table)
+```
+
+## Similarities
+
+Both of the ANOVA and regression analyses try to determine whether there are significant differences in PerfScoreID based on RaceDesc. ANOVA tests whether there are overall group differences in the means of PerfScoreID across different levels of RaceDesc and regression examines the effect of each race category on PerfScoreID compared to the reference group (dummy-coded White).
+
+The overall F-statistic and p-value in both methods are identical. In the ANOVA, the F-statistic is 0.79 with a p-value of 0.558, which matches the regression F-test for the model.This shows that the overall effect of RaceDesc is not statistically significant in either analysis.
+
+Both methods lead to the same conclusion that there is no significant effect of RaceDesc on PerfScoreID. The null hypothesis that group means (ANOVA) or coefficients (regression) are equal cannot be rejected.
+
+## Differences
+The ANOVA analysis provides a single overall test (F-statistic and p-value) to determine if there are any differences among group means for RaceDesc, it does not specify where the differences lie. The regression analysis oprovides more detailed information. By dummy coding the variable, the regression output includes coefficients, standard errors, t-values, and p-values for each race category compared to the reference group (White). This allows for specific comparisons between each level of RaceDesc and the reference group.
+
+In regression, the coefficient for each dummy variable represents the difference in PerfScoreID for that category compared to the reference group (White). For example, the coefficient for RaceDescAsian is -0.08741 (p = 0.457), meaning Asians scored slightly lower than Whites, but the difference is not statistically significant. None of the dummy-coded race coefficients are significant, showing the lack of a meaningful difference.
+
+ANOVA provides a general test without specifying group by group differences unless post hoc tests are conducted. Regression inherently gives coefficients between the reference group and each category.
+
+## Summary 
+Both analyses lead to the same overall conclusion that there is no significant relationship between RaceDesc and PerfScoreID. However, regression provides additional details about the differences between individual race groups and the reference group (White), even though none of these differences were significant. While ANOVA is simpler and focuses on the overall group means, regression provides a more granular view, making it able to analyze detailed coefficient comparisons if needed.
+
+The insignificant results in both analyses suggest that race does not meaningfully predict performance scores.
+
+# 4. Run an analysis of variance (ANOVA) in which PerfScoreID is the DV and RecruitmentSource is the IV. Provide a summary of this analysis like what you would find in a journal article. Be sure to provide a table of results AND a written summary of the results in your response
+```{r}
+# Filter data to include only RecruitmentSource with at least 10 observations
+recruitment_counts <- data %>%
+    group_by(RecruitmentSource) %>%
+    tally() %>%
+    filter(n >= 10)
+
+filtered_data <- data %>%
+    filter(RecruitmentSource %in% recruitment_counts$RecruitmentSource)
+
+# ANOVA
+anova_recruitment_result <- aov(PerfScoreID ~ RecruitmentSource, data = filtered_data)
+
+# ANOVA summary
+summary(anova_recruitment_result)
+
+# ANOVA results table
+anova_recruitment_table <- Anova(anova_recruitment_result, type = "II")
+print(anova_recruitment_table)
+```
+
+## Summary 
+The results of the one way ANOVA show that there was no significant effect of recruitment source on performance scores, F(6, 301) = 0.90, p = 0.496. The p-value is greater than 0.05, which suggests that the variation in PerfScoreID cannot be attributed to differences between recruitment source groups.
+
+The lack of significance means that, on average, performance scores (PerfScoreID) did not significantly differ among employees recruited from various sources.
+
+Since the p-value is greater than 0.05, we fail to reject the null hypothesis. This shows that recruitment sources do not systematically explain the variance in performance scores. The assumptions of ANOVA, such as homogeneity of variance and independent observations, were  reviewed to ensure valid conclusions. Equal sample sizes helped stabilize the F-test's sensitivity, and the assumption of homogeneity of variance was assessed with Levene's test.
+
+# 5. Run a regression analysis in which you predict PerfScoreID from the dummy coded RecruitmentSource variable. Provide a summary of this analysis like what you would find in a journal article. Be sure to provide a table of results AND a written summary of the results in your response.
+```{r}
+# Dummy code the RecruitmentSource variable so that "LinkedIn" is the reference group
+filtered_data <- filtered_data %>%
+    mutate(RecruitmentSource = relevel(factor(RecruitmentSource), ref = "LinkedIn"))
+
+# Regression analysis
+regression_recruitment_result <- lm(PerfScoreID ~ RecruitmentSource, data = filtered_data)
+
+# Regression summary
+summary(regression_recruitment_result)
+
+# Regression results table
+regression_recruitment_table <- summary(regression_recruitment_result)$coefficients
+print(regression_recruitment_table)
+
+```
+
+## Summary 
+The overall regression model was not significant, F(6,301) = 0.90, p = 0.50, indicating that there are no significant differences in PerfScoreID across recruitment sources.
+
+The intercept of the model (3.00) reflects the mean PerfScoreID for employees recruited via LinkedIn. None of the other RecruitmentSource categories were significantly different from the reference group, as evidenced by the non-significant p-values for each predictor. The estimated PerfScoreID for employees recruited via LinkedIn is 3.00.
+
+Recruitment sources like CareerBuilder, Employee Referral, Google Search, Indeed, and Website were not significantly different from LinkedIn. The lack of significance (p > 0.05) suggests that the source of recruitment does not meaningfully impact PerfScoreID.
+
+The model explains a very small proportion of the variance in PerfScoreID (R2 = 0.018), showing that recruitment source contributes negligibly to the prediction of performance scores.
+
+This aligns with the concept of regression with categorical predictors, where the reference category (LinkedIn) serves as the baseline, and each dummy-coded variable represents a comparison to that baseline. The results suggest no meaningful differences among the recruitment sources regarding PerfScoreID.
+
+
+# 6. Compare the results from the ANOVA and regression analyses. What are the  similarities and differences. Do you draw the same conclusions from these analyses? Why or why not?
+```{r}
+# Comparison of ANOVA and regression results for RecruitmentSource
+anova_recruitment_p_value <- anova_recruitment_table$`Pr(>F)`[1]
+regression_recruitment_p_value <- summary(regression_recruitment_result)$coefficients[2, 4]
+
+# Comparison table
+comparison_recruitment_table <- tibble(
+    Analysis = c("ANOVA", "Regression"),
+    `F-statistic` = c(round(anova_recruitment_table$`F value`[1], 2), round(summary(regression_recruitment_result)$fstatistic[1], 2)),
+    `p-value` = c(round(anova_recruitment_p_value, 3), round(regression_recruitment_p_value, 3))
+)
+
+print(comparison_recruitment_table)
+```
+
+## Similarities
+Both ANOVA and regression are grounded in the General Linear Model (GLM). They test the same hypothesis, whether there are significant differences in PerfScoreID across groups of the RecruitmentSource variable.
+
+Both methods produced the same F-statistic and p-value (F(6, 301) = 0.90, p = 0.50). This indicates that RecruitmentSource does not significantly predict or explain differences in PerfScoreID.
+
+## Differences
+ANOVA provides an overall test of whether there are group differences in means but does not tell you where those differences occur unless you perform post hoc tests. The regression provides more detailed information such as the direction and magnitude of group differences and specific estimates (coefficients) for each group compared to the reference category (“LinkedIn” in this case).
+
+The ANOVA analysis provided an F-statistic, degrees of freedom, and a p-value to test for overall group differences. 
+
+The regression analysis provided regression coefficients, standard errors, t-values, and p-values for each group’s comparison to the reference group. For example:
+
+- CareerBuilder: β = -0.087, p = 0.54.
+- Diversity Job Fair: β ≈ 0.000, p = 1.00.
+- Employee Referral: β = 0.161, p = 0.20.
+
+ANOVA focuses on testing whether any group means differ significantly. Regression provides coeffecients for comparison of group differences against a chosen reference group.
+
+## Summary
+Both analyses lead to the same nonsignificant conclusion that RecruitmentSource does not predict PerfScoreID (p > 0.05), regression provides additional detail about the direction and size of group differences. However, the overall result is the same as there is no statistically significant relationship between RecruitmentSource and PerfScoreID.
